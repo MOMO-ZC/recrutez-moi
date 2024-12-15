@@ -1,0 +1,3 @@
+[submodule "recrutez-moi-back"]
+	path = back
+	url = https://github.com/MOMO-ZC/recrutez-moi-back
