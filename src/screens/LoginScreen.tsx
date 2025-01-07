@@ -1,7 +1,7 @@
 import React from 'react';
 import { DynamicForm, FormField } from '@/src/components/ui/DynamicForm';
 import styled, { useTheme } from 'styled-components';
-import { Alert, View, Text, useWindowDimensions, KeyboardAvoidingView } from 'react-native';
+import { Alert, View, Text, useWindowDimensions, KeyboardAvoidingView, ScrollView, Platform } from 'react-native';
 import GradientBackGround from '../components/GradientBackGround';
 import { useThemeColor } from '../hooks/useThemeColor';
 
@@ -20,11 +20,10 @@ const LoginScreen: React.FC = () => {
   const handleLogin = (formData: { [key: string]: any }) => {
     const { email, password } = formData;
     if (!email || !password) {
-      Alert.alert('Error', 'Please fill out all fields');
+      Alert.alert('Erreur', 'Veuillez remplir tous les champs');
       return;
     }
 
-    // Simulate login or pass data to an authentication function
     console.log('Logging in with:', formData);
     Alert.alert('Success', `Logged in as ${email}`);
   };
@@ -52,6 +51,7 @@ const LoginScreen: React.FC = () => {
         </FooterLink>
       </Footer>
     </ScreenContainer>
+    
     </>
   );
 };
