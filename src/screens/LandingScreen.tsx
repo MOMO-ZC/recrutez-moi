@@ -1,64 +1,31 @@
 import React from 'react';
+import { useRouter } from 'expo-router';
 import { View, Text, useWindowDimensions } from 'react-native';
+import { Canvas, LinearGradient, Rect, vec } from '@shopify/react-native-skia';
 import styled from 'styled-components';
+
 import ButtonText from '../components/ui/ButtonText';
 import { useThemeColor } from '../hooks/useThemeColor';
-import { Canvas, LinearGradient, Rect, vec } from '@shopify/react-native-skia';
 import { useDerivedValue, useSharedValue, withRepeat, withTiming } from 'react-native-reanimated';
 import chroma from 'chroma-js';
+import GradientBackGround from '../components/GradientBackGround';
 
 
 const LandingScreen = () => {
-    const blurColor = useThemeColor({}, 'blur');
+  const router = useRouter();
     const mainColor = useThemeColor({}, 'main');
     const textColor = useThemeColor({}, 'text');
     const placeholderColor = useThemeColor({}, 'placeholder');
 
     const {width, height} = useWindowDimensions();
 
-    const gradientColors = chroma.scale([mainColor, blurColor]).colors(10);
-
-    const wave = useSharedValue(0);
-
-
-    React.useEffect(() => {
-        wave.value = withRepeat(
-          withTiming(Math.PI * 2, { duration: 6000 }), 
-          -1 // Infinite loop
-        );
-      }, [wave]);
-    
-      // Derived values for start and end positions
-      const start = useDerivedValue(() => {
-        const x = 200+  width / 2 + Math.sin(wave.value) * width / 4; // Wavy motion on X-axis
-        const y = -200 + height / 4 + Math.cos(wave.value) * height / 8; // Smaller motion on Y-axis
-        return vec(x, y);
-      });
-    
-      const end = useDerivedValue(() => {
-        const x = width / 2 + Math.sin(wave.value + Math.PI) * width / 4; // Opposite wave motion
-        const y = height * 3 / 4 + Math.cos(wave.value + Math.PI) * height / 8;
-        return vec(x, y);
-      });
-
+    const handleLogin = () => {
+      router.replace('/(tabs)');
+    };
     
   return (
     <>
-    <Canvas style={{flex: 1}}>
-        <Rect x={0}
-        y={0}
-        width={width}
-        height={height}
-        >
-
-        <LinearGradient
-        start={start}
-        end={end}
-        colors={gradientColors}
-        />
-        </Rect>
-
-        </Canvas>
+    <GradientBackGround/>
     <Container width={width}>
 
     <Content>
@@ -70,11 +37,13 @@ const LandingScreen = () => {
       </Content>
       <Footer>
       <ButtonContainer>
-        <ButtonText label="Commencer" onPress={() => console.log(gradientColors)}/>
+        <ButtonText label="Commencer" onPress={() => router.replace('/(auth)')}/>
       </ButtonContainer>
         <FooterTextContainer>
         <FooterText color={placeholderColor}>Déjà un compte ? </FooterText>
-        <FooterLink>Se connecter</FooterLink>
+        <FooterLink
+          onPress={() => router.replace('/(auth)/login')}
+        >Se connecter</FooterLink>
         </FooterTextContainer>
  
       </Footer>
