@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useRouter } from 'expo-router';
 import { View, Text, useWindowDimensions } from 'react-native';
 import { Canvas, LinearGradient, Rect, vec } from '@shopify/react-native-skia';
@@ -9,6 +9,7 @@ import { useThemeColor } from '../hooks/useThemeColor';
 import { useDerivedValue, useSharedValue, withRepeat, withTiming } from 'react-native-reanimated';
 import chroma from 'chroma-js';
 import GradientBackGround from '../components/GradientBackGround';
+import { useAuth } from '../hooks/useAuth';
 
 
 const LandingScreen = () => {
@@ -19,9 +20,17 @@ const LandingScreen = () => {
 
     const {width, height} = useWindowDimensions();
 
-    const handleLogin = () => {
-      router.replace('/(tabs)');
-    };
+    const {login,isAuthenticated} = useAuth();
+
+    const handleStart = () => {
+         login();
+      };
+
+      useEffect(() => {
+        if (isAuthenticated) {
+          router.replace("/(tabs)");
+        }
+      }, [isAuthenticated]);
     
   return (
     <>
@@ -37,7 +46,7 @@ const LandingScreen = () => {
       </Content>
       <Footer>
       <ButtonContainer>
-        <ButtonText label="Commencer" onPress={() => router.replace('/(auth)')}/>
+        <ButtonText label="Commencer" onPress={handleStart}/>
       </ButtonContainer>
         <FooterTextContainer>
         <FooterText color={placeholderColor}>Déjà un compte ? </FooterText>
