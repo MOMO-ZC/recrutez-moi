@@ -5,6 +5,8 @@ import * as SplashScreen from 'expo-splash-screen';
 import { StatusBar } from 'expo-status-bar';
 import { useEffect, useState } from 'react';
 import { useColorScheme } from '@/src/hooks/useColorScheme';
+import { useAuth } from '../hooks/useAuth';
+import { AuthProvider } from '../contexts/AuthContext';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -14,7 +16,7 @@ export default function RootLayout() {
     SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
   });
 
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const isAuthenticated = useAuth();
 
   useEffect(() => {
     if (loaded) {
