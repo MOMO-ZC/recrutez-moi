@@ -5,7 +5,7 @@ import {
   PanGestureHandler,
 } from 'react-native-gesture-handler';
 import LikeSlider from '../components/Slider/LikeSlider';
-import { ScreenContainer } from './common/components';
+import ScreenContainer from './common/ScreenContainer';
 import { Skill } from '../types';
 
 const JobScreen = () => {

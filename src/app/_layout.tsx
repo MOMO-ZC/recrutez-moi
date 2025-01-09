@@ -3,16 +3,14 @@ import {
   DefaultTheme as NavigationDefaultTheme,
   ThemeProvider,
 } from '@react-navigation/native';
-import { Stack } from 'expo-router';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
-import { StatusBar } from 'expo-status-bar';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useColorScheme } from '@/src/hooks/useColorScheme';
-import { useAuth } from '../hooks/useAuth';
 import { AuthProvider } from '../contexts/AuthContext';
 import App from './App';
 import { Colors } from '../constants/Colors';
+import { HeaderProvider } from '../contexts/HeaderContext';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -50,11 +48,13 @@ export default function RootLayout() {
 
   return (
     <AuthProvider>
-      <ThemeProvider
-        value={colorScheme === 'dark' ? CustomDarkTheme : CustomDefaultTheme}
-      >
-        <App />
-      </ThemeProvider>
+      <HeaderProvider>
+        <ThemeProvider
+          value={colorScheme === 'dark' ? CustomDarkTheme : CustomDefaultTheme}
+        >
+          <App />
+        </ThemeProvider>
+      </HeaderProvider>
     </AuthProvider>
   );
 }

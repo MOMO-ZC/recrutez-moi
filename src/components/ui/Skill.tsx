@@ -44,7 +44,7 @@ const SkillContainer = styled(View)<{ color: string }>`
   border-radius: 12px;
   height: 32px;
   background-color: ${(props) => props.color};
-  padding: 8px;
+  padding: 4px;
   margin: 4px;
 `;
 

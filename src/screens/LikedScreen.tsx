@@ -1,5 +1,5 @@
 import HeaderContainer from '../components/ui/HeaderContainer';
-import { ScreenContainer } from './common/components';
+import ScreenContainer from './common/ScreenContainer';
 
 const LikedScreen = () => {
   return (
