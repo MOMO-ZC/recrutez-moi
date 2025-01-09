@@ -74,47 +74,60 @@ const LikeSlider = ({ propositions }: SliderProps) => {
       }
     },
     onEnd: ({ velocityX, velocityY, x }) => {
+      const threshold = WIDTH * 0.7; // 70% of screen width
+    
       if (activeSide.value === Side.LEFT) {
-        const dest = snapPoint(x, velocityX, LEFT_SNAP_POINTS);
-        isTransitioningLeft.value = dest === PREV;
+        const dest = x > threshold ? WIDTH : MARGIN_WIDTH;
+        isTransitioningLeft.value = dest === WIDTH;
+    
         left.x.value = withSpring(
           dest,
           {
             velocity: velocityX,
-            overshootClamping: isTransitioningLeft.value ? true : false,
+            overshootClamping: isTransitioningLeft.value,
             restSpeedThreshold: isTransitioningLeft.value ? 100 : 0.01,
             restDisplacementThreshold: isTransitioningLeft.value ? 100 : 0.01,
           },
           () => {
             if (isTransitioningLeft.value) {
+              // Optional: Add a delay before returning
               runOnJS(updateData)("dislike");
-            }
+              // setTimeout(() => {
+              //   left.x.value = withSpring(MARGIN_WIDTH, {}, () => {
+              //     activeSide.value = Side.NONE;
+              //   });
+              // }, 500); // Adjust delay as needed
+            } 
             isTransitioningLeft.value = false;
             activeSide.value = Side.NONE;
-
           }
         );
-        left.y.value = withSpring(HEIGHT / (3/2), { velocity: velocityY });
+        left.y.value = withSpring(HEIGHT / 2, { velocity: velocityY });
       } else if (activeSide.value === Side.RIGHT) {
-        const dest = snapPoint(x, velocityX, RIGHT_SNAP_POINTS);
-        isTransitioningRight.value = dest === NEXT;
+        const dest = x < WIDTH - threshold ? 0 : WIDTH - MARGIN_WIDTH;
+        isTransitioningRight.value = dest === 0;
+    
         right.x.value = withSpring(
           WIDTH - dest,
           {
             velocity: velocityX,
-            overshootClamping: isTransitioningRight.value ? true : false,
+            overshootClamping: isTransitioningRight.value,
             restSpeedThreshold: isTransitioningRight.value ? 100 : 0.01,
             restDisplacementThreshold: isTransitioningRight.value ? 100 : 0.01,
           },
           () => {
             if (isTransitioningRight.value) {
+              // Optional: Add a delay before returning
               runOnJS(updateData)("like");
-            }
+            //   setTimeout(() => {
+            //    isTransitioningRight.value = false;
+            //   }, 500); // Adjust delay as needed
+            } 
             isTransitioningRight.value = false;
             activeSide.value = Side.NONE;
           }
         );
-        right.y.value = withSpring(HEIGHT / (3/2), { velocity: velocityY });
+        right.y.value = withSpring(HEIGHT / 2, { velocity: velocityY });
       }
     },
   });

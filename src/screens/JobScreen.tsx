@@ -4,6 +4,10 @@ import { useThemeColor } from "../hooks/useThemeColor";
 import { ThemedText } from "../components/ThemedText";
 import { GestureHandlerRootView, PanGestureHandler } from "react-native-gesture-handler";
 import LikeSlider from "../components/Slider/LikeSlider";
+import RoundedButton from "../components/ui/RoundedButton";
+
+import FavoriteIcon from "@/src/assets/svg/FavoriteIcon.svg"; 
+import CloseRoundIcon from '@/src/assets/svg/CloseRoundIcon.svg';
 
 
 
@@ -14,11 +18,26 @@ const JobScreen = () => {
     const propositions = ['test1', 'test2', 'test3']
     return (
         <ScreenContainer>
-            <GestureHandlerRootView>
-            <LikeSlider propositions={propositions} />
-            </GestureHandlerRootView>
-
-
+            <Header>
+                <Title type='primary'>Job Screen</Title>
+            </Header>
+            <Content>
+                <LikeSlider propositions={propositions} />
+            </Content>
+            <ButtonContainer>
+                <RoundedButton 
+                    color={dislikeColor} 
+                    Icon={CloseRoundIcon}
+                    iconHeight={50}
+                    iconWidth={50}
+                    onPress={() => console.log('Dislike')} />
+                <RoundedButton 
+                    color={likeColor} 
+                    Icon={FavoriteIcon}
+                    iconHeight={32}
+                    iconWidth={32}
+                    onPress={() => console.log('Like')} />
+            </ButtonContainer>
         </ScreenContainer>
     )
 };
