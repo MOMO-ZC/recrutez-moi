@@ -31,7 +31,7 @@ const Swipper = forwardRef<Swiper<any>, SwipperProps>(({ cards, ...swiperProps }
         cards={cards}
         cardIndex={index}
         renderCard={(card) => <Card/>}
-        infinite={false}
+        infinite={true}
         stackSize={3}
         stackSeparation={14}
         onSwiped={onSwiped}

@@ -2,27 +2,27 @@ import { View } from "react-native";
 import styled from "styled-components";
 import { useThemeColor } from "../hooks/useThemeColor";
 import { ThemedText } from "../components/ThemedText";
-import { GestureHandlerRootView, PanGestureHandler } from "react-native-gesture-handler";
-import LikeSlider from "../components/Slider/LikeSlider";
 import RoundedButton from "../components/ui/RoundedButton";
 
 import FavoriteIcon from "@/src/assets/svg/FavoriteIcon.svg"; 
 import CloseRoundIcon from '@/src/assets/svg/CloseRoundIcon.svg';
+import Swipper from "../components/Swipper";
 
 
 
 const JobScreen = () => {
     const favColor = useThemeColor({}, 'main');
     const dislikeColor = useThemeColor({}, 'danger');
-    const likeColor = useThemeColor({}, 'success');
     const propositions = ['test1', 'test2', 'test3']
     return (
         <ScreenContainer>
             <Header>
-                <Title type='primary'>Job Screen</Title>
+                <Title type='primary'>Offres d'emploi</Title>
             </Header>
             <Content>
-                <LikeSlider propositions={propositions} />
+                <Swipper
+                    cards={propositions}
+                />
             </Content>
             <ButtonContainer>
                 <RoundedButton 
@@ -32,7 +32,7 @@ const JobScreen = () => {
                     iconWidth={50}
                     onPress={() => console.log('Dislike')} />
                 <RoundedButton 
-                    color={likeColor} 
+                    color={favColor} 
                     Icon={FavoriteIcon}
                     iconHeight={32}
                     iconWidth={32}
@@ -57,11 +57,8 @@ const Title = styled(ThemedText)`
 
 const Content = styled(View)`
     flex: 0.7;
-    width: 100%;
     height: 20%;
     align-items: center;
-    background-color: yellow;
-    justify-content: flex-end;
 `;
 
 const ButtonContainer = styled(View)`
@@ -70,7 +67,6 @@ const ButtonContainer = styled(View)`
     padding-right: 64px;
     justify-content: space-between;
     flex-direction: row;
-    background-color: pink;
 `;
 
 
