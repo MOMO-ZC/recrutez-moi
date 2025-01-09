@@ -1,15 +1,15 @@
-import React from "react";
-import { View, Text, StyleSheet, Dimensions, Image } from "react-native";
-import Svg, { RadialGradient, Defs, Rect, Stop } from "react-native-svg";
+import React from 'react';
+import { View, Text, StyleSheet, Dimensions, Image } from 'react-native';
+import Svg, { RadialGradient, Defs, Rect, Stop } from 'react-native-svg';
 
-const { width, height } = Dimensions.get("screen");
+const { width, height } = Dimensions.get('screen');
 const SIZE = width - 75;
 const styles = StyleSheet.create({
   container: {
     ...StyleSheet.absoluteFillObject,
     padding: 75,
     paddingTop: 150,
-    alignItems: "center",
+    alignItems: 'center',
   },
   image: {
     width: SIZE,
@@ -17,16 +17,16 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 48,
-    color: "white",
-    textAlign: "center",
+    color: 'white',
+    textAlign: 'center',
     marginBottom: 16,
-    fontFamily: "SFProDisplay-Bold",
+    fontFamily: 'SFProDisplay-Bold',
   },
   description: {
     fontSize: 18,
-    color: "white",
-    textAlign: "center",
-    fontFamily: "SFProDisplay-Regular",
+    color: 'white',
+    textAlign: 'center',
+    fontFamily: 'SFProDisplay-Regular',
   },
 });
 
@@ -38,9 +38,7 @@ export interface SlideProps {
   };
 }
 
-const Slide = ({
-  slide: { color, title, description },
-}: SlideProps) => {
+const Slide = ({ slide: { color, title, description } }: SlideProps) => {
   const lighterColor = color;
   return (
     <>

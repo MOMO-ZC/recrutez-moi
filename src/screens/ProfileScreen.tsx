@@ -1,18 +1,12 @@
-import { ThemedText } from "../components/ThemedText";
-import NavBar from "../components/ui/NavBar";
-import { Header, ScreenContainer } from "./common/components";
-
-
+import HeaderContainer from '../components/ui/HeaderContainer';
+import { ScreenContainer } from './common/components';
 
 const ProfileScreen = () => {
-    return (
-        <ScreenContainer>
-            <Header>
-            <ThemedText type="title"> Profile Screen </ThemedText>
-            </Header>
-            {/* <NavBar/> */}
-        </ScreenContainer>
-    )
+  return (
+    <ScreenContainer>
+      <HeaderContainer title="Profile Screen" />
+    </ScreenContainer>
+  );
 };
 
 export default ProfileScreen;

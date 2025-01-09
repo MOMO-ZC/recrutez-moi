@@ -1,7 +1,15 @@
 import React from 'react';
 import { DynamicForm, FormField } from '@/src/components/ui/DynamicForm';
 import styled, { useTheme } from 'styled-components';
-import { Alert, View, Text, useWindowDimensions, KeyboardAvoidingView, ScrollView, Platform } from 'react-native';
+import {
+  Alert,
+  View,
+  Text,
+  useWindowDimensions,
+  KeyboardAvoidingView,
+  ScrollView,
+  Platform,
+} from 'react-native';
 import GradientBackGround from '../components/GradientBackGround';
 import { useThemeColor } from '../hooks/useThemeColor';
 import HeaderContainer from '../components/ui/HeaderContainer';
@@ -12,11 +20,9 @@ const formStructure: FormField[] = [
 ];
 
 const LoginScreen: React.FC = () => {
+  const textColor = useThemeColor({}, 'text');
 
-   const textColor = useThemeColor({}, 'text');
-
-   const {width, height} = useWindowDimensions();
-
+  const { width, height } = useWindowDimensions();
 
   const handleLogin = (formData: { [key: string]: any }) => {
     const { email, password } = formData;
@@ -31,29 +37,29 @@ const LoginScreen: React.FC = () => {
 
   return (
     <>
-    <GradientBackGround/>
-    <ScreenContainer width={width} height={height}>
+      <GradientBackGround />
+      <ScreenContainer width={width} height={height}>
         <Content>
-
-      <DynamicForm
-        formStructure={formStructure}
-        label="Se connecter"
-        onSubmit={handleLogin}
-      />
+          <DynamicForm
+            formStructure={formStructure}
+            label="Se connecter"
+            onSubmit={handleLogin}
+          />
         </Content>
-      <Footer>
-        <FooterText color={textColor}>Pas encore de compte ?</FooterText>
-        <FooterLink onPress={() => Alert.alert('Sign Up', 'Redirect to sign-up')}>
-          S'inscrire
-        </FooterLink>
-      </Footer>
-    </ScreenContainer>
-    
+        <Footer>
+          <FooterText color={textColor}>Pas encore de compte ?</FooterText>
+          <FooterLink
+            onPress={() => Alert.alert('Sign Up', 'Redirect to sign-up')}
+          >
+            S'inscrire
+          </FooterLink>
+        </Footer>
+      </ScreenContainer>
     </>
   );
 };
 
-const ScreenContainer = styled(View)<{ width: number, height: number }>`
+const ScreenContainer = styled(View)<{ width: number; height: number }>`
   bottom: 0;
   left: 0;
   height: ${(props) => props.height}px;
@@ -69,10 +75,10 @@ const Header = styled(View)`
 `;
 
 const Content = styled(View)`
-    margin-top: 228px;
-    flex: 1;
-    justify-content: center;
-    `;
+  margin-top: 228px;
+  flex: 1;
+  justify-content: center;
+`;
 
 const Title = styled(Text)`
   font-size: 28px;
@@ -94,7 +100,7 @@ const Footer = styled(View)`
 
 const FooterText = styled(Text)<{ color: string }>`
   font-size: 14px;
-    color: ${(props) => props.color};
+  color: ${(props) => props.color};
 `;
 
 const FooterLink = styled(Text)`

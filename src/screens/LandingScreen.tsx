@@ -6,63 +6,62 @@ import styled from 'styled-components';
 
 import ButtonText from '../components/ui/ButtonText';
 import { useThemeColor } from '../hooks/useThemeColor';
-import { useDerivedValue, useSharedValue, withRepeat, withTiming } from 'react-native-reanimated';
+import {
+  useDerivedValue,
+  useSharedValue,
+  withRepeat,
+  withTiming,
+} from 'react-native-reanimated';
 import chroma from 'chroma-js';
 import GradientBackGround from '../components/GradientBackGround';
 import { useAuth } from '../hooks/useAuth';
 
-
 const LandingScreen = () => {
   const router = useRouter();
-    const mainColor = useThemeColor({}, 'main');
-    const textColor = useThemeColor({}, 'text');
-    const placeholderColor = useThemeColor({}, 'placeholder');
+  const mainColor = useThemeColor({}, 'main');
+  const textColor = useThemeColor({}, 'text');
+  const placeholderColor = useThemeColor({}, 'placeholder');
 
-    const {width, height} = useWindowDimensions();
+  const { width, height } = useWindowDimensions();
 
-    const {login,isAuthenticated} = useAuth();
+  const { login, isAuthenticated } = useAuth();
 
-    const handleStart = () => {
-         login();
-      };
+  const handleStart = () => {
+    login();
+  };
 
-      useEffect(() => {
-        if (isAuthenticated) {
-          router.replace("/(tabs)");
-        }
-      }, [isAuthenticated]);
-    
+  useEffect(() => {
+    if (isAuthenticated) {
+      router.replace('/(tabs)');
+    }
+  }, [isAuthenticated]);
+
   return (
     <>
-    <GradientBackGround/>
-    <Container width={width}>
-
-    <Content>
-      <Title color={textColor}>
-        <Highlight color={mainColor}>Postulez</Highlight>{' '} 
-        à des offres d'emploi qui{' '} 
-        <Highlight color={mainColor}>vous</Highlight> correspondent.
-      </Title>
-      </Content>
-      <Footer>
-      <ButtonContainer>
-        <ButtonText label="Commencer" onPress={handleStart}/>
-      </ButtonContainer>
-        <FooterTextContainer>
-        <FooterText color={placeholderColor}>Déjà un compte ? </FooterText>
-        <FooterLink
-          onPress={() => router.replace('/(auth)/login')}
-        >Se connecter</FooterLink>
-        </FooterTextContainer>
- 
-      </Footer>
-    </Container>
-      </>
-
-
+      <GradientBackGround />
+      <Container width={width}>
+        <Content>
+          <Title color={textColor}>
+            <Highlight color={mainColor}>Postulez</Highlight> à des offres
+            d'emploi qui <Highlight color={mainColor}>vous</Highlight>{' '}
+            correspondent.
+          </Title>
+        </Content>
+        <Footer>
+          <ButtonContainer>
+            <ButtonText label="Commencer" onPress={handleStart} />
+          </ButtonContainer>
+          <FooterTextContainer>
+            <FooterText color={placeholderColor}>Déjà un compte ? </FooterText>
+            <FooterLink onPress={() => router.replace('/(auth)/login')}>
+              Se connecter
+            </FooterLink>
+          </FooterTextContainer>
+        </Footer>
+      </Container>
+    </>
   );
 };
-
 
 const Container = styled(View)<{ width: number }>`
   position: absolute;
@@ -81,7 +80,6 @@ position: absolute;
 align-items: center;
 `;
 
-
 const Title = styled(Text)<{ color: string }>`
   font-size: 48px;
   font-weight: bold;
@@ -95,7 +93,6 @@ const Highlight = styled(Text)<{ color: string }>`
 `;
 
 const Footer = styled(View)`
-
   flex-direction: column;
   align-items: center;
   justify-content: flex-end;
@@ -109,7 +106,6 @@ const FooterTextContainer = styled(View)`
   margin-bottom: 32px;
 `;
 
-
 const FooterText = styled(Text)<{ color: string }>`
   color: ${(props) => props.color};
   font-size: 14px;
@@ -121,7 +117,6 @@ const FooterLink = styled(Text)`
   font-weight: bold;
 `;
 
-const ButtonContainer = styled(View)`
-`;
+const ButtonContainer = styled(View)``;
 
 export default LandingScreen;

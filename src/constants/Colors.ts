@@ -12,7 +12,7 @@ const BaseColors = {
   placeholder: '#D9D9D9',
   white: '#FFFFFF',
   black: '#222222',
-  blur: '#FFFFFF99'
+  blur: '#FFFFFF90',
 };
 
 const LightTheme = {
@@ -39,4 +39,3 @@ export const Colors = {
   light: { ...BaseColors, ...LightTheme },
   dark: { ...BaseColors, ...DarkTheme },
 };
-

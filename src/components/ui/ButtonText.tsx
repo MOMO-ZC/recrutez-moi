@@ -15,21 +15,17 @@ const ThemedButton = styled(TouchableOpacity)<{ backgroundColor: string }>`
 `;
 
 interface ButtonProps {
-    backgroundColor?: string;
-    label: string;
-    onPress: () => void;
-
-
+  backgroundColor?: string;
+  label: string;
+  onPress: () => void;
 }
 
-const ButtonText = (
-    { backgroundColor,label, onPress }: ButtonProps
-) => {
-  const bgColor = backgroundColor ??  useThemeColor({}, 'main');
+const ButtonText = ({ backgroundColor, label, onPress }: ButtonProps) => {
+  const bgColor = backgroundColor ?? useThemeColor({}, 'main');
 
   return (
     <ThemedButton backgroundColor={bgColor} onPress={onPress}>
-      <ThemedText type='primary'>{label}</ThemedText>
+      <ThemedText type="primary">{label}</ThemedText>
     </ThemedButton>
   );
 };

@@ -1,5 +1,5 @@
-import React, { ReactElement, ReactNode } from "react";
-import { Dimensions, Platform, StyleSheet, View } from "react-native";
+import React, { ReactElement, ReactNode } from 'react';
+import { Dimensions, Platform, StyleSheet, View } from 'react-native';
 import Animated, {
   Extrapolate,
   interpolate,
@@ -8,26 +8,26 @@ import Animated, {
   useDerivedValue,
   withSpring,
   withTiming,
-} from "react-native-reanimated";
-import Svg, { Path } from "react-native-svg";
-import MaskedView from "@react-native-community/masked-view";
-import { Vector } from "react-native-redash";
+} from 'react-native-reanimated';
+import Svg, { Path } from 'react-native-svg';
+import MaskedView from '@react-native-community/masked-view';
+import { Vector } from 'react-native-redash';
 
-import { SlideProps } from "./Slide";
-import { useThemeColor } from "@/src/hooks/useThemeColor";
+import { SlideProps } from './Slide';
+import { useThemeColor } from '@/src/hooks/useThemeColor';
 
-export const { width: WIDTH, height: HEIGHT } = Dimensions.get("screen");
+export const { width: WIDTH, height: HEIGHT } = Dimensions.get('screen');
 export const MIN_LEDGE = 24;
 export const MARGIN_WIDTH = MIN_LEDGE + 24;
 
 const AnimatedPath = Animated.createAnimatedComponent(Path);
 
 const vec2 = (x: number, y: number) => {
-  "worklet";
+  'worklet';
   return { x, y };
 };
 const curve = (c1: Vector, c2: Vector, to: Vector) => {
-  "worklet";
+  'worklet';
   return `C ${c1.x} ${c1.y} ${c2.x} ${c2.y} ${to.x} ${to.y}`;
 };
 
@@ -51,7 +51,7 @@ const Wave = ({
   isTransitioning,
 }: WaveProps) => {
   const R = useDerivedValue(() => {
-    return Math.min(x.value - MIN_LEDGE, WIDTH / (3/2));
+    return Math.min(x.value - MIN_LEDGE, WIDTH / (3 / 2));
   });
   const ledge = useDerivedValue(() => {
     const minLedge = interpolate(
@@ -87,10 +87,9 @@ const Wave = ({
     const c41 = vec2(p4.x, p4.y);
     const c42 = vec2(p5.x, p5.y - C);
 
-
     return {
       d: [
-        "M 0 0",
+        'M 0 0',
         `H ${p1.x}`,
         `V ${p1.y}`,
         curve(c11, c12, p2),
@@ -98,19 +97,19 @@ const Wave = ({
         curve(c31, c32, p4),
         curve(c41, c42, p5),
         `V ${HEIGHT}`,
-        "H 0",
-      ].join(" "),
+        'H 0',
+      ].join(' '),
     };
   });
 
-  const likeColor = useThemeColor({}, "success");
-  const dislikeColor = useThemeColor({}, "danger");
+  const likeColor = useThemeColor({}, 'success');
+  const dislikeColor = useThemeColor({}, 'danger');
   const maskElement = (
     <Svg
       style={[
         StyleSheet.absoluteFill,
         {
-          transform: [{ rotateY: side === Side.RIGHT ? "180deg" : "0deg" }],
+          transform: [{ rotateY: side === Side.RIGHT ? '180deg' : '0deg' }],
         },
       ]}
     >
@@ -129,13 +128,13 @@ const Wave = ({
             isTransitioning.value
               ? withTiming(0)
               : side === Side.RIGHT
-              ? WIDTH - ledge.value
-              : -WIDTH + ledge.value,
+                ? WIDTH - ledge.value
+                : -WIDTH + ledge.value,
         },
       ],
     };
   });
-  if (Platform.OS === "android") {
+  if (Platform.OS === 'android') {
     return (
       <View style={StyleSheet.absoluteFill}>
         {maskElement}

@@ -1,5 +1,5 @@
-import React, { ReactElement, useEffect, useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import React, { ReactElement, useEffect, useState } from 'react';
+import { StyleSheet, Text, View } from 'react-native';
 import Animated, {
   runOnJS,
   useAnimatedGestureHandler,
@@ -7,13 +7,15 @@ import Animated, {
   useSharedValue,
   withDelay,
   withSpring,
-} from "react-native-reanimated";
-import { PanGestureHandler } from "react-native-gesture-handler";
-import { snapPoint, useVector } from "react-native-redash";
+} from 'react-native-reanimated';
+import { PanGestureHandler } from 'react-native-gesture-handler';
+import { snapPoint, useVector } from 'react-native-redash';
 
-import Wave, { HEIGHT, MARGIN_WIDTH, Side, WIDTH } from "./Wave";
-import { useThemeColor } from "@/src/hooks/useThemeColor";
-import Button from "./Button";
+import Wave, { HEIGHT, MARGIN_WIDTH, Side, WIDTH } from './Wave';
+import { useThemeColor } from '@/src/hooks/useThemeColor';
+import Button from './Button';
+import { Skill } from '@/src/types';
+import Offer from './Offer';
 
 const PREV = WIDTH;
 const NEXT = 0;
@@ -21,25 +23,27 @@ const LEFT_SNAP_POINTS = [MARGIN_WIDTH, PREV];
 const RIGHT_SNAP_POINTS = [NEXT, WIDTH - MARGIN_WIDTH];
 
 interface SliderProps {
-  propositions: string[]; // Array of propositions for Slide 2
+  propositions: string[];
+  skills: Skill[];
 }
 
-const LikeSlider = ({ propositions }: SliderProps) => {
+const LikeSlider = (props: SliderProps) => {
+  const { propositions, skills } = props;
   const mainColor = useThemeColor({}, 'main');
   const dislikeColor = useThemeColor({}, 'danger');
   const likeColor = useThemeColor({}, 'success');
   const [currentIndex, setCurrentIndex] = useState(0); // Tracks current proposition
-  const left = useVector(0, HEIGHT / (3/2));
-  const right = useVector(0, HEIGHT / (3/2));
+  const left = useVector(0, HEIGHT / (3 / 2));
+  const right = useVector(0, HEIGHT / (3 / 2));
   const activeSide = useSharedValue(Side.NONE);
   const isTransitioningLeft = useSharedValue(false);
   const isTransitioningRight = useSharedValue(false);
 
-  const updateData = (direction: "like" | "dislike") => {
-    if (direction === "like") {
-      console.log("Liked:", propositions[currentIndex]);
+  const updateData = (direction: 'like' | 'dislike') => {
+    if (direction === 'like') {
+      console.log('Liked:', propositions[currentIndex]);
     } else {
-      console.log("Disliked:", propositions[currentIndex]);
+      console.log('Disliked:', propositions[currentIndex]);
     }
     setCurrentIndex((prevIndex) => (prevIndex + 1) % propositions.length);
   };
@@ -78,50 +82,54 @@ const LikeSlider = ({ propositions }: SliderProps) => {
       if (activeSide.value === Side.LEFT) {
         const dest = snapPoint(x, velocityX, LEFT_SNAP_POINTS);
         isTransitioningLeft.value = dest === PREV;
-        left.x.value = withDelay(800,withSpring(
-          dest,
-          {
-            velocity: velocityX,
-            overshootClamping: isTransitioningLeft.value ? true : false,
-            restSpeedThreshold: isTransitioningLeft.value ? 100 : 0.01,
-            restDisplacementThreshold: isTransitioningLeft.value ? 100 : 0.01,
-          },
-          () => {
-            if (isTransitioningLeft.value) {
-              runOnJS(updateData)("dislike");
+        left.x.value = withDelay(
+          800,
+          withSpring(
+            dest,
+            {
+              velocity: velocityX,
+              overshootClamping: isTransitioningLeft.value ? true : false,
+              restSpeedThreshold: isTransitioningLeft.value ? 100 : 0.01,
+              restDisplacementThreshold: isTransitioningLeft.value ? 100 : 0.01,
+            },
+            () => {
+              if (isTransitioningLeft.value) {
+                runOnJS(updateData)('dislike');
+              }
+              isTransitioningLeft.value = false;
+              activeSide.value = Side.NONE;
             }
-            isTransitioningLeft.value = false;
-            activeSide.value = Side.NONE;
-
-          }
-        ));
-        left.y.value = withSpring(HEIGHT / (3/2), { velocity: velocityY });
+          )
+        );
+        left.y.value = withSpring(HEIGHT / (3 / 2), { velocity: velocityY });
       } else if (activeSide.value === Side.RIGHT) {
         const dest = snapPoint(x, velocityX, RIGHT_SNAP_POINTS);
         isTransitioningRight.value = dest === NEXT;
-          right.x.value = withDelay(800,
+        right.x.value = withDelay(
+          800,
           withSpring(
             WIDTH - dest,
             {
               velocity: velocityX,
               overshootClamping: isTransitioningRight.value ? true : false,
               restSpeedThreshold: isTransitioningRight.value ? 100 : 0.01,
-              restDisplacementThreshold: isTransitioningRight.value ? 100 : 0.01,
+              restDisplacementThreshold: isTransitioningRight.value
+                ? 100
+                : 0.01,
             },
             () => {
               if (isTransitioningRight.value) {
-                runOnJS(updateData)("like");
+                runOnJS(updateData)('like');
               }
               isTransitioningRight.value = false;
               activeSide.value = Side.NONE;
             }
-          ));
-        right.y.value = withSpring(HEIGHT / (3/2), { velocity: velocityY });
+          )
+        );
+        right.y.value = withSpring(HEIGHT / (3 / 2), { velocity: velocityY });
       }
     },
   });
-
-
 
   useEffect(() => {
     left.x.value = withSpring(MARGIN_WIDTH);
@@ -133,8 +141,12 @@ const LikeSlider = ({ propositions }: SliderProps) => {
       <Animated.View style={StyleSheet.absoluteFill}>
         {/* Dislike Slide */}
         <Animated.View style={[StyleSheet.absoluteFill, leftStyle]}>
-          <Wave position={left} side={Side.LEFT} isTransitioning={isTransitioningLeft}>
-            <View style={[styles.slide, {backgroundColor: dislikeColor}]}>
+          <Wave
+            position={left}
+            side={Side.LEFT}
+            isTransitioning={isTransitioningLeft}
+          >
+            <View style={[styles.slide, { backgroundColor: dislikeColor }]}>
               <Text style={styles.text}>Dislike</Text>
             </View>
           </Wave>
@@ -142,22 +154,29 @@ const LikeSlider = ({ propositions }: SliderProps) => {
         </Animated.View>
 
         {/* Current Proposition Slide */}
-        <View style={[StyleSheet.absoluteFill, {backgroundColor: mainColor}, styles.proposition]}>
+        <View
+          style={[
+            StyleSheet.absoluteFill,
+            { backgroundColor: mainColor },
+            styles.proposition,
+          ]}
+        >
           <Text style={styles.text}>{propositions[currentIndex]}</Text>
+          <Offer skills={skills} />
         </View>
 
         {/* Like Slide */}
         <Animated.View style={[StyleSheet.absoluteFill, rightStyle]}>
-          <Wave position={right} side={Side.RIGHT} isTransitioning={isTransitioningRight}>
-            <View style={[styles.slide, {backgroundColor: likeColor}]}>
+          <Wave
+            position={right}
+            side={Side.RIGHT}
+            isTransitioning={isTransitioningRight}
+          >
+            <View style={[styles.slide, { backgroundColor: likeColor }]}>
               <Text style={styles.text}>Like</Text>
             </View>
           </Wave>
-          <Button
-              position={right}
-              side={Side.RIGHT}
-              activeSide={activeSide}
-            />
+          <Button position={right} side={Side.RIGHT} activeSide={activeSide} />
         </Animated.View>
       </Animated.View>
     </PanGestureHandler>
@@ -167,17 +186,19 @@ const LikeSlider = ({ propositions }: SliderProps) => {
 const styles = StyleSheet.create({
   slide: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   proposition: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    flexDirection: 'column',
+    marginLeft: 16,
   },
   text: {
+    alignSelf: 'center',
     fontSize: 24,
-    fontWeight: "bold",
+    fontWeight: 'bold',
   },
 });
 

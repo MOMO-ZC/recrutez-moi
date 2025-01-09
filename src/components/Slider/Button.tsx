@@ -1,15 +1,15 @@
-import React from "react";
+import React from 'react';
 import Animated, {
   useAnimatedStyle,
   withTiming,
-} from "react-native-reanimated";
-import { Vector } from "react-native-redash";
-import { AntDesign as Icon } from "@expo/vector-icons";
-import { Dimensions } from "react-native";
+} from 'react-native-reanimated';
+import { Vector } from 'react-native-redash';
+import { AntDesign as Icon } from '@expo/vector-icons';
+import { Dimensions } from 'react-native';
 
-import { Side } from "./Wave";
+import { Side } from './Wave';
 
-const { width } = Dimensions.get("screen");
+const { width } = Dimensions.get('screen');
 const RADIUS = 25;
 
 interface ButtonProps {
@@ -21,20 +21,20 @@ interface ButtonProps {
 const Button = ({ position, side, activeSide }: ButtonProps) => {
   const isLeft = side === Side.LEFT;
   const style = useAnimatedStyle(() => ({
-    position: "absolute",
+    position: 'absolute',
     left: isLeft ? position.x.value - RADIUS * 2 : width - position.x.value,
     top: position.y.value - RADIUS,
     borderRadius: RADIUS,
     width: RADIUS * 2,
     height: RADIUS * 2,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
     opacity: withTiming(activeSide.value === Side.NONE ? 1 : 0),
   }));
   return (
     <Animated.View style={style}>
       <Icon
-        name={isLeft ? "dislike1" : "like1" as const}
+        name={isLeft ? 'dislike1' : ('like1' as const)}
         size={24}
         color="black"
       />

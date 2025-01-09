@@ -1,5 +1,13 @@
 import React, { useState } from 'react';
-import { TextInput, TouchableOpacity, Text, View, KeyboardAvoidingView, Platform, ScrollView } from 'react-native';
+import {
+  TextInput,
+  TouchableOpacity,
+  Text,
+  View,
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView,
+} from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import styled from 'styled-components';
 import { ThemedText } from '../ThemedText';
@@ -39,7 +47,7 @@ const renderFormField = (
         <StyledInputContainer key={index}>
           <StyledLabel>{field.label}</StyledLabel>
           <StyledInput
-            borderColor={colors.borderColor} 
+            borderColor={colors.borderColor}
             placeholder={field.label}
             placeholderTextColor={colors.placeHolderColor}
             secureTextEntry={field.type === 'password'}
@@ -59,7 +67,11 @@ const renderFormField = (
             onValueChange={(value) => handleChange(field.name, value)}
           >
             {field.options?.map((option, i) => (
-              <StyledPickerItem key={i} label={option.label} value={option.value} />
+              <StyledPickerItem
+                key={i}
+                label={option.label}
+                value={option.value}
+              />
             ))}
           </StyledPicker>
         </StyledInputContainer>
@@ -69,12 +81,16 @@ const renderFormField = (
   }
 };
 
-export const DynamicForm: React.FC<DynamicFormProps> = ({ formStructure, label, onSubmit }) => {
+export const DynamicForm: React.FC<DynamicFormProps> = ({
+  formStructure,
+  label,
+  onSubmit,
+}) => {
   const colors = {
     borderColor: useThemeColor({}, 'placeholder'),
     placeHolderColor: useThemeColor({}, 'placeholder'),
   };
-  
+
   const [formValues, setFormValues] = useState<{ [key: string]: any }>({});
 
   const handleChange = (name: string, value: any) => {
@@ -87,30 +103,29 @@ export const DynamicForm: React.FC<DynamicFormProps> = ({ formStructure, label, 
 
   return (
     <KeyboardView behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
-    <StyledForm>
-      {formStructure.map((field, index) => renderFormField(colors, field, index, handleChange, formValues))}
-      <ButtonContainer>
-        <StyledButton label={label} onPress={handleSubmit}/>
-      </ButtonContainer>
-    </StyledForm>
+      <StyledForm>
+        {formStructure.map((field, index) =>
+          renderFormField(colors, field, index, handleChange, formValues)
+        )}
+        <ButtonContainer>
+          <StyledButton label={label} onPress={handleSubmit} />
+        </ButtonContainer>
+      </StyledForm>
     </KeyboardView>
   );
 };
-
-
 
 const KeyboardView = styled(KeyboardAvoidingView)`
   flex: 1;
 `;
 
 const Scroll = styled(ScrollView)`
-flexGrow: 1;
-`
+  flexgrow: 1;
+`;
 
 const StyledForm = styled(View)`
   flex: 1;
   padding: 16px;
-
 `;
 
 const ButtonContainer = styled(View)`
@@ -130,12 +145,10 @@ const StyledLabel = styled(Text)`
 `;
 
 const StyledInput = styled(TextInput)<{ borderColor: string }>`
-
   border: 1px solid ${(props) => props.borderColor};
   border-radius: 5px;
   padding: 8px;
   font-size: 16px;
-
 `;
 
 const StyledPicker = styled(Picker)<{ borderColor: string }>`
@@ -152,6 +165,5 @@ const StyledButton = styled(ButtonText)`
   border-radius: 5px;
   align-items: center;
 `;
-
 
 export default DynamicForm;

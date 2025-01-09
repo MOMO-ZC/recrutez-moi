@@ -1,12 +1,12 @@
-import { View } from "react-native";
-import styled from "styled-components";
-import Feather from "@expo/vector-icons/Feather";
-import { usePathname, useRouter } from "expo-router";
-import { useThemeColor } from "@/src/hooks/useThemeColor";
+import { View } from 'react-native';
+import styled from 'styled-components';
+import Feather from '@expo/vector-icons/Feather';
+import { usePathname, useRouter } from 'expo-router';
+import { useThemeColor } from '@/src/hooks/useThemeColor';
 
 const NavBar = () => {
-  const fill = useThemeColor({}, "black");
-  const stroke = useThemeColor({}, "placeholder");
+  const fill = useThemeColor({}, 'black');
+  const stroke = useThemeColor({}, 'placeholder');
 
   const router = useRouter();
 
@@ -18,26 +18,26 @@ const NavBar = () => {
         <Feather
           name="target"
           size={24}
-          color={pathname === "/" ? fill : stroke}
-          onPress={() => router.replace("/(tabs)")}
+          color={pathname === '/' ? fill : stroke}
+          onPress={() => router.replace('/(tabs)')}
         />
         <Feather
           name="heart"
           size={24}
-          color={pathname === "/liked" ? fill : stroke}
-          onPress={() => router.replace("/(tabs)/liked")}
+          color={pathname === '/liked' ? fill : stroke}
+          onPress={() => router.replace('/(tabs)/liked')}
         />
         <Feather
-          name="briefcase"
+          name="dribbble"
           size={24}
-          color={pathname === "/projects" ? fill : stroke}
-          onPress={() => router.replace("/(tabs)/projects")}
+          color={pathname === '/projects' ? fill : stroke}
+          onPress={() => router.replace('/(tabs)/projects')}
         />
         <Feather
           name="user"
           size={24}
-          color={pathname === "/profile" ? fill : stroke}
-          onPress={() => router.replace("/(tabs)/profile")}
+          color={pathname === '/profile' ? fill : stroke}
+          onPress={() => router.replace('/(tabs)/profile')}
         />
       </NavBarContainer>
     </Footer>
@@ -58,7 +58,7 @@ const NavBarContainer = styled(View)`
   justify-content: space-around;
   width: 90%;
   padding: 16px;
-  background-color: #ffffff99;
+  background-color: #ffffff90;
 `;
 
 export default NavBar;
