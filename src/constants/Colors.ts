@@ -12,12 +12,12 @@ const BaseColors = {
   placeholder: '#D9D9D9',
   white: '#FFFFFF',
   black: '#222222',
-  whiteBlur: '#FFFFFF99',
+  whiteBlur: '#FFFFFF90',
 };
 
 const LightTheme = {
   text: '#11181C',
-  background: '#FFFFFF',
+  background: '#f1faee',
   blur: '#c4bbfa',
   tint: '#0a7ea4',
   icon: '#687076',
