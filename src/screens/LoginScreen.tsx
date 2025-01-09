@@ -4,6 +4,7 @@ import styled, { useTheme } from 'styled-components';
 import { Alert, View, Text, useWindowDimensions, KeyboardAvoidingView, ScrollView, Platform } from 'react-native';
 import GradientBackGround from '../components/GradientBackGround';
 import { useThemeColor } from '../hooks/useThemeColor';
+import HeaderContainer from '../components/ui/HeaderContainer';
 
 const formStructure: FormField[] = [
   { name: 'email', label: 'Adresse email', type: 'text' },
@@ -32,10 +33,6 @@ const LoginScreen: React.FC = () => {
     <>
     <GradientBackGround/>
     <ScreenContainer width={width} height={height}>
-      <Header>
-        {/* <Title>Welcome Back!</Title>
-        <Subtitle>Login to your account</Subtitle> */}
-      </Header>
         <Content>
 
       <DynamicForm

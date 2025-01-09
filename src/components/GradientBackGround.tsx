@@ -42,7 +42,7 @@ export const GradientBackGround = () => {
         <Rect x={0}
         y={0}
         width={width}
-        height={height}
+        height={height+200}
         >
 
         <LinearGradient

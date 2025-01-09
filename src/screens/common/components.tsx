@@ -9,8 +9,6 @@ export const ScreenContainer = styled(View)`
 
 export const Header = styled(View)`
     flex: 0.25
-    justify-content: center;
-    align-items: center;
 `;
 
 export const Title = styled(ThemedText)`

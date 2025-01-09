@@ -12,6 +12,7 @@ const BaseColors = {
   placeholder: '#D9D9D9',
   white: '#FFFFFF',
   black: '#222222',
+  blur: '#FFFFFF99'
 };
 
 const LightTheme = {

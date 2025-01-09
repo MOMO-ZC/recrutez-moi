@@ -6,17 +6,16 @@ import Svg, { SvgProps } from 'react-native-svg';
 
 interface RoundedButtonProps {
     color: string;
-    Icon?: React.FC<SvgProps>;
-    iconWidth?: number;
-    iconHeight?: number;
+    icon: React.ReactNode;
     onPress: () => void;
+    size?: number;
   }
 
-const ThemedButton = styled(TouchableOpacity)<{ backgroundColor: string }>`
+const ThemedButton = styled(TouchableOpacity)<{ backgroundColor: string, size?: number }>`
   background-color: ${(props) => props.backgroundColor};
   border-radius: 64px;
-  width: 72px;
-  height: 72px;
+  width: ${(props) => props.size ?? 72}px;
+  height: ${(props) => props.size ?? 72}px;
   justify-content: center;
   align-items: center;
 `;
@@ -27,11 +26,11 @@ const IconWrapper = styled(View)`
 `;
 
 const RoundedButton = (props: RoundedButtonProps) => {
- const { color, Icon, iconWidth, iconHeight, onPress } = props;
+ const { color, icon, onPress, size } = props;
   return (
-    <ThemedButton backgroundColor={color} onPress={onPress}>
+    <ThemedButton backgroundColor={color} onPress={onPress} size={size}>
         <IconWrapper>
-        {Icon && <Icon width={iconWidth} height={iconHeight} fill="white" />}
+          {icon}
         </IconWrapper>
     </ThemedButton>
   );

@@ -10,7 +10,7 @@ const ProfileScreen = () => {
             <Header>
             <ThemedText type="title"> Profile Screen </ThemedText>
             </Header>
-            <NavBar/>
+            {/* <NavBar/> */}
         </ScreenContainer>
     )
 };

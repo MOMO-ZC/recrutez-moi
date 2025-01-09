@@ -11,7 +11,9 @@ const App = () => {
 
     return (
         <>
-        <Stack screenOptions={{ headerShown: false }}>
+        <Stack screenOptions={{ 
+            headerShown: false,
+         }}>
         {isAuthenticated ? (
           <Stack.Screen name="(tabs)" options={{ headerShown: false, gestureEnabled: false }} />
         ) : (

@@ -1,16 +1,15 @@
 import { ThemedText } from "../components/ThemedText";
+import HeaderContainer from "../components/ui/HeaderContainer";
 import NavBar from "../components/ui/NavBar";
-import { Header, ScreenContainer } from "./common/components";
+import { ScreenContainer } from "./common/components";
 
 
 
 const LikedScreen = () => {
     return (
         <ScreenContainer>
-            <Header>
-            <ThemedText type="title"> Liked Screen </ThemedText>
-            </Header>
-            <NavBar/>
+            <HeaderContainer title="Liked Screen"/>
+            {/* <NavBar/> */}
         </ScreenContainer>
     )
 };

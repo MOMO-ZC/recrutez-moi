@@ -21,7 +21,7 @@ const JobScreen = () => {
             <GestureHandlerRootView>
             <LikeSlider propositions={propositions} />
             </GestureHandlerRootView>
-            <NavBar/>
+            {/* <NavBar/> */}
 
         </ScreenContainer>
     )

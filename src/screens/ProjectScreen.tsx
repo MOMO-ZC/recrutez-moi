@@ -10,7 +10,7 @@ const ProjectScreen = () => {
             <Header>
             <ThemedText type="title"> Project Screen </ThemedText>
             </Header>
-            <NavBar/>
+            {/* <NavBar/> */}
         </ScreenContainer>
     )
 };
