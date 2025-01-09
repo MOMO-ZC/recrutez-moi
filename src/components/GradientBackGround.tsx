@@ -42,7 +42,7 @@ export const GradientBackGround = () => {
 
   return (
     <Canvas style={{ flex: 1 }}>
-      <Rect x={0} y={0} width={width} height={height + 200}>
+      <Rect x={0} y={0} width={width * 2} height={height + 200}>
         <LinearGradient start={start} end={end} colors={gradientColors} />
       </Rect>
     </Canvas>
