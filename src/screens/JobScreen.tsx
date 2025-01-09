@@ -1,44 +1,53 @@
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { useThemeColor } from '../hooks/useThemeColor';
-import {
-  GestureHandlerRootView,
-  PanGestureHandler,
-} from 'react-native-gesture-handler';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import LikeSlider from '../components/Slider/LikeSlider';
-import ScreenContainer from './common/ScreenContainer';
 import { Skill } from '../types';
+import { View, BackHandler } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { jobOffers } from '../mock/jobOffers';
 
 const JobScreen = () => {
   const favColor = useThemeColor({}, 'main');
   const dislikeColor = useThemeColor({}, 'danger');
   const likeColor = useThemeColor({}, 'success');
-  const propositions = ['test1', 'test2', 'test3'];
-  const skills: Skill[] = [
-    {
-      name: 'python',
-      category: 'backend',
-    },
-    {
-      name: 'react',
-      category: 'frontend',
-    },
-    {
-      name: 'teamwork',
-      category: 'softskills',
-    },
-    {
-      name: 'photoshop',
-      category: 'software',
-    },
-  ];
+
+  const navigation = useNavigation();
+
+  useEffect(() => {
+    // Prevent hardware back button press
+    const handleBackPress = () => {
+      // Block back navigation
+      return true;
+    };
+
+    // Listen to the back navigation event
+    const unsubscribe = navigation.addListener('beforeRemove', (e) => {
+      e.preventDefault(); // Prevent swipe back gesture
+    });
+
+    BackHandler.addEventListener('hardwareBackPress', handleBackPress);
+
+    return () => {
+      // Cleanup event listeners
+      BackHandler.removeEventListener('hardwareBackPress', handleBackPress);
+      unsubscribe();
+    };
+  }, [navigation]);
 
   return (
-    <ScreenContainer>
+    <Container>
       <GestureHandlerRootView>
-        <LikeSlider propositions={propositions} skills={skills} />
+        <LikeSlider jobOffers={jobOffers} />
       </GestureHandlerRootView>
-    </ScreenContainer>
+    </Container>
   );
 };
 
 export default JobScreen;
+
+const Container = styled(View)`
+  flex: 1;
+  left: 0;
+`;

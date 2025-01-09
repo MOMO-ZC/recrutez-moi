@@ -9,15 +9,15 @@ interface SkillProps {
 }
 
 const colors = {
-  frontend: '#118AB2',
-  backend: '#EF476F',
+  framework: '#118AB2',
+  'programming-language': '#EF476F',
   softskills: '#06D6A0',
   software: '#FFD166',
 };
 
 const categoryIcons: Record<string, keyof typeof Feather.glyphMap> = {
-  frontend: 'code',
-  backend: 'cpu',
+  framework: 'code',
+  'programming-language': 'cpu',
   softskills: 'users',
   software: 'monitor',
 };
@@ -30,7 +30,7 @@ const Skill = (props: SkillProps) => {
       <IconWrapper>
         <Feather name={categoryIcons[category]} size={16} color="#222222" />
       </IconWrapper>
-      <Text>{name}</Text>
+      <SkillName>{name}</SkillName>
     </SkillContainer>
   );
 };
@@ -52,4 +52,10 @@ const IconWrapper = styled(View)`
   justify-content: center;
   align-items: center;
   padding: 2px;
+`;
+
+const SkillName = styled(Text)`
+  color: #222222;
+  font-size: 14px;
+  padding-right: 2px;
 `;

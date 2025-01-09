@@ -11,22 +11,12 @@ const styles = StyleSheet.create({
     paddingTop: 150,
     alignItems: 'center',
   },
-  image: {
-    width: SIZE,
-    height: SIZE,
-  },
   title: {
     fontSize: 48,
     color: 'white',
     textAlign: 'center',
     marginBottom: 16,
     fontFamily: 'SFProDisplay-Bold',
-  },
-  description: {
-    fontSize: 18,
-    color: 'white',
-    textAlign: 'center',
-    fontFamily: 'SFProDisplay-Regular',
   },
 });
 
@@ -38,23 +28,12 @@ export interface SlideProps {
   };
 }
 
-const Slide = ({ slide: { color, title, description } }: SlideProps) => {
-  const lighterColor = color;
+const Slide = ({ slide: { title } }: SlideProps) => {
   return (
     <>
-      <Svg style={StyleSheet.absoluteFill}>
-        <Defs>
-          <RadialGradient id="gradient" cx="50%" cy="35%">
-            <Stop offset="0%" stopColor={lighterColor} />
-            <Stop offset="100%" stopColor={color} />
-          </RadialGradient>
-        </Defs>
-        <Rect x={0} y={0} width={width} height={height} fill="url(#gradient)" />
-      </Svg>
       <View style={styles.container}>
         <View>
           <Text style={styles.title}>{title}</Text>
-          <Text style={styles.description}>{description}</Text>
         </View>
       </View>
     </>

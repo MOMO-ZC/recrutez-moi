@@ -134,7 +134,6 @@ const MenuModal = styled(Animated.View)`
   background-color: #ffffff99;
   border-radius: 8px;
   padding: 10px;
-  elevation: 5;
   flex-grow: 0;
   min-width: 90px;
 `;

@@ -1,5 +1,5 @@
 import React, { ReactElement, useEffect, useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import Animated, {
   runOnJS,
   useAnimatedGestureHandler,
@@ -14,8 +14,9 @@ import { snapPoint, useVector } from 'react-native-redash';
 import Wave, { HEIGHT, MARGIN_WIDTH, Side, WIDTH } from './Wave';
 import { useThemeColor } from '@/src/hooks/useThemeColor';
 import Button from './Button';
-import { Skill } from '@/src/types';
+import { JobOffer, Skill } from '@/src/types';
 import Offer from './Offer';
+import styled from 'styled-components';
 
 const PREV = WIDTH;
 const NEXT = 0;
@@ -23,12 +24,11 @@ const LEFT_SNAP_POINTS = [MARGIN_WIDTH, PREV];
 const RIGHT_SNAP_POINTS = [NEXT, WIDTH - MARGIN_WIDTH];
 
 interface SliderProps {
-  propositions: string[];
-  skills: Skill[];
+  jobOffers: JobOffer[];
 }
 
 const LikeSlider = (props: SliderProps) => {
-  const { propositions, skills } = props;
+  const { jobOffers } = props;
   const mainColor = useThemeColor({}, 'main');
   const dislikeColor = useThemeColor({}, 'danger');
   const likeColor = useThemeColor({}, 'success');
@@ -41,11 +41,11 @@ const LikeSlider = (props: SliderProps) => {
 
   const updateData = (direction: 'like' | 'dislike') => {
     if (direction === 'like') {
-      console.log('Liked:', propositions[currentIndex]);
+      console.log('Liked:', jobOffers[currentIndex]);
     } else {
-      console.log('Disliked:', propositions[currentIndex]);
+      console.log('Disliked:', jobOffers[currentIndex]);
     }
-    setCurrentIndex((prevIndex) => (prevIndex + 1) % propositions.length);
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % jobOffers.length);
   };
 
   const leftStyle = useAnimatedStyle(() => ({
@@ -68,7 +68,7 @@ const LikeSlider = (props: SliderProps) => {
     },
     onActive: ({ x, y }) => {
       if (activeSide.value === Side.LEFT) {
-        leftStyle.zIndex = 3;
+        leftStyle.zIndex = 2;
         rightStyle.zIndex = 1;
         left.x.value = Math.max(x, MARGIN_WIDTH);
         left.y.value = y;
@@ -156,13 +156,12 @@ const LikeSlider = (props: SliderProps) => {
         {/* Current Proposition Slide */}
         <View
           style={[
-            StyleSheet.absoluteFill,
-            { backgroundColor: mainColor },
+            // StyleSheet.absoluteFill,
+            { backgroundColor: mainColor, zIndex: 0 },
             styles.proposition,
           ]}
         >
-          <Text style={styles.text}>{propositions[currentIndex]}</Text>
-          <Offer skills={skills} />
+          <Offer jobOffer={jobOffers[currentIndex]} />
         </View>
 
         {/* Like Slide */}
@@ -193,7 +192,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     flexDirection: 'column',
-    marginLeft: 16,
   },
   text: {
     alignSelf: 'center',
@@ -201,5 +199,14 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
 });
+
+const ScrollableContainer = styled(ScrollView).attrs(() => ({
+  contentContainerStyle: {
+    flexGrow: 1,
+    paddingBottom: 20, // Prevent cutoff at the bottom
+  },
+}))`
+  flex: 1;
+`;
 
 export default LikeSlider;
