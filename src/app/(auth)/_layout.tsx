@@ -15,21 +15,18 @@ export default function TabLayout() {
     <Tabs
       screenOptions={{
         headerShown: false,
+        tabBarStyle: { display: 'none' },
       }}>
       <Tabs.Screen
         name="index"
         options={{
           title: 'Home',
-          tabBarStyle: { display: 'none' },
-          headerShown: false,
         }}
       />
       <Tabs.Screen
         name="login"
         options={{
           title: 'Login',
-          tabBarStyle: { display: 'none' },
-          headerShown: false,
         }}
       />
     </Tabs>

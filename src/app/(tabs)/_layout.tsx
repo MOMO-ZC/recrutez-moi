@@ -1,44 +1,44 @@
 import { Tabs } from 'expo-router';
 import React from 'react';
-import { Platform } from 'react-native';
-
-import { HapticTab } from '@/src/components/HapticTab';
-import { IconSymbol } from '@/src/components/ui/IconSymbol';
-import TabBarBackground from '@/src/components/ui/TabBarBackground';
-import { Colors } from '@/src/constants/Colors';
-import { useColorScheme } from '@/src/hooks/useColorScheme';
 
 export default function TabLayout() {
-  const colorScheme = useColorScheme();
 
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
         headerShown: false,
-        tabBarButton: HapticTab,
-        tabBarBackground: TabBarBackground,
-        tabBarStyle: Platform.select({
-          ios: {
-            position: 'absolute',
-          },
-          default: {},
-        }),
+        tabBarStyle: { display: 'none' },
       }}>
       <Tabs.Screen
         name="index"
         options={{
           title: 'Job',
-          headerShown: false,
         }}
       />
       <Tabs.Screen
-        name="explore"
+        name="liked"
         options={{
-          title: 'Explore',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="paperplane.fill" color={color} />,
+          title: 'Liked',
         }}
       />
+      <Tabs.Screen
+        name="projects"
+        options={{
+          title: 'Projects',
+        }}
+        />
+        <Tabs.Screen
+        name="profile"
+        options={{
+          title: 'Profile',
+        }}
+        />
+      <Tabs.Screen
+        name="not-found"
+        options={{
+          title: 'Not Found',
+        }}
+        />
     </Tabs>
   );
 }

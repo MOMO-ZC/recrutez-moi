@@ -11,6 +11,7 @@ const BaseColors = {
   danger: '#EF476F',
   placeholder: '#D9D9D9',
   white: '#FFFFFF',
+  black: '#222222',
 };
 
 const LightTheme = {

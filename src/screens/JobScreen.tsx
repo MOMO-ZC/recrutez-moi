@@ -5,6 +5,8 @@ import { ThemedText } from "../components/ThemedText";
 import { GestureHandlerRootView, PanGestureHandler } from "react-native-gesture-handler";
 import LikeSlider from "../components/Slider/LikeSlider";
 import { useEffect } from "react";
+import NavBar from "../components/ui/NavBar";
+import { ScreenContainer } from "./common/components";
 
 
 
@@ -19,21 +21,12 @@ const JobScreen = () => {
             <GestureHandlerRootView>
             <LikeSlider propositions={propositions} />
             </GestureHandlerRootView>
-
+            <NavBar/>
 
         </ScreenContainer>
     )
 };
 
-const ScreenContainer = styled(View)`
-  flex: 1
-`;
-
-const Header = styled(View)`
-    flex: 0.25
-    justify-content: center;
-    align-items: center;
-`;
 
 const Title = styled(ThemedText)`
     `;
@@ -55,6 +48,7 @@ const ButtonContainer = styled(View)`
     flex-direction: row;
     background-color: pink;
 `;
+
 
 
 export default JobScreen;
