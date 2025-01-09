@@ -1,9 +1,10 @@
-import { View } from "react-native";
+import { BackHandler, View } from "react-native";
 import styled from "styled-components";
 import { useThemeColor } from "../hooks/useThemeColor";
 import { ThemedText } from "../components/ThemedText";
 import { GestureHandlerRootView, PanGestureHandler } from "react-native-gesture-handler";
 import LikeSlider from "../components/Slider/LikeSlider";
+import { useEffect } from "react";
 
 
 
@@ -12,6 +13,7 @@ const JobScreen = () => {
     const dislikeColor = useThemeColor({}, 'danger');
     const likeColor = useThemeColor({}, 'success');
     const propositions = ['test1', 'test2', 'test3']
+
     return (
         <ScreenContainer>
             <GestureHandlerRootView>

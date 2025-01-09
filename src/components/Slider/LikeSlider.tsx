@@ -5,6 +5,7 @@ import Animated, {
   useAnimatedGestureHandler,
   useAnimatedStyle,
   useSharedValue,
+  withDelay,
   withSpring,
 } from "react-native-reanimated";
 import { PanGestureHandler } from "react-native-gesture-handler";
@@ -77,7 +78,7 @@ const LikeSlider = ({ propositions }: SliderProps) => {
       if (activeSide.value === Side.LEFT) {
         const dest = snapPoint(x, velocityX, LEFT_SNAP_POINTS);
         isTransitioningLeft.value = dest === PREV;
-        left.x.value = withSpring(
+        left.x.value = withDelay(800,withSpring(
           dest,
           {
             velocity: velocityX,
@@ -93,27 +94,28 @@ const LikeSlider = ({ propositions }: SliderProps) => {
             activeSide.value = Side.NONE;
 
           }
-        );
+        ));
         left.y.value = withSpring(HEIGHT / (3/2), { velocity: velocityY });
       } else if (activeSide.value === Side.RIGHT) {
         const dest = snapPoint(x, velocityX, RIGHT_SNAP_POINTS);
         isTransitioningRight.value = dest === NEXT;
-        right.x.value = withSpring(
-          WIDTH - dest,
-          {
-            velocity: velocityX,
-            overshootClamping: isTransitioningRight.value ? true : false,
-            restSpeedThreshold: isTransitioningRight.value ? 100 : 0.01,
-            restDisplacementThreshold: isTransitioningRight.value ? 100 : 0.01,
-          },
-          () => {
-            if (isTransitioningRight.value) {
-              runOnJS(updateData)("like");
+          right.x.value = withDelay(800,
+          withSpring(
+            WIDTH - dest,
+            {
+              velocity: velocityX,
+              overshootClamping: isTransitioningRight.value ? true : false,
+              restSpeedThreshold: isTransitioningRight.value ? 100 : 0.01,
+              restDisplacementThreshold: isTransitioningRight.value ? 100 : 0.01,
+            },
+            () => {
+              if (isTransitioningRight.value) {
+                runOnJS(updateData)("like");
+              }
+              isTransitioningRight.value = false;
+              activeSide.value = Side.NONE;
             }
-            isTransitioningRight.value = false;
-            activeSide.value = Side.NONE;
-          }
-        );
+          ));
         right.y.value = withSpring(HEIGHT / (3/2), { velocity: velocityY });
       }
     },

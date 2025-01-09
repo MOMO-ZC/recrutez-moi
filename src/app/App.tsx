@@ -5,7 +5,7 @@ import { useAuth } from '../hooks/useAuth';
 
 
 
-const APp = () => {
+const App = () => {
 
     const isAuthenticated = useAuth();
 
@@ -13,7 +13,7 @@ const APp = () => {
         <>
         <Stack screenOptions={{ headerShown: false }}>
         {isAuthenticated ? (
-          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+          <Stack.Screen name="(tabs)" options={{ headerShown: false, gestureEnabled: false }} />
         ) : (
           <Stack.Screen name="(auth)" options={{ headerShown: false }} />
         )}
@@ -25,4 +25,4 @@ const APp = () => {
     );
 }
 
-export default APp;
+export default App;
