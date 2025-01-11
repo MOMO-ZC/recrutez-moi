@@ -3,17 +3,11 @@ import styled from 'styled-components';
 import { ThemedText } from '../ThemedText';
 import { Feather } from '@expo/vector-icons';
 import { Skill as SkillType } from '@/src/types';
+import { useThemeColor } from '@/src/hooks/useThemeColor';
 
 interface SkillProps {
   skill: SkillType;
 }
-
-const colors = {
-  framework: '#118AB2',
-  'programming-language': '#EF476F',
-  softskills: '#06D6A0',
-  software: '#FFD166',
-};
 
 const categoryIcons: Record<string, keyof typeof Feather.glyphMap> = {
   framework: 'code',
@@ -23,12 +17,24 @@ const categoryIcons: Record<string, keyof typeof Feather.glyphMap> = {
 };
 
 const Skill = (props: SkillProps) => {
+  const iconColor = useThemeColor({}, 'text');
   const { skill } = props;
   const { category, name } = skill;
+  const main = useThemeColor({}, 'main');
+  const secondary = useThemeColor({}, 'secondary');
+  const success = useThemeColor({}, 'success');
+  const warning = useThemeColor({}, 'warning');
+  const danger = useThemeColor({}, 'danger');
+  const colors = {
+    framework: secondary,
+    'programming-language': danger,
+    softskills: success,
+    software: warning,
+  };
   return (
     <SkillContainer color={colors[category]}>
       <IconWrapper>
-        <Feather name={categoryIcons[category]} size={16} color="#222222" />
+        <Feather name={categoryIcons[category]} size={16} color={iconColor} />
       </IconWrapper>
       <SkillName>{name}</SkillName>
     </SkillContainer>
@@ -54,8 +60,6 @@ const IconWrapper = styled(View)`
   padding: 2px;
 `;
 
-const SkillName = styled(Text)`
-  color: #222222;
-  font-size: 14px;
+const SkillName = styled(ThemedText)`
   padding-right: 2px;
 `;

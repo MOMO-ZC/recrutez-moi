@@ -5,14 +5,11 @@
 
 const BaseColors = {
   main: '#4E32EF',
-  secondary: '#118AB2',
-  success: '#06D6A0',
-  warning: '#FFD166',
-  danger: '#EF476F',
   placeholder: '#D9D9D9',
   white: '#FFFFFF',
   black: '#222222',
   whiteBlur: '#FFFFFF90',
+  mainUi: '#4E32EF90',
 };
 
 const LightTheme = {
@@ -21,8 +18,10 @@ const LightTheme = {
   blur: '#c4bbfa',
   tint: '#0a7ea4',
   icon: '#687076',
-  tabIconDefault: '#687076',
-  tabIconSelected: '#0a7ea4',
+  secondary: '#118AB2',
+  success: '#06D6A0',
+  warning: '#FFD166',
+  danger: '#EF476F',
 };
 
 const DarkTheme = {
@@ -33,6 +32,10 @@ const DarkTheme = {
   icon: '#9BA1A6',
   tabIconDefault: '#9BA1A6',
   tabIconSelected: '#fff',
+  secondary: '#06688C',
+  success: '#03B37E',
+  warning: '#D4A029',
+  danger: '#D13456',
 };
 
 export const Colors = {

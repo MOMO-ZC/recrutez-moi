@@ -13,6 +13,7 @@ import {
 import GradientBackGround from '../components/GradientBackGround';
 import { useThemeColor } from '../hooks/useThemeColor';
 import HeaderContainer from '../components/ui/HeaderContainer';
+import { ThemedText } from '../components/ThemedText';
 
 const formStructure: FormField[] = [
   { name: 'email', label: 'Adresse email', type: 'text' },
@@ -20,8 +21,6 @@ const formStructure: FormField[] = [
 ];
 
 const LoginScreen: React.FC = () => {
-  const textColor = useThemeColor({}, 'text');
-
   const { width, height } = useWindowDimensions();
 
   const handleLogin = (formData: { [key: string]: any }) => {
@@ -47,8 +46,9 @@ const LoginScreen: React.FC = () => {
           />
         </Content>
         <Footer>
-          <FooterText color={textColor}>Pas encore de compte ?</FooterText>
+          <FooterText>Pas encore de compte ?</FooterText>
           <FooterLink
+            type="link"
             onPress={() => Alert.alert('Sign Up', 'Redirect to sign-up')}
           >
             S'inscrire
@@ -98,15 +98,11 @@ const Footer = styled(View)`
   margin-bottom: 32px;
 `;
 
-const FooterText = styled(Text)<{ color: string }>`
-  font-size: 14px;
-  color: ${(props) => props.color};
-`;
+const FooterText = styled(ThemedText)``;
 
-const FooterLink = styled(Text)`
-  font-size: 14px;
+const FooterLink = styled(ThemedText)`
+  font-size: 16px;
   font-weight: bold;
-  color: red;
   margin-left: 4px;
 `;
 

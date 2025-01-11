@@ -29,7 +29,7 @@ interface SliderProps {
 
 const LikeSlider = (props: SliderProps) => {
   const { jobOffers } = props;
-  const mainColor = useThemeColor({}, 'main');
+  const background = useThemeColor({}, 'background');
   const dislikeColor = useThemeColor({}, 'danger');
   const likeColor = useThemeColor({}, 'success');
   const [currentIndex, setCurrentIndex] = useState(0); // Tracks current proposition
@@ -157,7 +157,7 @@ const LikeSlider = (props: SliderProps) => {
         <View
           style={[
             // StyleSheet.absoluteFill,
-            { backgroundColor: mainColor, zIndex: 0 },
+            { backgroundColor: background, zIndex: 0 },
             styles.proposition,
           ]}
         >

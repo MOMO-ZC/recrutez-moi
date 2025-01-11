@@ -36,22 +36,18 @@ const Offer = (props: OfferProps) => {
         )}
       </Illustration>
       <TitleContainer>
-        <ThemedText darkColor="222222" type="title">
-          {title}
-        </ThemedText>
+        <ThemedText type="title">{title}</ThemedText>
       </TitleContainer>
       <SubtitleContainer>
-        <ThemedText darkColor="222222" type="default">
+        <ThemedText type="default">
           {company} | {location}
         </ThemedText>
-        <ThemedText darkColor="222222" type="defaultSemiBold">
+        <ThemedText type="defaultSemiBold">
           {remote ? 'Remote' : 'On-site'} | {salary}€
         </ThemedText>
       </SubtitleContainer>
       <SkillsSection>
-        <ThemedText darkColor="222222" type="subtitle">
-          Skills
-        </ThemedText>
+        <ThemedText type="subtitle">Skills</ThemedText>
         <SkillContainer>
           {skills.map((skill, index) => (
             <Skill key={index} skill={skill} />
@@ -59,12 +55,8 @@ const Offer = (props: OfferProps) => {
         </SkillContainer>
       </SkillsSection>
       <DescriptionContainer>
-        <ThemedText darkColor="222222" type="subtitle">
-          Description
-        </ThemedText>
-        <ThemedText darkColor="222222" type="default">
-          {description}
-        </ThemedText>
+        <ThemedText type="subtitle">Description</ThemedText>
+        <ThemedText type="default">{description}</ThemedText>
       </DescriptionContainer>
     </ScrollableContainer>
   );

@@ -18,7 +18,8 @@ const ProfileScreen = () => {
       name: 'logout',
       onPress: () => {
         logout();
-        router.replace('/(auth)');
+        console.log('logout');
+        router.push('/(auth)');
       },
     },
   ];

@@ -15,6 +15,7 @@ import {
 import chroma from 'chroma-js';
 import GradientBackGround from '../components/GradientBackGround';
 import { useAuth } from '../hooks/useAuth';
+import { ThemedText } from '../components/ThemedText';
 
 const LandingScreen = () => {
   const router = useRouter();
@@ -42,9 +43,8 @@ const LandingScreen = () => {
       <Container width={width}>
         <Content>
           <Title color={textColor}>
-            <Highlight color={mainColor}>Postulez</Highlight> à des offres
-            d'emploi qui <Highlight color={mainColor}>vous</Highlight>{' '}
-            correspondent.
+            Des offres d'emploi qui{' '}
+            <Highlight color={mainColor}>vous</Highlight> correspondent.
           </Title>
         </Content>
         <Footer>
@@ -52,8 +52,11 @@ const LandingScreen = () => {
             <ButtonText label="Commencer" onPress={handleStart} />
           </ButtonContainer>
           <FooterTextContainer>
-            <FooterText color={placeholderColor}>Déjà un compte ? </FooterText>
-            <FooterLink onPress={() => router.replace('/(auth)/login')}>
+            <FooterText>Déjà un compte ? </FooterText>
+            <FooterLink
+              type="link"
+              onPress={() => router.replace('/(auth)/login')}
+            >
               Se connecter
             </FooterLink>
           </FooterTextContainer>
@@ -106,14 +109,12 @@ const FooterTextContainer = styled(View)`
   margin-bottom: 32px;
 `;
 
-const FooterText = styled(Text)<{ color: string }>`
-  color: ${(props) => props.color};
+const FooterText = styled(ThemedText)`
   font-size: 14px;
 `;
 
-const FooterLink = styled(Text)`
-  color: red;
-  font-size: 14px;
+const FooterLink = styled(ThemedText)`
+  font-size: 16px;
   font-weight: bold;
 `;
 

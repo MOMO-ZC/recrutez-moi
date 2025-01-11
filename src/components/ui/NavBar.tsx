@@ -55,7 +55,7 @@ const Footer = styled(View)`
   bottom: 0;
   align-self: center;
   align-items: center;
-  margin-bottom: 32px;
+  margin-bottom: 24px;
 `;
 const NavBarContainer = styled(View)`
   flex: 1;
@@ -64,7 +64,8 @@ const NavBarContainer = styled(View)`
   justify-content: space-around;
   width: 90%;
   padding: 16px;
-  background-color: #ffffff90;
+  background-color: #4e32ef90;
+  backdrop-filter: blur(20px);
 `;
 
 const IconButton = styled(TouchableOpacity)`

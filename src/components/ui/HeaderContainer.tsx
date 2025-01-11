@@ -28,8 +28,8 @@ const HeaderContainer = ({
   menuOptions = [],
 }: HeaderContainerProps) => {
   const { menuVisible, toggleMenu, animationValue } = useHeader();
-  const iconColor = useThemeColor({}, 'black');
-  const buttonColor = useThemeColor({}, 'whiteBlur');
+  const iconColor = useThemeColor({}, 'text');
+  const buttonColor = useThemeColor({}, 'mainUi');
   const navigation = useNavigation();
 
   const menuStyle = {
@@ -79,7 +79,7 @@ const HeaderContainer = ({
               }
             />
             {menuVisible && (
-              <MenuModal style={menuStyle}>
+              <MenuModal style={menuStyle} color={buttonColor}>
                 <FlatList
                   data={menuOptions}
                   keyExtractor={(item) => item.name}
@@ -127,11 +127,11 @@ const TitleContainer = styled(View)`
   align-items: center;
 `;
 
-const MenuModal = styled(Animated.View)`
+const MenuModal = styled(Animated.View)<{ color: string }>`
   position: absolute;
   top: 50px;
   right: 0px;
-  background-color: #ffffff99;
+  background-color: ${(props) => props.color};
   border-radius: 8px;
   padding: 10px;
   flex-grow: 0;
@@ -143,7 +143,6 @@ const MenuItem = styled(TouchableOpacity)`
   padding: 8px;
 `;
 
-const MenuItemText = styled(Text)`
+const MenuItemText = styled(ThemedText)`
   font-size: 16px;
-  color: black;
 `;
