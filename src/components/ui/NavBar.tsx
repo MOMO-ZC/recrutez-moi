@@ -7,6 +7,7 @@ import { useThemeColor } from '@/src/hooks/useThemeColor';
 const NavBar = () => {
   const fill = useThemeColor({}, 'black');
   const stroke = useThemeColor({}, 'placeholder');
+  const navColor = useThemeColor({}, 'mainUi');
 
   const router = useRouter();
 
@@ -14,7 +15,7 @@ const NavBar = () => {
 
   return (
     <Footer>
-      <NavBarContainer>
+      <NavBarContainer color={navColor}>
         <IconButton onPress={() => router.replace('/(tabs)')}>
           <Feather
             name="target"
@@ -57,14 +58,14 @@ const Footer = styled(View)`
   align-items: center;
   margin-bottom: 24px;
 `;
-const NavBarContainer = styled(View)`
+const NavBarContainer = styled(View)<{ color: string }>`
   flex: 1;
   flex-direction: row;
   border-radius: 36px;
   justify-content: space-around;
   width: 90%;
   padding: 16px;
-  background-color: #4e32ef90;
+  background-color: ${(props) => props.color};
   backdrop-filter: blur(20px);
 `;
 

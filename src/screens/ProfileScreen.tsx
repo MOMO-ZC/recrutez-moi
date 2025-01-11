@@ -6,7 +6,10 @@ import ScreenContainer from './common/ScreenContainer';
 
 import { candidates } from '../mock/candidats';
 import Profile from '../components/Profile/Profile';
-import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import {
+  GestureHandlerRootView,
+  ScrollView,
+} from 'react-native-gesture-handler';
 
 const ProfileScreen = () => {
   const { logout } = useAuth();
@@ -30,14 +33,14 @@ const ProfileScreen = () => {
 
   return (
     <ScreenContainer>
-      <GestureHandlerRootView style={{ flex: 1 }}>
+      <ScrollView>
         <HeaderContainer
           title="Profile Screen"
           menu
           menuOptions={menuOptions}
         />
         <Profile candidate={candidates[0]} />
-      </GestureHandlerRootView>
+      </ScrollView>
     </ScreenContainer>
   );
 };

@@ -4,7 +4,6 @@ import styled from 'styled-components';
 import { ThemedText } from '../ThemedText';
 import FormationDisplayer from './FormationDisplayer';
 import { useEffect } from 'react';
-import { ScrollView } from 'react-native-gesture-handler';
 import SkillDisplayer from './SkillDisplayer';
 import ProjectDisplayer from './ProjectDisplayer';
 import { getUniqueSkills } from '@/src/utils/getSkills';
@@ -45,36 +44,34 @@ const Profile = (props: ProfileProps) => {
   }, []);
 
   return (
-    <ScrollableContainer>
-      <ProfileContainer>
-        <AvatarContainer>
-          {avatar ? (
-            <Avatar source={avatar} />
-          ) : (
-            <Avatar source={require('../../assets/images/defaultuser.png')} />
-          )}
-        </AvatarContainer>
-        <TitleContainer>
-          <ThemedText type="title">
-            {firstName} {lastName}
-          </ThemedText>
-          <ThemedText type="default">{location}</ThemedText>
-        </TitleContainer>
-        <FormationContainer>
-          <ThemedText type="subtitle">Formations</ThemedText>
-          {formations && <FormationDisplayer formations={formations} />}
-        </FormationContainer>
+    <ProfileContainer>
+      <AvatarContainer>
+        {avatar ? (
+          <Avatar source={avatar} />
+        ) : (
+          <Avatar source={require('../../assets/images/defaultuser.png')} />
+        )}
+      </AvatarContainer>
+      <TitleContainer>
+        <ThemedText type="title">
+          {firstName} {lastName}
+        </ThemedText>
+        <ThemedText type="default">{location}</ThemedText>
+      </TitleContainer>
+      <FormationContainer>
+        <ThemedText type="subtitle">Formations</ThemedText>
+        {formations && <FormationDisplayer formations={formations} />}
+      </FormationContainer>
 
-        <ProjectContainer>
-          <ThemedText type="subtitle">Projects</ThemedText>
-          {projects && <ProjectDisplayer projects={projects} />}
-        </ProjectContainer>
-        <SkillsContainer>
-          <ThemedText type="subtitle">Skills</ThemedText>
-          <SkillDisplayer skills={skills} />
-        </SkillsContainer>
-      </ProfileContainer>
-    </ScrollableContainer>
+      <ProjectContainer>
+        <ThemedText type="subtitle">Projects</ThemedText>
+        {projects && <ProjectDisplayer projects={projects} />}
+      </ProjectContainer>
+      <SkillsContainer>
+        <ThemedText type="subtitle">Skills</ThemedText>
+        <SkillDisplayer skills={skills} />
+      </SkillsContainer>
+    </ProfileContainer>
   );
 };
 
@@ -108,14 +105,6 @@ const TitleContainer = styled(View)`
   align-items: center;
 `;
 
-const ScrollableContainer = styled(ScrollView).attrs(() => ({
-  contentContainerStyle: {
-    flexGrow: 1,
-    paddingBottom: 20, // Prevent cutoff at the bottom
-  },
-}))`
-  flex: 1;
-`;
 const SkillsContainer = styled(View)`
   margin-top: 12px;
   margin-left: 12px;

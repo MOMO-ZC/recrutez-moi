@@ -10,7 +10,7 @@ interface ProjectDisplayerProps {
 
 const ProjectDisplayer = (props: ProjectDisplayerProps) => {
   const { projects } = props;
-  const itemColor = useThemeColor({}, 'mainUi');
+  const itemColor = useThemeColor({}, 'ui-items');
 
   return (
     <ProjectContainer>
@@ -36,4 +36,12 @@ const ProjectItem = styled(View)<{ color: string }>`
   margin-top: 8px;
   padding: 8px;
   border-radius: 8px;
+  elevation: 5;
+  shadow-color: #000;
+  shadow-offset: {
+    width: 0;
+    height: 4;
+  }
+  shadow-opacity: 0.25;
+  shadow-radius: 3.84;
 `;

@@ -10,7 +10,7 @@ interface FormationDisplayerProps {
 
 const FormationDisplayer = (props: FormationDisplayerProps) => {
   const { formations } = props;
-  const itemColor = useThemeColor({}, 'mainUi');
+  const itemColor = useThemeColor({}, 'ui-items');
 
   return (
     <FormationContainer>
@@ -41,4 +41,12 @@ const FormationItem = styled(View)<{ color: string }>`
   margin-top: 8px;
   padding: 8px;
   border-radius: 8px;
+  shadow-color: #000;
+  shadow-offset: {
+    width: 0;
+    height: 2;
+  }
+  shadow-opacity: 0.25;
+  shadow-radius: 3.84;
+  elevation: 5;
 `;
