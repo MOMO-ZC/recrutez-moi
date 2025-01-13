@@ -9,12 +9,13 @@ import ProjectDisplayer from './ProjectDisplayer';
 import { getUniqueSkills } from '@/src/utils/getSkills';
 import { Feather } from '@expo/vector-icons';
 import { useThemeColor } from '@/src/hooks/useThemeColor';
+import DynamicForm, { FormField } from '../ui/DynamicForm';
 
 interface ProfileProps {
   candidate: Candidate;
 }
 
-const Profile = (props: ProfileProps) => {
+const EditProfile = (props: ProfileProps) => {
   const { candidate } = props;
 
   const {
@@ -40,6 +41,29 @@ const Profile = (props: ProfileProps) => {
 
   const iconColor = useThemeColor({}, 'text');
 
+  const editFormFields: FormField[] = [
+    {
+      name: 'firstName',
+      label: 'Adresse email',
+      placeholder: firstName,
+      type: 'text',
+    },
+    { name: 'lastName', label: 'Nom', placeholder: lastName, type: 'text' },
+    {
+      name: 'birthDate',
+      label: 'Date de naissance',
+      placeholder: birthDate,
+      type: 'text',
+    },
+    { name: 'location', label: 'Adresse', placeholder: location, type: 'text' },
+    { name: 'email', label: 'Adresse email', placeholder: email, type: 'text' },
+    { name: 'bio', label: 'Biographie', placeholder: bio, type: 'text' },
+  ];
+
+  const handleEdit = () => {
+    console.log('edit');
+  };
+
   return (
     <ProfileContainer>
       <AvatarContainer>
@@ -48,6 +72,9 @@ const Profile = (props: ProfileProps) => {
         ) : (
           <Avatar source={require('../../assets/images/defaultuser.png')} />
         )}
+        <ModifierIconContainer>
+          <Feather name="edit-3" size={24} color={iconColor} />
+        </ModifierIconContainer>
       </AvatarContainer>
 
       <TitleContainer>
@@ -55,48 +82,17 @@ const Profile = (props: ProfileProps) => {
           {firstName} {lastName}
         </ThemedText>
         <ThemedText type="default">{location}</ThemedText>
+        <DynamicForm
+          formStructure={editFormFields}
+          label="Modifier"
+          onSubmit={handleEdit}
+        />
       </TitleContainer>
-
-      <FormationContainer>
-        <ThemedText type="subtitle">Formations</ThemedText>
-        {formations && <FormationDisplayer formations={formations} />}
-      </FormationContainer>
-
-      <ProjectContainer>
-        <ThemedText type="subtitle">Projects</ThemedText>
-        {projects && <ProjectDisplayer projects={projects} />}
-      </ProjectContainer>
-      <SkillsContainer>
-        <ThemedText type="subtitle">Skills</ThemedText>
-        <SkillDisplayer skills={skills} />
-      </SkillsContainer>
-      <ContactContainer>
-        <ThemedText type="subtitle">About me</ThemedText>
-        <ThemedText type="default">{bio}</ThemedText>
-        <ContactItem>
-          <ContactIcon name="gift" size={16} color={iconColor} />
-          <ThemedText type="default">{birthDate}</ThemedText>
-        </ContactItem>
-        <ContactItem>
-          <ContactIcon name="globe" size={16} color={iconColor} />
-          <ThemedText type="default">{languages.join(', ')}</ThemedText>
-        </ContactItem>
-        {interests && (
-          <ContactItem>
-            <ContactIcon name="heart" size={16} color={iconColor} />
-            <ThemedText type="default">{interests.join(', ')}</ThemedText>
-          </ContactItem>
-        )}
-        <ContactItem>
-          <ContactIcon name="mail" size={16} color={iconColor} />
-          <ThemedText type="default">{email}</ThemedText>
-        </ContactItem>
-      </ContactContainer>
     </ProfileContainer>
   );
 };
 
-export default Profile;
+export default EditProfile;
 
 const Avatar = styled(Image)`
   margin-top: 16px;
@@ -106,7 +102,18 @@ const Avatar = styled(Image)`
   align-self: center;
 `;
 
-const AvatarContainer = styled(View)``;
+const AvatarContainer = styled(View)`
+  flex-direction: row;
+  justify-content: center;
+`;
+
+const AvatarModifier = styled(View)`
+  margin-top: 16px;
+  width: 200px;
+  height: 200px;
+  border-radius: 100px;
+  align-self: center;
+`;
 
 const ContactContainer = styled(View)`
   margin-top: 12px;
@@ -126,8 +133,14 @@ const ContactItem = styled(View)`
 
 const FormationContainer = styled(View)`
     margin-left: 12px
-    margin-right: 12px
+    margin-right: 32px
     margin-top: 12px;
+`;
+
+const ModifierIconContainer = styled(View)`
+  position: absolute;
+  bottom: 0;
+  right: 25%;
 `;
 
 const ProfileContainer = styled(View)``;

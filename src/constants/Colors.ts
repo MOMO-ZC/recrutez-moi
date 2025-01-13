@@ -22,7 +22,7 @@ const LightTheme = {
   success: '#06D6A0',
   warning: '#FFD166',
   danger: '#EF476F',
-  'ui-items': '#FFF4EC',
+  'ui-items': '#edede9',
 };
 
 const DarkTheme = {

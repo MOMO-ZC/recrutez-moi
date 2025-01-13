@@ -22,6 +22,7 @@ export interface Candidate {
 
 export interface Company {
   jobOffers?: JobOffer[];
+  name: string;
   user: User;
 }
 
@@ -38,6 +39,7 @@ export interface Formation {
 }
 export interface MenuOption {
   name: string;
+  icon?: () => JSX.Element;
   onPress: () => void;
 }
 export interface JobOffer {

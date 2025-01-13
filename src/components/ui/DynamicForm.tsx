@@ -22,6 +22,7 @@ interface Option {
 export interface FormField {
   name: string;
   label: string;
+  placeholder?: string;
   type: 'text' | 'number' | 'select' | 'password';
   options?: Option[];
 }
@@ -48,7 +49,7 @@ const renderFormField = (
           <StyledLabel>{field.label}</StyledLabel>
           <StyledInput
             borderColor={colors.borderColor}
-            placeholder={field.label}
+            placeholder={field.placeholder ?? field.label}
             placeholderTextColor={colors.placeHolderColor}
             secureTextEntry={field.type === 'password'}
             keyboardType={field.type === 'number' ? 'numeric' : 'default'}

@@ -47,6 +47,6 @@ const FormationItem = styled(View)<{ color: string }>`
     height: 2;
   }
   shadow-opacity: 0.25;
-  shadow-radius: 3.84;
+  shadow-radius: 4;
   elevation: 5;
 `;

@@ -43,5 +43,5 @@ const ProjectItem = styled(View)<{ color: string }>`
     height: 4;
   }
   shadow-opacity: 0.25;
-  shadow-radius: 3.84;
+  shadow-radius: 4;
 `;

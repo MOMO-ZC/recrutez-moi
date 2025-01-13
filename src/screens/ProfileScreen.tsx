@@ -10,19 +10,29 @@ import {
   GestureHandlerRootView,
   ScrollView,
 } from 'react-native-gesture-handler';
+import { Feather } from '@expo/vector-icons';
+import { useThemeColor } from '../hooks/useThemeColor';
+import styled from 'styled-components';
 
 const ProfileScreen = () => {
   const { logout } = useAuth();
   const router = useRouter();
+  const iconColor = useThemeColor({}, 'text');
   const menuOptions: MenuOption[] = [
     {
       name: 'edit',
+      icon: () => {
+        return <Icon name="edit-3" size={14} color={iconColor} />;
+      },
       onPress: () => {
-        console.log('edit');
+        router.navigate('/(tabs)/edit-profile');
       },
     },
     {
       name: 'logout',
+      icon: () => {
+        return <Icon name="log-out" size={14} color={iconColor} />;
+      },
       onPress: () => {
         logout();
         console.log('logout');
@@ -46,3 +56,7 @@ const ProfileScreen = () => {
 };
 
 export default ProfileScreen;
+
+const Icon = styled(Feather)`
+  margin-right: 8px;
+`;
