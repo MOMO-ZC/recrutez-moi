@@ -25,7 +25,7 @@ const ProfileScreen = () => {
         return <Icon name="edit-3" size={14} color={iconColor} />;
       },
       onPress: () => {
-        router.navigate('/(tabs)/edit-profile');
+        router.push('/(tabs)/profile/edit-profile');
       },
     },
     {

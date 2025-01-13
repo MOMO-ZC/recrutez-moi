@@ -30,7 +30,7 @@ const HeaderContainer = ({
 }: HeaderContainerProps) => {
   const { menuVisible, toggleMenu, animationValue } = useHeader();
   const iconColor = useThemeColor({}, 'text');
-  const buttonColor = useThemeColor({}, 'mainUi');
+  const buttonColor = useThemeColor({}, 'ui-buttons');
   const router = useRouter();
 
   const menuStyle = {
@@ -109,12 +109,13 @@ const HeaderContainerView = styled(View)`
 const BackButtonContainer = styled(View)`
   position: absolute;
   left: 32px;
-  margin-bottom: 4px;
+  top: -8;
 `;
 
 const MenuButtonContainer = styled(View)`
   position: absolute;
   right: 32px;
+  top: -8;
 `;
 
 const TitleContainer = styled(View)`

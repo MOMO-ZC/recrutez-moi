@@ -9,6 +9,8 @@ import ProjectDisplayer from './ProjectDisplayer';
 import { getUniqueSkills } from '@/src/utils/getSkills';
 import { Feather } from '@expo/vector-icons';
 import { useThemeColor } from '@/src/hooks/useThemeColor';
+import RoundedButton from '../ui/RoundedButton';
+import { router, useRouter } from 'expo-router';
 
 interface ProfileProps {
   candidate: Candidate;
@@ -16,7 +18,6 @@ interface ProfileProps {
 
 const Profile = (props: ProfileProps) => {
   const { candidate } = props;
-
   const {
     avatar,
     bio,
@@ -40,6 +41,8 @@ const Profile = (props: ProfileProps) => {
 
   const iconColor = useThemeColor({}, 'text');
 
+  const router = useRouter();
+
   return (
     <ProfileContainer>
       <AvatarContainer>
@@ -49,21 +52,44 @@ const Profile = (props: ProfileProps) => {
           <Avatar source={require('../../assets/images/defaultuser.png')} />
         )}
       </AvatarContainer>
-
-      <TitleContainer>
-        <ThemedText type="title">
-          {firstName} {lastName}
-        </ThemedText>
+      <InfoContainer>
+        <TitleContainer>
+          <ThemedText type="title">
+            {firstName} {lastName}
+          </ThemedText>
+          <RoundedButton
+            size={32}
+            color={'transparent'}
+            icon={<Icon name="edit-3" size={20} color={iconColor} />}
+            onPress={() => router.push('/(tabs)/profile/edit-profile')}
+          />
+        </TitleContainer>
         <ThemedText type="default">{location}</ThemedText>
-      </TitleContainer>
+      </InfoContainer>
 
       <FormationContainer>
-        <ThemedText type="subtitle">Formations</ThemedText>
+        <TitleContainer>
+          <ThemedText type="subtitle">Formations</ThemedText>
+          <RoundedButton
+            size={28}
+            color={'transparent'}
+            icon={<Icon name="edit-3" size={16} color={iconColor} />}
+            onPress={() => router.push('/(tabs)/profile/edit-formation')}
+          />
+        </TitleContainer>
         {formations && <FormationDisplayer formations={formations} />}
       </FormationContainer>
 
       <ProjectContainer>
-        <ThemedText type="subtitle">Projects</ThemedText>
+        <TitleContainer>
+          <ThemedText type="subtitle">Projects</ThemedText>
+          <RoundedButton
+            size={28}
+            color={'transparent'}
+            icon={<Icon name="edit-3" size={16} color={iconColor} />}
+            onPress={() => router.push('/(tabs)/profile/edit-profile')}
+          />
+        </TitleContainer>
         {projects && <ProjectDisplayer projects={projects} />}
       </ProjectContainer>
       <SkillsContainer>
@@ -71,8 +97,17 @@ const Profile = (props: ProfileProps) => {
         <SkillDisplayer skills={skills} />
       </SkillsContainer>
       <ContactContainer>
-        <ThemedText type="subtitle">About me</ThemedText>
+        <TitleContainer>
+          <ThemedText type="subtitle">About me</ThemedText>
+          <RoundedButton
+            size={28}
+            color={'transparent'}
+            icon={<Icon name="edit-3" size={16} color={iconColor} />}
+            onPress={() => router.push('/(tabs)/profile/edit-profile')}
+          />
+        </TitleContainer>
         <ThemedText type="default">{bio}</ThemedText>
+
         <ContactItem>
           <ContactIcon name="gift" size={16} color={iconColor} />
           <ThemedText type="default">{birthDate}</ThemedText>
@@ -130,6 +165,12 @@ const FormationContainer = styled(View)`
     margin-top: 12px;
 `;
 
+const Icon = styled(Feather)``;
+
+const InfoContainer = styled(View)`
+  align-items: center;
+`;
+
 const ProfileContainer = styled(View)``;
 
 const ProjectContainer = styled(View)`
@@ -139,8 +180,8 @@ const ProjectContainer = styled(View)`
 `;
 
 const TitleContainer = styled(View)`
-  align-items: center;
   margin-top: 16px;
+  flex-direction: row;
 `;
 
 const SkillsContainer = styled(View)`

@@ -6,8 +6,9 @@ import { useThemeColor } from '@/src/hooks/useThemeColor';
 
 const NavBar = () => {
   const fill = useThemeColor({}, 'black');
-  const stroke = useThemeColor({}, 'placeholder');
-  const navColor = useThemeColor({}, 'mainUi');
+  const stroke = useThemeColor({}, 'white');
+  const navColor = useThemeColor({}, 'ui-buttons');
+  const borderColor = useThemeColor({}, 'ui-items');
 
   const router = useRouter();
 
@@ -15,7 +16,7 @@ const NavBar = () => {
 
   return (
     <Footer>
-      <NavBarContainer color={navColor}>
+      <NavBarContainer color={navColor} border={borderColor}>
         <IconButton onPress={() => router.replace('/(tabs)')}>
           <Feather
             name="target"
@@ -58,7 +59,7 @@ const Footer = styled(View)`
   align-items: center;
   margin-bottom: 24px;
 `;
-const NavBarContainer = styled(View)<{ color: string }>`
+const NavBarContainer = styled(View)<{ color: string; border: string }>`
   flex: 1;
   flex-direction: row;
   border-radius: 36px;
@@ -67,6 +68,13 @@ const NavBarContainer = styled(View)<{ color: string }>`
   padding: 16px;
   background-color: ${(props) => props.color};
   backdrop-filter: blur(20px);
+  border: 1px solid ${(props) => props.border};
+  elevation: 5;
+  shadow-color: #000;
+  shadow-offset: 0 2px;
+  shadow-opacity: 0.23;
+  shadow-radius: 4;
+  elevation: 4;
 `;
 
 const IconButton = styled(TouchableOpacity)`

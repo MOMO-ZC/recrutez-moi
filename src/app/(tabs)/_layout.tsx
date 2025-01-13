@@ -36,12 +36,6 @@ export default function TabLayout() {
           }}
         />
         <Tabs.Screen
-          name="edit-profile"
-          options={{
-            title: 'Edit Profile',
-          }}
-        />
-        <Tabs.Screen
           name="not-found"
           options={{
             title: 'Not Found',

@@ -23,6 +23,7 @@ const LightTheme = {
   warning: '#FFD166',
   danger: '#EF476F',
   'ui-items': '#edede9',
+  'ui-buttons': '#d9d9d9',
 };
 
 const DarkTheme = {
@@ -38,6 +39,7 @@ const DarkTheme = {
   warning: '#D4A029',
   danger: '#D13456',
   'ui-items': '#312780',
+  'ui-buttons': '#4E32EF',
 };
 
 export const Colors = {

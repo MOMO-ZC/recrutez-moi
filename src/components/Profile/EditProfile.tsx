@@ -10,6 +10,7 @@ import { getUniqueSkills } from '@/src/utils/getSkills';
 import { Feather } from '@expo/vector-icons';
 import { useThemeColor } from '@/src/hooks/useThemeColor';
 import DynamicForm, { FormField } from '../ui/DynamicForm';
+import { useRouter } from 'expo-router';
 
 interface ProfileProps {
   candidate: Candidate;
@@ -57,11 +58,14 @@ const EditProfile = (props: ProfileProps) => {
     },
     { name: 'location', label: 'Adresse', placeholder: location, type: 'text' },
     { name: 'email', label: 'Adresse email', placeholder: email, type: 'text' },
-    { name: 'bio', label: 'Biographie', placeholder: bio, type: 'text' },
+    { name: 'bio', label: 'Biographie', placeholder: bio, type: 'longText' },
   ];
+
+  const router = useRouter();
 
   const handleEdit = () => {
     console.log('edit');
+    router.push('/(tabs)/profile');
   };
 
   return (
@@ -82,11 +86,13 @@ const EditProfile = (props: ProfileProps) => {
           {firstName} {lastName}
         </ThemedText>
         <ThemedText type="default">{location}</ThemedText>
-        <DynamicForm
-          formStructure={editFormFields}
-          label="Modifier"
-          onSubmit={handleEdit}
-        />
+        <FormContainer>
+          <DynamicForm
+            formStructure={editFormFields}
+            label="Modifier"
+            onSubmit={handleEdit}
+          />
+        </FormContainer>
       </TitleContainer>
     </ProfileContainer>
   );
@@ -135,6 +141,11 @@ const FormationContainer = styled(View)`
     margin-left: 12px
     margin-right: 32px
     margin-top: 12px;
+`;
+
+const FormContainer = styled(View)`
+  margin-top: 16px;
+  margin-bottom: 128px;
 `;
 
 const ModifierIconContainer = styled(View)`
