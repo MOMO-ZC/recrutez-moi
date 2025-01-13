@@ -17,6 +17,7 @@ import Button from './Button';
 import { JobOffer, Skill } from '@/src/types';
 import Offer from './Offer';
 import styled from 'styled-components';
+import OfferCard from './OfferCard';
 
 const PREV = WIDTH;
 const NEXT = 0;
@@ -140,7 +141,10 @@ const LikeSlider = (props: SliderProps) => {
     <PanGestureHandler onGestureEvent={onGestureEvent}>
       <Animated.View style={StyleSheet.absoluteFill}>
         {/* Dislike Slide */}
-        <Animated.View style={[StyleSheet.absoluteFill, leftStyle]}>
+        <Animated.View
+          style={[StyleSheet.absoluteFill, leftStyle]}
+          pointerEvents={isTransitioningLeft.value ? 'auto' : 'none'}
+        >
           <Wave
             position={left}
             side={Side.LEFT}
@@ -156,16 +160,19 @@ const LikeSlider = (props: SliderProps) => {
         {/* Current Proposition Slide */}
         <View
           style={[
-            // StyleSheet.absoluteFill,
             { backgroundColor: background, zIndex: 0 },
             styles.proposition,
           ]}
+          pointerEvents="auto"
         >
           <Offer jobOffer={jobOffers[currentIndex]} />
         </View>
 
         {/* Like Slide */}
-        <Animated.View style={[StyleSheet.absoluteFill, rightStyle]}>
+        <Animated.View
+          style={[StyleSheet.absoluteFill, rightStyle]}
+          pointerEvents={isTransitioningRight.value ? 'auto' : 'none'}
+        >
           <Wave
             position={right}
             side={Side.RIGHT}
