@@ -11,6 +11,8 @@ import { AuthProvider } from '../contexts/AuthContext';
 import App from './App';
 import { Colors } from '../constants/Colors';
 import { HeaderProvider } from '../contexts/HeaderContext';
+import { FormationProvider } from '../contexts/FormationContext';
+import { ProjectContext, ProjectProvider } from '../contexts/ProjectContext';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -52,7 +54,11 @@ export default function RootLayout() {
         <ThemeProvider
           value={colorScheme === 'dark' ? CustomDarkTheme : CustomDefaultTheme}
         >
-          <App />
+          <FormationProvider>
+            <ProjectProvider>
+            <App />
+            </ProjectProvider>
+          </FormationProvider>
         </ThemeProvider>
       </HeaderProvider>
     </AuthProvider>

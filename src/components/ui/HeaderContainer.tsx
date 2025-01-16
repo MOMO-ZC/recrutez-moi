@@ -6,9 +6,10 @@ import {
   Animated,
   Text,
   TouchableWithoutFeedback,
+  VirtualizedList,
 } from 'react-native';
 import styled from 'styled-components';
-import { useNavigation } from 'expo-router';
+import { useRouter } from 'expo-router';
 import { Feather } from '@expo/vector-icons';
 import { useHeader } from '@/src/hooks/useHeader';
 import { useThemeColor } from '@/src/hooks/useThemeColor';
@@ -29,8 +30,8 @@ const HeaderContainer = ({
 }: HeaderContainerProps) => {
   const { menuVisible, toggleMenu, animationValue } = useHeader();
   const iconColor = useThemeColor({}, 'text');
-  const buttonColor = useThemeColor({}, 'mainUi');
-  const navigation = useNavigation();
+  const buttonColor = useThemeColor({}, 'ui-buttons');
+  const router = useRouter();
 
   const menuStyle = {
     opacity: animationValue,
@@ -56,7 +57,7 @@ const HeaderContainer = ({
           <RoundedButton
             onPress={() => {
               if (menuVisible) toggleMenu();
-              navigation.goBack();
+              router.back();
             }}
             color={buttonColor}
             size={40}
@@ -80,20 +81,12 @@ const HeaderContainer = ({
             />
             {menuVisible && (
               <MenuModal style={menuStyle} color={buttonColor}>
-                <FlatList
-                  data={menuOptions}
-                  keyExtractor={(item) => item.name}
-                  renderItem={({ item }) => (
-                    <MenuItem
-                      onPress={() => {
-                        toggleMenu();
-                        item.onPress();
-                      }}
-                    >
-                      <MenuItemText>{item.name}</MenuItemText>
-                    </MenuItem>
-                  )}
-                />
+                {menuOptions.map((option) => (
+                  <MenuItem key={option.name} onPress={option.onPress}>
+                    {option.icon && option.icon()}
+                    <MenuItemText>{option.name}</MenuItemText>
+                  </MenuItem>
+                ))}
               </MenuModal>
             )}
           </MenuButtonContainer>
@@ -110,16 +103,19 @@ const HeaderContainerView = styled(View)`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+  z-index: 100;
 `;
 
 const BackButtonContainer = styled(View)`
   position: absolute;
   left: 32px;
+  top: -8;
 `;
 
 const MenuButtonContainer = styled(View)`
   position: absolute;
   right: 32px;
+  top: -8;
 `;
 
 const TitleContainer = styled(View)`
@@ -133,14 +129,16 @@ const MenuModal = styled(Animated.View)<{ color: string }>`
   right: 0px;
   background-color: ${(props) => props.color};
   border-radius: 8px;
-  padding: 10px;
+  padding: 8px;
   flex-grow: 0;
   min-width: 90px;
 `;
 
 const MenuItem = styled(TouchableOpacity)`
   width: auto;
-  padding: 8px;
+  padding: 4px;
+  flex-direction: row;
+  align-items: center;
 `;
 
 const MenuItemText = styled(ThemedText)`

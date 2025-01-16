@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   TextInput,
   TouchableOpacity,
@@ -22,8 +22,10 @@ interface Option {
 export interface FormField {
   name: string;
   label: string;
-  type: 'text' | 'number' | 'select' | 'password';
+  placeholder?: string;
+  type: 'text' | 'number' | 'select' | 'password' | 'longText';
   options?: Option[];
+  value?: string | number;
 }
 
 interface DynamicFormProps {
@@ -39,6 +41,8 @@ const renderFormField = (
   handleChange: (name: string, value: any) => void,
   values: { [key: string]: any }
 ) => {
+  const fieldValue = values[field.name] ?? field.value ?? ''; // State value > Initial value > Empty
+
   switch (field.type) {
     case 'text':
     case 'number':
@@ -48,11 +52,27 @@ const renderFormField = (
           <StyledLabel>{field.label}</StyledLabel>
           <StyledInput
             borderColor={colors.borderColor}
-            placeholder={field.label}
+            placeholder={field.placeholder ?? field.label}
             placeholderTextColor={colors.placeHolderColor}
             secureTextEntry={field.type === 'password'}
             keyboardType={field.type === 'number' ? 'numeric' : 'default'}
-            value={values[field.name] || ''}
+            value={fieldValue}
+            onChangeText={(value) => handleChange(field.name, value)}
+          />
+        </StyledInputContainer>
+      );
+    case 'longText':
+      return (
+        <StyledInputContainer key={index}>
+          <StyledLabel>{field.label}</StyledLabel>
+          <StyledInput
+            borderColor={colors.borderColor}
+            placeholder={field.placeholder ?? field.label}
+            placeholderTextColor={colors.placeHolderColor}
+            secureTextEntry={false}
+            multiline={true}
+            numberOfLines={4}
+            value={fieldValue}
             onChangeText={(value) => handleChange(field.name, value)}
           />
         </StyledInputContainer>
@@ -63,7 +83,7 @@ const renderFormField = (
           <StyledLabel>{field.label}</StyledLabel>
           <StyledPicker
             borderColor={colors.borderColor}
-            selectedValue={values[field.name] || ''}
+            selectedValue={fieldValue}
             onValueChange={(value) => handleChange(field.name, value)}
           >
             {field.options?.map((option, i) => (
@@ -92,6 +112,18 @@ export const DynamicForm: React.FC<DynamicFormProps> = ({
   };
 
   const [formValues, setFormValues] = useState<{ [key: string]: any }>({});
+
+  // Initialize form values from the structure
+  useEffect(() => {
+    const initialValues = formStructure.reduce<{ [key: string]: any }>(
+      (acc, field) => {
+        acc[field.name] = field.value ?? ''; // Use initial value or an empty string
+        return acc;
+      },
+      {} // Initial value of the accumulator
+    );
+    setFormValues(initialValues);
+  }, [formStructure]);
 
   const handleChange = (name: string, value: any) => {
     setFormValues({ ...formValues, [name]: value });
@@ -126,6 +158,7 @@ const Scroll = styled(ScrollView)`
 const StyledForm = styled(View)`
   flex: 1;
   padding: 16px;
+  width: 340px;
 `;
 
 const ButtonContainer = styled(View)`

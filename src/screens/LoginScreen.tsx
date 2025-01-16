@@ -6,14 +6,10 @@ import {
   View,
   Text,
   useWindowDimensions,
-  KeyboardAvoidingView,
-  ScrollView,
-  Platform,
 } from 'react-native';
 import GradientBackGround from '../components/GradientBackGround';
-import { useThemeColor } from '../hooks/useThemeColor';
-import HeaderContainer from '../components/ui/HeaderContainer';
 import { ThemedText } from '../components/ThemedText';
+import { useAuth } from '../hooks/useAuth';
 
 const formStructure: FormField[] = [
   { name: 'email', label: 'Adresse email', type: 'text' },
@@ -22,17 +18,37 @@ const formStructure: FormField[] = [
 
 const LoginScreen: React.FC = () => {
   const { width, height } = useWindowDimensions();
+  const {login} = useAuth();
 
-  const handleLogin = (formData: { [key: string]: any }) => {
+  const handleLogin = async (formData: { [key: string]: any }) => {
+    console.log('Login form data', formData);
     const { email, password } = formData;
     if (!email || !password) {
       Alert.alert('Erreur', 'Veuillez remplir tous les champs');
       return;
     }
+    console.log('Calling apiCall with:', { email, password });
+    try {
+        const response = await fetch('http://127.0.0.1:3000/auth/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ email, password }),
+        });
 
-    console.log('Logging in with:', formData);
-    Alert.alert('Success', `Logged in as ${email}`);
+        if (response.ok) {
+            console.log('logged in')
+            const data = await response.json();
+            login();
+        } else {
+            console.error('Error during login');
+        }
+    } catch (error) {
+        console.error(error);
+    }
   };
+
 
   return (
     <>

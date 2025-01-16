@@ -15,26 +15,22 @@ const JobScreen = () => {
 
   const navigation = useNavigation();
 
-  useEffect(() => {
-    // Prevent hardware back button press
-    const handleBackPress = () => {
-      // Block back navigation
-      return true;
-    };
+  //   useEffect(() => {
+  //     const handleBackPress = () => {
+  //       return true;
+  //     };
 
-    // Listen to the back navigation event
-    const unsubscribe = navigation.addListener('beforeRemove', (e) => {
-      e.preventDefault(); // Prevent swipe back gesture
-    });
+  //     const unsubscribe = navigation.addListener('beforeRemove', (e) => {
+  //       e.preventDefault();
+  //     });
 
-    BackHandler.addEventListener('hardwareBackPress', handleBackPress);
+  //     BackHandler.addEventListener('hardwareBackPress', handleBackPress);
 
-    return () => {
-      // Cleanup event listeners
-      BackHandler.removeEventListener('hardwareBackPress', handleBackPress);
-      unsubscribe();
-    };
-  }, [navigation]);
+  //     return () => {
+  //       BackHandler.removeEventListener('hardwareBackPress', handleBackPress);
+  //       unsubscribe();
+  //     };
+  //   }, [navigation]);
 
   return (
     <Container>
@@ -49,5 +45,4 @@ export default JobScreen;
 
 const Container = styled(View)`
   flex: 1;
-  left: 0;
 `;
