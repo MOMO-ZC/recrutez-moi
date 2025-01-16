@@ -1,18 +1,10 @@
 import React, { useEffect } from 'react';
 import { useRouter } from 'expo-router';
 import { View, Text, useWindowDimensions } from 'react-native';
-import { Canvas, LinearGradient, Rect, vec } from '@shopify/react-native-skia';
 import styled from 'styled-components';
 
 import ButtonText from '../components/ui/ButtonText';
 import { useThemeColor } from '../hooks/useThemeColor';
-import {
-  useDerivedValue,
-  useSharedValue,
-  withRepeat,
-  withTiming,
-} from 'react-native-reanimated';
-import chroma from 'chroma-js';
 import GradientBackGround from '../components/GradientBackGround';
 import { useAuth } from '../hooks/useAuth';
 import { ThemedText } from '../components/ThemedText';
@@ -21,9 +13,8 @@ const LandingScreen = () => {
   const router = useRouter();
   const mainColor = useThemeColor({}, 'main');
   const textColor = useThemeColor({}, 'text');
-  const placeholderColor = useThemeColor({}, 'placeholder');
 
-  const { width, height } = useWindowDimensions();
+  const { width } = useWindowDimensions();
 
   const { login, isAuthenticated } = useAuth();
 
