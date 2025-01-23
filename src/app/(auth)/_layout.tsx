@@ -31,6 +31,18 @@ export default function TabLayout() {
           title: 'Login',
         }}
       />
+      <Tabs.Screen
+        name="chose-register"
+        options={{
+          title: 'Chose Register',
+        }}
+      />
+      <Tabs.Screen
+        name="register"
+        options={{
+          title: 'Register',
+        }}
+      />
     </Tabs>
   );
 }
