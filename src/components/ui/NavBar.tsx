@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import Feather from '@expo/vector-icons/Feather';
 import { usePathname, useRouter } from 'expo-router';
 import { useThemeColor } from '@/src/hooks/useThemeColor';
+import Logo from './Logo';
 
 const NavBar = () => {
   const fill = useThemeColor({}, 'black');
@@ -18,11 +19,7 @@ const NavBar = () => {
     <Footer>
       <NavBarContainer color={navColor} border={borderColor}>
         <IconButton onPress={() => router.replace('/(tabs)')}>
-          <Feather
-            name="target"
-            size={24}
-            color={pathname === '/' ? fill : stroke}
-          />
+          <Logo size={28} fill={pathname === '/' ? fill : stroke} />
         </IconButton>
         <IconButton onPress={() => router.replace('/(tabs)/liked')}>
           <Feather

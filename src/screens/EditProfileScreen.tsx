@@ -1,5 +1,4 @@
 import { ScrollView } from 'react-native-gesture-handler';
-import { Candidate } from '../types';
 import ScreenContainer from './common/ScreenContainer';
 import HeaderContainer from '../components/ui/HeaderContainer';
 import EditProfile from '../components/Profile/EditProfile';

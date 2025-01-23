@@ -15,7 +15,7 @@ const EditProjectScreen = () => {
     ? [
         {
           name: 'title',
-          label: 'Titre',
+          label: 'Title',
           placeholder: project.title,
           type: 'text',
           value: project.title,
@@ -29,16 +29,8 @@ const EditProjectScreen = () => {
         },
       ]
     : [
-        {
-          name: 'title',
-          label: 'Titre',
-          type: 'text',
-        },
-        {
-          name: 'description',
-          label: 'Description',
-          type: 'text',
-        },
+        { name: 'title', label: 'Title', type: 'text' },
+        { name: 'description', label: 'Description', type: 'text' },
       ];
 
   const handleEditProject = () => {
