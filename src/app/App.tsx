@@ -1,10 +1,17 @@
-import { Stack } from 'expo-router';
+import { router, Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { useAuth } from '../hooks/useAuth';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { useEffect } from 'react';
 
 const App = () => {
-  const isAuthenticated = useAuth();
+  const { authToken } = useAuth();
+
+  useEffect(() => {
+    if (authToken) {
+      router.replace('/(tabs)');
+    }
+  }, [authToken]);
   return (
     <>
       <GestureHandlerRootView>
@@ -13,15 +20,14 @@ const App = () => {
             headerShown: false,
           }}
         >
-          {isAuthenticated ? (
-            <Stack.Screen
-              name="(tabs)"
-              options={{ headerShown: false, gestureEnabled: false }}
-            />
-          ) : (
+          {/* {authToken ? ( */}
+          <Stack.Screen
+            name="(auth)"
+            options={{ headerShown: false, gestureEnabled: false }}
+          />
+          {/* ) : (
             <Stack.Screen name="(auth)" options={{ headerShown: false }} />
-          )}
-          <Stack.Screen name="+not-found" />
+          )} */}
         </Stack>
         <StatusBar style="auto" />
       </GestureHandlerRootView>

@@ -16,17 +16,17 @@ const LandingScreen = () => {
 
   const { width } = useWindowDimensions();
 
-  const { isAuthenticated } = useAuth();
+  const { authToken } = useAuth();
 
   const handleStart = () => {
     router.push('/(auth)/chose-register');
   };
 
   useEffect(() => {
-    if (isAuthenticated) {
+    if (authToken) {
       router.replace('/(tabs)');
     }
-  }, [isAuthenticated]);
+  }, [authToken]);
 
   return (
     <>

@@ -5,6 +5,7 @@ import { useWindowDimensions, View } from 'react-native';
 import styled from 'styled-components';
 import { API } from '../const';
 import { ScrollView } from 'react-native-gesture-handler';
+import { useAuth } from '../hooks/useAuth';
 
 const CandidateFormField: FormField[] = [
   {
@@ -71,6 +72,7 @@ const CompanyFormField: FormField[] = [
 const SignUpScreen = () => {
   const role = useSearchParams().get('role');
   const { width, height } = useWindowDimensions();
+  const { login } = useAuth();
 
   const handleSignUp = async (formData: { [key: string]: any }) => {
     const data = {
@@ -91,6 +93,8 @@ const SignUpScreen = () => {
 
         if (response.ok) {
           console.log('registered');
+          const { token } = await response.json();
+          login(token);
         } else {
           console.error('Error during registration');
         }
@@ -109,6 +113,8 @@ const SignUpScreen = () => {
 
         if (response.ok) {
           console.log('registered');
+          const { token } = await response.json();
+          login(token);
         } else {
           console.error('Error during registration');
         }
