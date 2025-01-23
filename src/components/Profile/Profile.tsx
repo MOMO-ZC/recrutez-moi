@@ -70,12 +70,12 @@ const Profile = (props: ProfileProps) => {
       <FormationContainer>
         <TitleContainer>
           <ThemedText type="subtitle">Formations</ThemedText>
-          <RoundedButton
+          {/* <RoundedButton
             size={28}
             color={'transparent'}
             icon={<Icon name="edit-3" size={16} color={iconColor} />}
             onPress={() => router.push('/(tabs)/profile/edit-formation')}
-          />
+          /> */}
         </TitleContainer>
         {formations && <FormationDisplayer formations={formations} />}
       </FormationContainer>
@@ -83,12 +83,12 @@ const Profile = (props: ProfileProps) => {
       <ProjectContainer>
         <TitleContainer>
           <ThemedText type="subtitle">Projects</ThemedText>
-          <RoundedButton
+          {/* <RoundedButton
             size={28}
             color={'transparent'}
             icon={<Icon name="edit-3" size={16} color={iconColor} />}
             onPress={() => router.push('/(tabs)/profile/edit-profile')}
-          />
+          /> */}
         </TitleContainer>
         {projects && <ProjectDisplayer projects={projects} />}
       </ProjectContainer>

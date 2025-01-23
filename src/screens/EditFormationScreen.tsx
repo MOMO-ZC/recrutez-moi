@@ -1,12 +1,9 @@
 import { ScrollView } from 'react-native-gesture-handler';
-import FormationDisplayer from '../components/Profile/FormationDisplayer';
 import HeaderContainer from '../components/ui/HeaderContainer';
-import { formations } from '../mock/candidats';
 
 import ScreenContainer from './common/ScreenContainer';
 import { View } from 'react-native';
 import styled from 'styled-components';
-import { useLocalSearchParams } from 'expo-router/build/hooks';
 import { useFormation } from '../hooks/useFormation';
 import DynamicForm, { FormField } from '../components/ui/DynamicForm';
 import { router } from 'expo-router';

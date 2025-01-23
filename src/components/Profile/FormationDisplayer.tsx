@@ -22,6 +22,7 @@ const FormationDisplayer = (props: FormationDisplayerProps) => {
   const { setFormation } = useFormation();
 
   const handleEdit = (formation?: FormationType) => {
+    console.log(formation);
     if (formation) setFormation(formation);
     else setFormation();
     router.push('/(tabs)/profile/edit-formation');

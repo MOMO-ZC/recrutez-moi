@@ -11,6 +11,7 @@ const App = () => {
     if (authToken) {
       router.replace('/(tabs)');
     }
+    
   }, [authToken]);
   return (
     <>

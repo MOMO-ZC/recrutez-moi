@@ -19,12 +19,7 @@ const NavBar = () => {
     <Footer>
       <NavBarContainer color={navColor} border={borderColor}>
         <IconButton onPress={() => router.replace('/(tabs)')}>
-          {/* <Feather
-            name="target"
-            size={24}
-            color={pathname === '/' ? fill : stroke}
-          /> */}
-          <Logo size={24} fill={pathname === '/' ? fill : stroke} />
+          <Logo size={28} fill={pathname === '/' ? fill : stroke} />
         </IconButton>
         <IconButton onPress={() => router.replace('/(tabs)/liked')}>
           <Feather

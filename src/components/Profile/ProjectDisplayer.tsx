@@ -5,7 +5,8 @@ import { ThemedText } from '../ThemedText';
 import { useThemeColor } from '@/src/hooks/useThemeColor';
 import RoundedButton from '../ui/RoundedButton';
 import { Feather } from '@expo/vector-icons';
-import { router } from 'expo-router';
+import { useRouter } from 'expo-router';
+import { useProject } from '@/src/hooks/useProject';
 
 interface ProjectDisplayerProps {
   projects: ProjectType[];
@@ -16,6 +17,16 @@ const ProjectDisplayer = (props: ProjectDisplayerProps) => {
   const itemColor = useThemeColor({}, 'ui-items');
   const iconColor = useThemeColor({}, 'text');
   const buttonColor = useThemeColor({}, 'ui-buttons');
+
+  const router = useRouter();
+  const { setProject } = useProject();
+
+  const handleEdit = (project?: ProjectType) => {
+    console.log(project);
+    if (project) setProject(project);
+    else setProject();
+    router.push('/(tabs)/profile/edit-project');
+  };
 
   return (
     <ProjectContainer>
@@ -32,7 +43,7 @@ const ProjectDisplayer = (props: ProjectDisplayerProps) => {
                 size={32}
                 color={buttonColor}
                 icon={<Feather name="edit-3" size={16} color={iconColor} />}
-                onPress={() => router.push('/(tabs)/profile/edit-formation')}
+                onPress={() => handleEdit(project)}
               />
             </EditButtonContainer>
           </ProjectItem>
@@ -43,7 +54,7 @@ const ProjectDisplayer = (props: ProjectDisplayerProps) => {
           size={40}
           color={itemColor}
           icon={<Feather name="plus" size={24} color={iconColor} />}
-          onPress={() => router.push('/(tabs)/profile/edit-formation')}
+          onPress={() => handleEdit()}
         />
       </ButtonContainer>
     </ProjectContainer>
