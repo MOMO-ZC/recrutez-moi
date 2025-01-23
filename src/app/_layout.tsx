@@ -56,7 +56,7 @@ export default function RootLayout() {
         >
           <FormationProvider>
             <ProjectProvider>
-            <App />
+              <App />
             </ProjectProvider>
           </FormationProvider>
         </ThemeProvider>

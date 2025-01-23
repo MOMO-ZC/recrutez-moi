@@ -16,10 +16,10 @@ const LandingScreen = () => {
 
   const { width } = useWindowDimensions();
 
-  const { login, isAuthenticated } = useAuth();
+  const { isAuthenticated } = useAuth();
 
   const handleStart = () => {
-    login();
+    router.push('/(auth)/chose-register');
   };
 
   useEffect(() => {

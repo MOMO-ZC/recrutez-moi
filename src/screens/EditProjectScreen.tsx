@@ -11,35 +11,35 @@ import { router } from 'expo-router';
 const EditProjectScreen = () => {
   const { project } = useProject();
 
-    const editFormFields: FormField[] = project
-        ? [
-            {
-            name: 'title',
-            label: 'Titre',
-            placeholder: project.title,
-            type: 'text',
-            value: project.title,
-            },
-            {
-            name: 'description',
-            label: 'Description',
-            placeholder: project.description,
-            type: 'text',
-            value: project.description,
-            },
-        ]
-        : [
-            {
-            name: 'title',
-            label: 'Titre',
-            type: 'text',
-            },
-            {
-            name: 'description',
-            label: 'Description',
-            type: 'text',
-            },
-        ];
+  const editFormFields: FormField[] = project
+    ? [
+        {
+          name: 'title',
+          label: 'Titre',
+          placeholder: project.title,
+          type: 'text',
+          value: project.title,
+        },
+        {
+          name: 'description',
+          label: 'Description',
+          placeholder: project.description,
+          type: 'text',
+          value: project.description,
+        },
+      ]
+    : [
+        {
+          name: 'title',
+          label: 'Titre',
+          type: 'text',
+        },
+        {
+          name: 'description',
+          label: 'Description',
+          type: 'text',
+        },
+      ];
 
   const handleEditProject = () => {
     console.log('Project edited');

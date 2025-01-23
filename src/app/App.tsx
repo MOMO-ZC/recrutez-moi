@@ -1,12 +1,10 @@
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
-
 import { useAuth } from '../hooks/useAuth';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 const App = () => {
   const isAuthenticated = useAuth();
-
   return (
     <>
       <GestureHandlerRootView>

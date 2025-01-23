@@ -1,15 +1,12 @@
 import React from 'react';
 import { DynamicForm, FormField } from '@/src/components/ui/DynamicForm';
 import styled, { useTheme } from 'styled-components';
-import {
-  Alert,
-  View,
-  Text,
-  useWindowDimensions,
-} from 'react-native';
+import { Alert, View, Text, useWindowDimensions } from 'react-native';
 import GradientBackGround from '../components/GradientBackGround';
 import { ThemedText } from '../components/ThemedText';
 import { useAuth } from '../hooks/useAuth';
+import { API } from '../const';
+import { router } from 'expo-router';
 
 const formStructure: FormField[] = [
   { name: 'email', label: 'Adresse email', type: 'text' },
@@ -18,7 +15,7 @@ const formStructure: FormField[] = [
 
 const LoginScreen: React.FC = () => {
   const { width, height } = useWindowDimensions();
-  const {login} = useAuth();
+  const { login } = useAuth();
 
   const handleLogin = async (formData: { [key: string]: any }) => {
     console.log('Login form data', formData);
@@ -29,26 +26,25 @@ const LoginScreen: React.FC = () => {
     }
     console.log('Calling apiCall with:', { email, password });
     try {
-        const response = await fetch('http://127.0.0.1:3000/auth/login', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ email, password }),
-        });
+      const response = await fetch(`${API}/auth/login`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password }),
+      });
 
-        if (response.ok) {
-            console.log('logged in')
-            const data = await response.json();
-            login();
-        } else {
-            console.error('Error during login');
-        }
+      if (response.ok) {
+        console.log('logged in');
+        const data = await response.json();
+        login();
+      } else {
+        console.error('Error during login');
+      }
     } catch (error) {
-        console.error(error);
+      console.error(error);
     }
   };
-
 
   return (
     <>
@@ -65,7 +61,7 @@ const LoginScreen: React.FC = () => {
           <FooterText>Pas encore de compte ?</FooterText>
           <FooterLink
             type="link"
-            onPress={() => Alert.alert('Sign Up', 'Redirect to sign-up')}
+            onPress={() => router.push('/(auth)/chose-register')}
           >
             S'inscrire
           </FooterLink>
@@ -94,6 +90,7 @@ const Content = styled(View)`
   margin-top: 228px;
   flex: 1;
   justify-content: center;
+  align-items: center;
 `;
 
 const Title = styled(Text)`
