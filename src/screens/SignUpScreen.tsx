@@ -11,7 +11,7 @@ const CandidateFormField: FormField[] = [
   {
     name: 'email',
     label: 'Adresse email',
-    type: 'text',
+    type: 'email',
   },
   {
     name: 'password',
@@ -93,8 +93,8 @@ const SignUpScreen = () => {
 
         if (response.ok) {
           console.log('registered');
-          const { token } = await response.json();
-          login(token);
+          const { token, id, role } = await response.json();
+          login(token, id, role);
         } else {
           console.error('Error during registration');
         }
@@ -113,8 +113,8 @@ const SignUpScreen = () => {
 
         if (response.ok) {
           console.log('registered');
-          const { token } = await response.json();
-          login(token);
+          const { token, id, role } = await response.json();
+          login(token, id, role);
         } else {
           console.error('Error during registration');
         }

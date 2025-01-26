@@ -9,7 +9,7 @@ import { API } from '../const';
 import { router } from 'expo-router';
 
 const formStructure: FormField[] = [
-  { name: 'email', label: 'Adresse email', type: 'text' },
+  { name: 'email', label: 'Adresse email', type: 'email' },
   { name: 'password', label: 'Mot de passe', type: 'password' },
 ];
 
@@ -37,8 +37,13 @@ const LoginScreen: React.FC = () => {
       if (response.ok) {
         console.log('logged in');
         const data = await response.json();
+        const { token, id, role } = data;
         console.log(data.token);
-        login(data.token);
+        console.log('data', data);
+        login(token, id, role);
+        role === 'candidate'
+          ? router.push('/(tabs)')
+          : console.log('not a candidate');
       } else {
         console.error('Error during login');
       }

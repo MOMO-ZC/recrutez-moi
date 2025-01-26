@@ -8,6 +8,7 @@ import { useThemeColor } from '../hooks/useThemeColor';
 import GradientBackGround from '../components/GradientBackGround';
 import { useAuth } from '../hooks/useAuth';
 import { ThemedText } from '../components/ThemedText';
+import Logo from '../components/ui/Logo';
 
 const LandingScreen = () => {
   const router = useRouter();
@@ -33,6 +34,7 @@ const LandingScreen = () => {
       <GradientBackGround />
       <Container width={width}>
         <Content>
+          <Logo size={128} />
           <Title color={textColor}>
             Des offres d'emploi qui{' '}
             <Highlight color={mainColor}>vous</Highlight> correspondent.
