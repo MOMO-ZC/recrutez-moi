@@ -14,9 +14,9 @@ export const jobOffers: JobOffer[] = [
         name: 'React',
         category: 'framework',
       },
-      { name: 'Typescript', category: 'programming-language' },
-      { name: 'Javascript', category: 'programming-language' },
-      { name: 'Node.js', category: 'programming-language' },
+      { name: 'Typescript', category: 'programming language' },
+      { name: 'Javascript', category: 'programming language' },
+      { name: 'Node.js', category: 'programming language' },
       { name: 'AGILE', category: 'softskills' },
       { name: 'Git', category: 'software' },
       { name: 'Cloud Computing', category: 'software' },
@@ -47,7 +47,7 @@ export const jobOffers: JobOffer[] = [
     skills: [
       {
         name: 'Node.js',
-        category: 'programming-language',
+        category: 'programming language',
       },
       {
         name: 'Teamwork',
@@ -76,7 +76,7 @@ export const jobOffers: JobOffer[] = [
       },
       {
         name: 'Node.js',
-        category: 'programming-language',
+        category: 'programming language',
       },
       {
         name: 'Teamwork',

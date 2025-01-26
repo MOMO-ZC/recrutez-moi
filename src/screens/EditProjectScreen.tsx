@@ -7,9 +7,17 @@ import styled from 'styled-components';
 import { useProject } from '../hooks/useProject';
 import DynamicForm, { FormField } from '../components/ui/DynamicForm';
 import { router } from 'expo-router';
+import SkillDisplayer from '../components/Profile/SkillDisplayer';
+import { useSkill } from '../hooks/useSkill';
+import { useEffect } from 'react';
 
 const EditProjectScreen = () => {
   const { project } = useProject();
+  const { setSkills } = useSkill();
+
+  useEffect(() => {
+    setSkills(project?.skills || []);
+  }, [project]);
 
   const editFormFields: FormField[] = project
     ? [
@@ -24,17 +32,31 @@ const EditProjectScreen = () => {
           name: 'description',
           label: 'Description',
           placeholder: project.description,
-          type: 'text',
+          type: 'longText',
           value: project.description,
+        },
+        {
+          name: 'date',
+          label: 'Date',
+          placeholder: project.date,
+          type: 'text',
+          value: project.date,
+        },
+        {
+          name: 'skills',
+          label: 'Skills',
+          type: 'skills',
+          value: project.skills,
         },
       ]
     : [
         { name: 'title', label: 'Title', type: 'text' },
         { name: 'description', label: 'Description', type: 'text' },
+        { name: 'date', label: 'Date', type: 'text' },
+        { name: 'skills', label: 'Skills', type: 'skills' },
       ];
 
-  const handleEditProject = () => {
-    console.log('Project edited');
+  const handleEditProject = async (formData: { [key: string]: any }) => {
     router.back();
   };
 
@@ -58,5 +80,6 @@ export default EditProjectScreen;
 
 const ProjectContainer = styled(View)`
   margin-top: 16px;
-  align-self: center;
+  align-items: center;
+  margin-bottom: 128px;
 `;

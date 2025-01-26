@@ -13,6 +13,7 @@ import { Colors } from '../constants/Colors';
 import { HeaderProvider } from '../contexts/HeaderContext';
 import { FormationProvider } from '../contexts/FormationContext';
 import { ProjectContext, ProjectProvider } from '../contexts/ProjectContext';
+import { SkillProvider } from '../contexts/SkillContext';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -56,7 +57,9 @@ export default function RootLayout() {
         >
           <FormationProvider>
             <ProjectProvider>
-              <App />
+              <SkillProvider>
+                <App />
+              </SkillProvider>
             </ProjectProvider>
           </FormationProvider>
         </ThemeProvider>

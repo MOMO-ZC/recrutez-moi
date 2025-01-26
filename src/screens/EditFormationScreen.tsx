@@ -7,9 +7,16 @@ import styled from 'styled-components';
 import { useFormation } from '../hooks/useFormation';
 import DynamicForm, { FormField } from '../components/ui/DynamicForm';
 import { router } from 'expo-router';
+import { useSkill } from '../hooks/useSkill';
+import { useEffect } from 'react';
 
 const EditFormationScreen = () => {
   const { formation } = useFormation();
+  const { setSkills } = useSkill();
+
+  useEffect(() => {
+    setSkills(formation?.skills || []);
+  }, [formation]);
 
   const editFormFields: FormField[] = formation
     ? [
@@ -55,6 +62,12 @@ const EditFormationScreen = () => {
           type: 'text',
           value: formation.endDate,
         },
+        {
+          name: 'skills',
+          label: 'Skills',
+          type: 'skills',
+          value: formation.skills,
+        },
       ]
     : [
         { name: 'degree', label: 'Diplôme', type: 'text' },
@@ -63,6 +76,7 @@ const EditFormationScreen = () => {
         { name: 'location', label: 'Lieu', type: 'text' },
         { name: 'startDate', label: 'Date de début', type: 'text' },
         { name: 'endDate', label: 'Date de fin', type: 'text' },
+        { name: 'skills', label: 'Skills', type: 'skills' },
       ];
 
   const handleEditFormation = () => {
@@ -90,5 +104,6 @@ export default EditFormationScreen;
 
 const FormationContainer = styled(View)`
   margin-top: 16px;
-  align-self: center;
+  align-items: center;
+  margin-bottom: 128px;
 `;

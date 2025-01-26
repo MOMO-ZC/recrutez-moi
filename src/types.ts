@@ -63,7 +63,12 @@ export interface Project {
 }
 export interface Skill {
   name: string;
-  category: 'framework' | 'programming-language' | 'softskills' | 'software';
+  category:
+    | 'framework'
+    | 'infrastructure'
+    | 'programming language'
+    | 'softskills'
+    | 'software';
 }
 export interface SocialMedia {
   name:

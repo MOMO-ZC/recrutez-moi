@@ -48,17 +48,65 @@ const EditProfile = (props: ProfileProps) => {
       label: 'Adresse email',
       placeholder: firstName,
       type: 'text',
+      value: firstName,
     },
-    { name: 'lastName', label: 'Nom', placeholder: lastName, type: 'text' },
+    {
+      name: 'lastName',
+      label: 'Nom',
+      placeholder: lastName,
+      type: 'text',
+      value: lastName,
+    },
     {
       name: 'birthDate',
       label: 'Date de naissance',
       placeholder: birthDate,
       type: 'text',
+      value: birthDate,
     },
-    { name: 'location', label: 'Adresse', placeholder: location, type: 'text' },
-    { name: 'email', label: 'Adresse email', placeholder: email, type: 'text' },
-    { name: 'bio', label: 'Biographie', placeholder: bio, type: 'longText' },
+    {
+      name: 'location',
+      label: 'Adresse',
+      placeholder: location,
+      type: 'text',
+      value: location,
+    },
+    {
+      name: 'email',
+      label: 'Adresse email',
+      placeholder: email,
+      type: 'text',
+      value: email,
+    },
+    {
+      name: 'languages',
+      label: 'Langues',
+      placeholder: languages.join(', '),
+      type: 'text',
+      value: languages.join(', '),
+    },
+    interests
+      ? {
+          name: 'interests',
+          label: "Centres d'intérêt",
+          placeholder: interests.join(', '),
+          type: 'text',
+          value: interests.join(', '),
+        }
+      : {
+          name: 'interests',
+          label: "Centres d'intérêt",
+          placeholder: "Aucun centre d'intérêt",
+          type: 'text',
+          value: "Aucun centre d'intérêt",
+        },
+    {
+      name: 'bio',
+      label: 'Biographie',
+      placeholder: bio,
+      type: 'longText',
+      value: bio,
+    },
   ];
 
   const router = useRouter();

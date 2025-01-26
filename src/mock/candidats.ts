@@ -5,11 +5,11 @@ const formationSkills: Skills[] = [
     skills: [
       {
         name: 'Java',
-        category: 'programming-language',
+        category: 'programming language',
       },
       {
         name: 'Python',
-        category: 'programming-language',
+        category: 'programming language',
       },
       {
         name: 'React',
@@ -41,11 +41,11 @@ const formationSkills: Skills[] = [
     skills: [
       {
         name: 'C',
-        category: 'programming-language',
+        category: 'programming language',
       },
       {
         name: 'C#',
-        category: 'programming-language',
+        category: 'programming language',
       },
       {
         name: 'Vue',
@@ -73,11 +73,11 @@ const formationSkills: Skills[] = [
     skills: [
       {
         name: 'TypeScript',
-        category: 'programming-language',
+        category: 'programming language',
       },
       {
         name: 'NodeJS',
-        category: 'programming-language',
+        category: 'programming language',
       },
       {
         name: 'React-Native',

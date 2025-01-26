@@ -5,13 +5,15 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { useEffect } from 'react';
 
 const App = () => {
-  const { authToken } = useAuth();
+  const { authToken, role, embeddingVector } = useAuth();
 
   useEffect(() => {
-    if (authToken) {
+    if (authToken && role === 'candidate') {
       router.replace('/(tabs)');
     }
-    
+    if (authToken && role === 'company') {
+      console.log('company');
+    }
   }, [authToken]);
   return (
     <>

@@ -22,6 +22,11 @@ const LightTheme = {
   success: '#06D6A0',
   warning: '#FFD166',
   danger: '#EF476F',
+  framework: '#118AB2',
+  'programming language': '#EF476F',
+  softskills: '#06D6A0',
+  software: '#FFD166',
+  infrastructure: '#8A5CF6',
   'ui-items': '#edede9',
   'ui-buttons': '#d9d9d9',
 };
@@ -38,6 +43,11 @@ const DarkTheme = {
   success: '#03B37E',
   warning: '#D4A029',
   danger: '#D13456',
+  framework: '#06688C',
+  'programming language': '#D13456',
+  softskills: '#03B37E',
+  software: '#D4A029',
+  infrastructure: '#6942C2',
   'ui-items': '#312780',
   'ui-buttons': '#4E32EF',
 };
