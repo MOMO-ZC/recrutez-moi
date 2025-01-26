@@ -42,7 +42,7 @@ const LoginScreen: React.FC = () => {
         console.log('data', data);
         login(token, id, role);
         role === 'candidate'
-          ? router.push('/(tabs)')
+          ? router.push('/(candidate)')
           : console.log('not a candidate');
       } else {
         console.error('Error during login');

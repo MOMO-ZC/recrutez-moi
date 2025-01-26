@@ -9,7 +9,7 @@ const App = () => {
 
   useEffect(() => {
     if (authToken && role === 'candidate') {
-      router.replace('/(tabs)');
+      router.replace('/(candidate)');
     }
     if (authToken && role === 'company') {
       console.log('company');

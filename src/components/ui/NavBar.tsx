@@ -18,10 +18,10 @@ const NavBar = () => {
   return (
     <Footer>
       <NavBarContainer color={navColor} border={borderColor}>
-        <IconButton onPress={() => router.replace('/(tabs)')}>
+        <IconButton onPress={() => router.replace('/(candidate)')}>
           <Logo size={28} fill={pathname === '/' ? fill : stroke} />
         </IconButton>
-        <IconButton onPress={() => router.replace('/(tabs)/liked')}>
+        <IconButton onPress={() => router.replace('/(candidate)/liked')}>
           <Feather
             name="heart"
             size={24}
@@ -29,7 +29,7 @@ const NavBar = () => {
           />
         </IconButton>
 
-        <IconButton onPress={() => router.replace('/(tabs)/projects')}>
+        <IconButton onPress={() => router.replace('/(candidate)/projects')}>
           <Feather
             name="dribbble"
             size={24}
@@ -37,7 +37,7 @@ const NavBar = () => {
           />
         </IconButton>
 
-        <IconButton onPress={() => router.replace('/(tabs)/profile')}>
+        <IconButton onPress={() => router.replace('/(candidate)/profile')}>
           <Feather
             name="user"
             size={24}

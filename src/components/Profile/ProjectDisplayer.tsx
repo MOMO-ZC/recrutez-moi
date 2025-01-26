@@ -25,7 +25,7 @@ const ProjectDisplayer = (props: ProjectDisplayerProps) => {
     console.log(project);
     if (project) setProject(project);
     else setProject();
-    router.push('/(tabs)/profile/edit-project');
+    router.push('/(candidate)/profile/edit-project');
   };
 
   return (

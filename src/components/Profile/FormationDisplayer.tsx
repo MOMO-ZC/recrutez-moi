@@ -25,7 +25,7 @@ const FormationDisplayer = (props: FormationDisplayerProps) => {
     console.log(formation);
     if (formation) setFormation(formation);
     else setFormation();
-    router.push('/(tabs)/profile/edit-formation');
+    router.push('/(candidate)/profile/edit-formation');
   };
   return (
     <FormationContainer>

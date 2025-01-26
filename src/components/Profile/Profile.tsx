@@ -61,7 +61,7 @@ const Profile = (props: ProfileProps) => {
             size={32}
             color={'transparent'}
             icon={<Icon name="edit-3" size={20} color={iconColor} />}
-            onPress={() => router.push('/(tabs)/profile/edit-profile')}
+            onPress={() => router.push('/(candidate)/profile/edit-profile')}
           />
         </TitleContainer>
         <ThemedText type="default">{location}</ThemedText>
@@ -103,7 +103,7 @@ const Profile = (props: ProfileProps) => {
             size={28}
             color={'transparent'}
             icon={<Icon name="edit-3" size={16} color={iconColor} />}
-            onPress={() => router.push('/(tabs)/profile/edit-profile')}
+            onPress={() => router.push('/(candidate)/profile/edit-profile')}
           />
         </TitleContainer>
         <ThemedText type="default">{bio}</ThemedText>

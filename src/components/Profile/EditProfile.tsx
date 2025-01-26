@@ -113,7 +113,7 @@ const EditProfile = (props: ProfileProps) => {
 
   const handleEdit = () => {
     console.log('edit');
-    router.push('/(tabs)/profile');
+    router.push('/(candidate)/profile');
   };
 
   return (

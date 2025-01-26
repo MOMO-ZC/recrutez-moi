@@ -25,7 +25,7 @@ const LandingScreen = () => {
 
   useEffect(() => {
     if (authToken) {
-      router.replace('/(tabs)');
+      router.replace('/(candidate)');
     }
   }, [authToken]);
 

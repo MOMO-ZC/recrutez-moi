@@ -130,24 +130,24 @@ export const userJobsEmbedding = [
 ];
 
 export const userWeights = {
-  "hardSkills": {
-    "Cloud Computing": 0.131,
-    "Java": 0.168,
-    "Machine Learning": 0.131,
-    "Python": 0.264,
-    "SQL": 0.306
+  hardSkills: {
+    'Cloud Computing': 0.131,
+    Java: 0.168,
+    'Machine Learning': 0.131,
+    Python: 0.264,
+    SQL: 0.306,
   },
-  "langages": {
-    "English": 0.264,
-    "French": 0.306,
-    "German": 0.168,
-    "Italian": 0.131,
-    "Spanish": 0.131
+  langages: {
+    English: 0.264,
+    French: 0.306,
+    German: 0.168,
+    Italian: 0.131,
+    Spanish: 0.131,
   },
-  "softSkills": {
-    "Adaptability": 0.207,
-    "Communication": 0.325,
-    "Problem-solving": 0.188,
-    "Teamwork": 0.28
-  }
+  softSkills: {
+    Adaptability: 0.207,
+    Communication: 0.325,
+    'Problem-solving': 0.188,
+    Teamwork: 0.28,
+  },
 };
