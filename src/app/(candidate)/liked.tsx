@@ -1,4 +1,4 @@
-import Liked from '@/src/screens/LikedScreen';
+import Liked from '@/src/screens/candidate/LikedScreen';
 
 export default function LikedScreen() {
   return <Liked />;

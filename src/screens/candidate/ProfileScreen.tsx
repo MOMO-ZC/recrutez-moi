@@ -1,17 +1,14 @@
 import { useRouter } from 'expo-router';
-import HeaderContainer from '../components/ui/HeaderContainer';
-import { useAuth } from '../hooks/useAuth';
-import { MenuOption } from '../types';
-import ScreenContainer from './common/ScreenContainer';
+import HeaderContainer from '../../components/ui/HeaderContainer';
+import { useAuth } from '../../hooks/useAuth';
+import { MenuOption } from '../../types';
+import ScreenContainer from '../common/ScreenContainer';
 
-import { candidates } from '../mock/candidats';
-import Profile from '../components/Profile/Profile';
-import {
-  GestureHandlerRootView,
-  ScrollView,
-} from 'react-native-gesture-handler';
+import { candidates } from '../../mock/candidats';
+import Profile from '../../components/Profile/Profile';
+import { ScrollView } from 'react-native-gesture-handler';
 import { Feather } from '@expo/vector-icons';
-import { useThemeColor } from '../hooks/useThemeColor';
+import { useThemeColor } from '../../hooks/useThemeColor';
 import styled from 'styled-components';
 
 const ProfileScreen = () => {
@@ -42,12 +39,8 @@ const ProfileScreen = () => {
 
   return (
     <ScreenContainer>
+      <HeaderContainer title="Profile Screen" menu menuOptions={menuOptions} />
       <ScrollView>
-        <HeaderContainer
-          title="Profile Screen"
-          menu
-          menuOptions={menuOptions}
-        />
         <Profile candidate={candidates[0]} />
       </ScrollView>
     </ScreenContainer>

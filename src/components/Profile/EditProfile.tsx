@@ -176,21 +176,6 @@ const ContactContainer = styled(View)`
   margin-bottom: 128px;
 `;
 
-const ContactIcon = styled(Feather)`
-  margin-right: 8px;
-`;
-
-const ContactItem = styled(View)`
-  flex-direction: row;
-  align-items: center;
-`;
-
-const FormationContainer = styled(View)`
-    margin-left: 12px
-    margin-right: 32px
-    margin-top: 12px;
-`;
-
 const FormContainer = styled(View)`
   margin-top: 16px;
   margin-bottom: 128px;
@@ -204,19 +189,7 @@ const ModifierIconContainer = styled(View)`
 
 const ProfileContainer = styled(View)``;
 
-const ProjectContainer = styled(View)`
-  margin-top: 12px;
-  margin-left: 12px;
-  margin-right: 12px;
-`;
-
 const TitleContainer = styled(View)`
   align-items: center;
   margin-top: 16px;
-`;
-
-const SkillsContainer = styled(View)`
-  margin-top: 12px;
-  margin-left: 12px;
-  margin-right: 12px;
 `;

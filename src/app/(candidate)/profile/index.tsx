@@ -1,4 +1,4 @@
-import Profile from '@/src/screens/ProfileScreen';
+import Profile from '@/src/screens/candidate/ProfileScreen';
 
 export default function ProfileScreen() {
   return <Profile />;

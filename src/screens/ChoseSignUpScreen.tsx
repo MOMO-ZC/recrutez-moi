@@ -4,6 +4,7 @@ import GradientBackGround from '../components/GradientBackGround';
 import styled from 'styled-components';
 import { useWindowDimensions, View } from 'react-native';
 import { ThemedText } from '../components/ThemedText';
+import React from 'react';
 
 const ChoseSignUpScreen = () => {
   const router = useRouter();

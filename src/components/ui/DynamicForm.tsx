@@ -276,7 +276,7 @@ const KeyboardView = styled(KeyboardAvoidingView)`
 
 const StyledForm = styled(View)`
   flex: 1;
-  padding: 16px;
+  padding: 8px;
   width: 340px;
 `;
 

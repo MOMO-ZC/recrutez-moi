@@ -20,5 +20,7 @@ const ScreenContainer = ({ children }: { children: ReactNode }) => {
 export default ScreenContainer;
 
 const Container = styled(View)`
+  margin-left: 8px;
+  margin-right: 8px;
   flex: 1;
 `;

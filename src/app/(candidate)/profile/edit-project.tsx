@@ -1,4 +1,4 @@
-import EditProjectScreen from '@/src/screens/EditProjectScreen';
+import EditProjectScreen from '@/src/screens/candidate/EditProjectScreen';
 
 export default function EditProject() {
   return <EditProjectScreen />;

@@ -1,13 +1,13 @@
 import { ScrollView } from 'react-native-gesture-handler';
-import HeaderContainer from '../components/ui/HeaderContainer';
+import HeaderContainer from '../../components/ui/HeaderContainer';
 
-import ScreenContainer from './common/ScreenContainer';
+import ScreenContainer from '../common/ScreenContainer';
 import { View } from 'react-native';
 import styled from 'styled-components';
-import { useFormation } from '../hooks/useFormation';
-import DynamicForm, { FormField } from '../components/ui/DynamicForm';
+import { useFormation } from '../../hooks/useFormation';
+import DynamicForm, { FormField } from '../../components/ui/DynamicForm';
 import { router } from 'expo-router';
-import { useSkill } from '../hooks/useSkill';
+import { useSkill } from '../../hooks/useSkill';
 import { useEffect } from 'react';
 
 const EditFormationScreen = () => {
@@ -86,8 +86,8 @@ const EditFormationScreen = () => {
 
   return (
     <ScreenContainer>
+      <HeaderContainer title="Edit Formation" />
       <ScrollView>
-        <HeaderContainer title="Edit Formation" />
         <FormationContainer>
           <DynamicForm
             formStructure={editFormFields}

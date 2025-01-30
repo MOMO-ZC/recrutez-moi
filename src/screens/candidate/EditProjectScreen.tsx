@@ -1,14 +1,14 @@
 import { ScrollView } from 'react-native-gesture-handler';
-import HeaderContainer from '../components/ui/HeaderContainer';
+import HeaderContainer from '../../components/ui/HeaderContainer';
 
-import ScreenContainer from './common/ScreenContainer';
+import ScreenContainer from '../common/ScreenContainer';
 import { View } from 'react-native';
 import styled from 'styled-components';
-import { useProject } from '../hooks/useProject';
-import DynamicForm, { FormField } from '../components/ui/DynamicForm';
+import { useProject } from '../../hooks/useProject';
+import DynamicForm, { FormField } from '../../components/ui/DynamicForm';
 import { router } from 'expo-router';
-import SkillDisplayer from '../components/Profile/SkillDisplayer';
-import { useSkill } from '../hooks/useSkill';
+import SkillDisplayer from '../../components/Profile/SkillDisplayer';
+import { useSkill } from '../../hooks/useSkill';
 import { useEffect } from 'react';
 
 const EditProjectScreen = () => {
@@ -62,8 +62,8 @@ const EditProjectScreen = () => {
 
   return (
     <ScreenContainer>
+      <HeaderContainer title="Edit Project" />
       <ScrollView>
-        <HeaderContainer title="Edit Project" />
         <ProjectContainer>
           <DynamicForm
             formStructure={editFormFields}

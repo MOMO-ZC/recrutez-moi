@@ -21,12 +21,14 @@ interface HeaderContainerProps {
   title: string;
   menu?: boolean;
   menuOptions?: MenuOption[];
+  cantGoBack?: boolean;
 }
 
 const HeaderContainer = ({
   title,
   menu,
   menuOptions = [],
+  cantGoBack = false,
 }: HeaderContainerProps) => {
   const { menuVisible, toggleMenu, animationValue } = useHeader();
   const iconColor = useThemeColor({}, 'text');
@@ -53,17 +55,19 @@ const HeaderContainer = ({
       }}
     >
       <HeaderContainerView>
-        <BackButtonContainer>
-          <RoundedButton
-            onPress={() => {
-              if (menuVisible) toggleMenu();
-              router.back();
-            }}
-            color={buttonColor}
-            size={40}
-            icon={<Feather name="arrow-left" size={12} color={iconColor} />}
-          />
-        </BackButtonContainer>
+        {cantGoBack === false && (
+          <BackButtonContainer>
+            <RoundedButton
+              onPress={() => {
+                if (menuVisible) toggleMenu();
+                router.back();
+              }}
+              color={buttonColor}
+              size={40}
+              icon={<Feather name="arrow-left" size={12} color={iconColor} />}
+            />
+          </BackButtonContainer>
+        )}
         <TitleContainer>
           <ThemedText type="title">{title}</ThemedText>
         </TitleContainer>
@@ -104,17 +108,18 @@ const HeaderContainerView = styled(View)`
   align-items: center;
   justify-content: space-between;
   z-index: 100;
+  padding-bottom: 8px;
 `;
 
 const BackButtonContainer = styled(View)`
   position: absolute;
-  left: 32px;
+  left: 16px;
   top: -8;
 `;
 
 const MenuButtonContainer = styled(View)`
   position: absolute;
-  right: 32px;
+  right: 16px;
   top: -8;
 `;
 
