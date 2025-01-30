@@ -14,6 +14,7 @@ import { HeaderProvider } from '../contexts/HeaderContext';
 import { FormationProvider } from '../contexts/FormationContext';
 import { ProjectContext, ProjectProvider } from '../contexts/ProjectContext';
 import { SkillProvider } from '../contexts/SkillContext';
+import { JobOfferProvider } from '../contexts/JobOfferContext';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -56,11 +57,13 @@ export default function RootLayout() {
           value={colorScheme === 'dark' ? CustomDarkTheme : CustomDefaultTheme}
         >
           <FormationProvider>
-            <ProjectProvider>
-              <SkillProvider>
-                <App />
-              </SkillProvider>
-            </ProjectProvider>
+            <JobOfferProvider>
+              <ProjectProvider>
+                <SkillProvider>
+                  <App />
+                </SkillProvider>
+              </ProjectProvider>
+            </JobOfferProvider>
           </FormationProvider>
         </ThemeProvider>
       </HeaderProvider>

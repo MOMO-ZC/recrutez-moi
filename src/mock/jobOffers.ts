@@ -4,7 +4,7 @@ export const jobOffers: JobOffer[] = [
   {
     id: '1',
     title: 'Frontend Developer',
-    description: `
+    body: `
         We are looking for a frontend developer with experience in React. The ideal candidate should have at least 2 years of experience in React and be able to work in a team. The candidate should also have experience with Photoshop and Figma. The candidate should be able to work remotely and be available to start in January 2025. 
         We are looking for a frontend developer with experience in React. The ideal candidate should have at least 2 years of experience in React and be able to work in a team. The candidate should also have experience with Photoshop and Figma. The candidate should be able to work remotely and be available to start in January 2025.`,
     company: 'Google',
@@ -33,15 +33,17 @@ export const jobOffers: JobOffer[] = [
         category: 'software',
       },
     ],
-    salary: 50000,
+    minSalary: 50000,
+    maxSalary: 70000,
     remote: true,
+    status: 'open',
     date: '2025-1-10',
+    numberOfApplicants: 10,
   },
   {
     id: '2',
     title: 'Backend Developer',
-    description:
-      'We are looking for a backend developer with experience in Node.js',
+    body: 'We are looking for a backend developer with experience in Node.js',
     company: 'Facebook',
     location: 'New York, NY',
     skills: [
@@ -58,15 +60,17 @@ export const jobOffers: JobOffer[] = [
         category: 'software',
       },
     ],
-    salary: 60000,
+    minSalary: 60000,
+    maxSalary: 80000,
+    status: 'open',
     remote: true,
     date: '2025-1-10',
+    numberOfApplicants: 5,
   },
   {
     id: '3',
     title: 'Fullstack Developer',
-    description:
-      'We are looking for a fullstack developer with experience in React and Node.js',
+    body: 'We are looking for a fullstack developer with experience in React and Node.js',
     company: 'Amazon',
     location: 'Seattle, WA',
     skills: [
@@ -87,8 +91,11 @@ export const jobOffers: JobOffer[] = [
         category: 'software',
       },
     ],
-    salary: 70000,
+    minSalary: 70000,
+    maxSalary: 90000,
+    status: 'open',
     remote: false,
     date: '2025-1-10',
+    numberOfApplicants: 3,
   },
 ];

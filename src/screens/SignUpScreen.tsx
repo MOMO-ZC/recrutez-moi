@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import { API } from '../const';
 import { ScrollView } from 'react-native-gesture-handler';
 import { useAuth } from '../hooks/useAuth';
+import React from 'react';
 
 const CandidateFormField: FormField[] = [
   {
@@ -55,7 +56,7 @@ const CompanyFormField: FormField[] = [
   {
     name: 'email',
     label: 'Adresse email',
-    type: 'text',
+    type: 'email',
   },
   {
     name: 'password',

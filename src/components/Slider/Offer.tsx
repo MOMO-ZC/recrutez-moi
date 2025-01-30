@@ -16,11 +16,12 @@ const Offer = (props: OfferProps) => {
     id,
     image,
     title,
-    description,
+    body,
     company,
     location,
     skills,
-    salary,
+    minSalary,
+    maxSalary,
     remote,
     date,
   } = jobOffer;
@@ -43,7 +44,7 @@ const Offer = (props: OfferProps) => {
           {company} | {location}
         </ThemedText>
         <ThemedText type="defaultSemiBold">
-          {remote ? 'Remote' : 'On-site'} | {salary}€
+          {remote ? 'Remote' : 'On-site'} | {minSalary}€ - {maxSalary}€
         </ThemedText>
       </SubtitleContainer>
       <SkillsSection>
@@ -56,7 +57,7 @@ const Offer = (props: OfferProps) => {
       </SkillsSection>
       <DescriptionContainer>
         <ThemedText type="subtitle">Description</ThemedText>
-        <ThemedText type="default">{description}</ThemedText>
+        <ThemedText type="default">{body}</ThemedText>
       </DescriptionContainer>
     </ScrollableContainer>
   );

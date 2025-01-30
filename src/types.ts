@@ -45,14 +45,17 @@ export interface MenuOption {
 export interface JobOffer {
   company: string;
   date: string;
-  description: string;
+  body: string;
   id: string;
   image?: ImageSourcePropType;
   title: string;
   location: string;
   skills: Skill[];
-  salary: number;
+  status: 'open' | 'closed';
+  minSalary: number;
+  maxSalary: number;
   remote: boolean;
+  numberOfApplicants: number;
 }
 export interface Project {
   id: string;

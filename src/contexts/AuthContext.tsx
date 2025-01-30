@@ -3,6 +3,12 @@ import {
   saveAuthToken,
   getAuthToken,
   clearAuthToken,
+  getRole,
+  clearRole,
+  getId,
+  clearId,
+  saveId,
+  saveRole,
 } from '../services/authService';
 import {
   saveVector,
@@ -31,16 +37,25 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [role, setRole] = useState<'candidate' | 'company' | undefined>();
 
   useEffect(() => {
-    const loadToken = async () => {
+    const loadCred = async () => {
       const token = await getAuthToken();
       const vector = await getVector();
+      const role = await getRole();
+      const id = await getId();
 
+      if (id) {
+        setId(id);
+      }
       if (token) {
         setAuthToken(token);
         setEmbeddingVector(vector);
       }
+      if (role) {
+        setRole(role as 'candidate' | 'company');
+      }
     };
-    loadToken();
+
+    loadCred();
   }, []);
 
   const login = async (
@@ -52,12 +67,16 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     setId(id);
     setRole(role);
     await saveAuthToken(token);
+    await saveId(id);
+    await saveRole(role);
     setEmbeddingVector(vector);
     setAuthToken(token);
   };
 
   const logout = async (): Promise<void> => {
     await clearAuthToken();
+    await clearRole();
+    await clearId();
     setAuthToken(null);
   };
 

@@ -4,6 +4,7 @@ import Feather from '@expo/vector-icons/Feather';
 import { usePathname, useRouter } from 'expo-router';
 import { useThemeColor } from '@/src/hooks/useThemeColor';
 import Logo from './Logo';
+import { useAuth } from '@/src/hooks/useAuth';
 
 const NavBar = () => {
   const fill = useThemeColor({}, 'black');
@@ -11,11 +12,13 @@ const NavBar = () => {
   const navColor = useThemeColor({}, 'ui-buttons');
   const borderColor = useThemeColor({}, 'ui-items');
 
+  const { role } = useAuth();
+
   const router = useRouter();
 
   const pathname = usePathname();
 
-  return (
+  return role === 'candidate' ? (
     <Footer>
       <NavBarContainer color={navColor} border={borderColor}>
         <IconButton onPress={() => router.replace('/(candidate)')}>
@@ -44,6 +47,37 @@ const NavBar = () => {
             color={pathname === '/profile' ? fill : stroke}
           />
         </IconButton>
+      </NavBarContainer>
+    </Footer>
+  ) : (
+    <Footer>
+      <NavBarContainer color={navColor} border={borderColor}>
+        <IconButton onPress={() => router.replace('/(company)')}>
+          <Logo size={28} fill={pathname === '/' ? fill : stroke} />
+        </IconButton>
+        {/* <IconButton onPress={() => router.replace('/(candidate)/liked')}>
+          <Feather
+            name="heart"
+            size={24}
+            color={pathname === '/liked' ? fill : stroke}
+          />
+        </IconButton>
+
+        <IconButton onPress={() => router.replace('/(candidate)/projects')}>
+          <Feather
+            name="dribbble"
+            size={24}
+            color={pathname === '/projects' ? fill : stroke}
+          />
+        </IconButton>
+
+        <IconButton onPress={() => router.replace('/(candidate)/profile')}>
+          <Feather
+            name="user"
+            size={24}
+            color={pathname === '/profile' ? fill : stroke}
+          />
+        </IconButton> */}
       </NavBarContainer>
     </Footer>
   );
