@@ -65,7 +65,7 @@ const renderFormField = (
     return (
       <View key={index}>
         <StyledLabel>{field.label}</StyledLabel>
-        <SkillManager key={index} />
+        <SkillManager key={index} handleChange={handleChange}/>
       </View>
     );
   }
@@ -74,7 +74,7 @@ const renderFormField = (
     return (
       <View key={index}>
         <StyledLabel>{field.label}</StyledLabel>
-        <LanguageManager/>
+        <LanguageManager handleChange={handleChange}/>
       </View>
     );
   }
@@ -167,20 +167,27 @@ export const DynamicForm: React.FC<DynamicFormProps> = ({
   };
 
   const [formValues, setFormValues] = useState<{ [key: string]: any }>({});
+  const [previousFormStructure, setPreviousFormStructure] = useState<string>(''); // Store serialized structure
+
 
   useEffect(() => {
-    const initialValues = formStructure.reduce<{ [key: string]: any }>(
-      (acc, field) => {
-        acc[field.name] = field.value ?? ''; // Use initial value or an empty string
+    const serializedStructure = JSON.stringify(formStructure); // Convert to string for comparison
+
+    if (serializedStructure !== previousFormStructure) {
+      setPreviousFormStructure(serializedStructure); // Update reference
+      const newValues = formStructure.reduce<{ [key: string]: any }>((acc, field) => {
+        acc[field.name] = field.value ?? '';
         return acc;
-      },
-      {}
-    );
-    setFormValues(initialValues);
-  }, [formStructure]);
+      }, {});
+      setFormValues(newValues); // Reset form values
+    }
+  }, [formStructure]); 
 
   const handleChange = (name: string, value: any) => {
-    setFormValues({ ...formValues, [name]: value });
+    setFormValues((prevValues) => ({
+      ...prevValues,
+      [name]: value, // Only update the specific field
+    }));
   };
 
   const handleSubmit = () => {
@@ -201,7 +208,12 @@ export const DynamicForm: React.FC<DynamicFormProps> = ({
   );
 };
 
-const SkillManager = () => {
+interface ManagerProps {
+  handleChange: (name: string, value: any) => void;
+}
+
+const SkillManager = (props: ManagerProps) => {
+  const { handleChange } = props;
   const [query, setQuery] = useState('');
   const [filteredSkills, setFilteredSkills] = useState<SkillType[]>(SKILLS);
   const { addSkill, skills } = useSkill();
@@ -223,6 +235,7 @@ const SkillManager = () => {
     if (selectedSkill && !skills.some((s) => s.name === selectedSkill)) {
       const skillToAdd = SKILLS.find((skill) => skill.name === selectedSkill);
       if (skillToAdd) {
+        handleChange('skills', [...skills, skillToAdd]);
         addSkill(skillToAdd);
         setQuery('');
       }
@@ -287,8 +300,8 @@ const SkillManager = () => {
 };
 
 
-const LanguageManager = () => {
-
+const LanguageManager = (props: ManagerProps) => {
+  const { handleChange } = props;
   const LANGUAGE_OPTIONS: LanguageType[] = LANGUAGE.flatMap(lang =>
     LANGUAGE_LEVEL.map(level => ({ name: lang, level }))
   );
@@ -312,6 +325,7 @@ const handleSearch = (text: string) => {
 
 const handleAddLanguage = (selectedLanguage: LanguageType) => {
     if (selectedLanguage && !languages.some((s) => s.name === selectedLanguage.name)) {
+      handleChange('languages', [...languages, selectedLanguage]);
       addLanguage(selectedLanguage);
       setQuery('');
     }
