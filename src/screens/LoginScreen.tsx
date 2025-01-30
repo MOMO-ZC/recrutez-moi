@@ -43,7 +43,7 @@ const LoginScreen: React.FC = () => {
         login(token, id, role);
         role === 'candidate'
           ? router.push('/(candidate)')
-          : router.push('/(company)');
+          : router.push('/(company)/(jobOffer)');
       } else {
         console.error('Error during login');
       }

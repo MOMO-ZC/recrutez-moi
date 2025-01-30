@@ -1,5 +1,5 @@
 import type { JobOffer as JobOfferType } from '@/src/types';
-import { View } from 'react-native';
+import { TouchableOpacity, View } from 'react-native';
 import styled from 'styled-components';
 import { ThemedText } from '../ThemedText';
 import { useThemeColor } from '@/src/hooks/useThemeColor';
@@ -27,16 +27,16 @@ const JobOfferDisplayer = (props: JobOfferDisplayerProps) => {
     console.log(offer);
     if (offer) setJobOffer(offer);
     else setJobOffer();
-    // router.push('/(candidate)/profile/edit-offer');
+    router.push('/(company)/(jobOffer)/edit-jobOffer');
   };
 
   return (
     <JobOfferContainer>
-      {offers.map((offer, index) => {
+      {offers.map((offer) => {
         return (
+            <JobOfferButton key={offer.id} onPress={() => console.log(offer)}>
           <JobOfferItem
             color={offer.status === 'open' ? openColor : closedColor}
-            key={index}
           >
             <InfoContainer>
               <ThemedText type="defaultSemiBold">{offer.title}</ThemedText>
@@ -54,6 +54,7 @@ const JobOfferDisplayer = (props: JobOfferDisplayerProps) => {
               />
             </EditButtonContainer>
           </JobOfferItem>
+            </JobOfferButton>
         );
       })}
       <ButtonContainer>
@@ -103,6 +104,9 @@ const JobOfferItem = styled(View)<{ color: string }>`
   shadow-radius: 4;
   flex-direction: row;
   align-items: center;
+`;
+
+const JobOfferButton = styled(TouchableOpacity)`
 `;
 
 const InfoContainer = styled(View)``;

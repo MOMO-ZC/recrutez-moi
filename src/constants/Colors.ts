@@ -27,6 +27,10 @@ const LightTheme = {
   softskills: '#06D6A0',
   software: '#FFD166',
   infrastructure: '#8A5CF6',
+  'beginner': '#118AB2',
+  'intermediate': '#06D6A0',
+  'advanced': '#FFD166',
+  'native': '#EF476F',
   'ui-items': '#edede9',
   'ui-buttons': '#d9d9d9',
 };
@@ -48,6 +52,10 @@ const DarkTheme = {
   softskills: '#03B37E',
   software: '#D4A029',
   infrastructure: '#6942C2',
+  'beginner': '#06688C',
+  'intermediate': '#03B37E',
+  'advanced': '#D4A029',
+  'native': '#D13456',
   'ui-items': '#312780',
   'ui-buttons': '#4E32EF',
 };

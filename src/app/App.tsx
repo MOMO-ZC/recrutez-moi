@@ -14,7 +14,7 @@ const App = () => {
       router.replace('/(candidate)');
     }
     if (authToken && role === 'company') {
-      router.replace('/(company)');
+      router.replace('/(company)/(jobOffer)');
     }
   }, [authToken]);
   return (

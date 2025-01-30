@@ -49,6 +49,7 @@ export interface JobOffer {
   id: string;
   image?: ImageSourcePropType;
   title: string;
+  languages: Language[];
   location: string;
   skills: Skill[];
   status: 'open' | 'closed';
@@ -99,4 +100,9 @@ export interface User {
 export interface UserLogin {
   email: string;
   password: string;
+}
+
+export interface Language {
+  name: string;
+  level: 'beginner' | 'intermediate' | 'advanced' | 'native';
 }

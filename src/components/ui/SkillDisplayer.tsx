@@ -1,7 +1,8 @@
 import { Skill as SkillType } from '@/src/types';
 import { View } from 'react-native';
 import styled from 'styled-components';
-import Skill from '../ui/Skill';
+import Skill from './Skill';
+import React from 'react';
 interface SkillDisplayerProps {
   skills: SkillType[];
   editing?: boolean;

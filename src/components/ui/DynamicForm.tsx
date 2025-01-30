@@ -12,31 +12,38 @@ import AutoComplete from 'react-native-autocomplete-input';
 import styled from 'styled-components';
 import ButtonText from './ButtonText';
 import { useThemeColor } from '@/src/hooks/useThemeColor';
-import SkillDisplayer from '../Profile/SkillDisplayer';
-import { Skill as SkillType } from '@/src/types';
+import SkillDisplayer from './SkillDisplayer';
+import { Language as LanguageType, Skill as SkillType } from '@/src/types';
 import { SKILLS } from '@/src/constants/skills';
 import Skill from './Skill';
 import { useSkill } from '@/src/hooks/useSkill';
+import { LANGUAGE, LANGUAGE_LEVEL } from '@/src/constants/language';
+import { ThemedText } from '../ThemedText';
+import LanguageDisplayer from './LanguageDisplayer';
+import { useLanguage } from '@/src/hooks/useLanguage';
+import Language from './Language';
 
 interface Option {
   value: string | number;
   label: string;
 }
+type FormFieldType =
+  | 'text'
+  | 'number'
+  | 'email'
+  | 'select'
+  | 'password'
+  | 'longText'
+  | 'skills'
+  | 'languages';
 
-export interface FormField {
+export interface FormField<T extends FormFieldType = FormFieldType> {
   name: string;
   label: string;
   placeholder?: string;
-  type:
-    | 'text'
-    | 'number'
-    | 'email'
-    | 'select'
-    | 'password'
-    | 'longText'
-    | 'skills';
+  type: T;
   options?: Option[];
-  value?: string | number | SkillType[];
+  value?: T extends 'languages' ? LanguageType[] : T extends 'skills' ? SkillType[] : T extends 'select' ? string : T extends 'number' ? number : T extends 'longText' | 'text' | 'email' ? string : never;
 }
 
 interface DynamicFormProps {
@@ -56,10 +63,19 @@ const renderFormField = (
 
   if (field.type === 'skills') {
     return (
-      <>
+      <View key={index}>
         <StyledLabel>{field.label}</StyledLabel>
         <SkillManager key={index} />
-      </>
+      </View>
+    );
+  }
+
+  if (field.type === 'languages') {
+    return (
+      <View key={index}>
+        <StyledLabel>{field.label}</StyledLabel>
+        <LanguageManager/>
+      </View>
     );
   }
 
@@ -203,7 +219,7 @@ const SkillManager = () => {
     }
   };
 
-  const HandleAddSkill = (selectedSkill: string) => {
+  const handleAddSkill = (selectedSkill: string) => {
     if (selectedSkill && !skills.some((s) => s.name === selectedSkill)) {
       const skillToAdd = SKILLS.find((skill) => skill.name === selectedSkill);
       if (skillToAdd) {
@@ -225,7 +241,7 @@ const SkillManager = () => {
           keyExtractor: (_, i) => i.toString(),
           renderItem: ({ item }) => (
             // @ts-ignore
-            <SuggestionItem onPress={() => HandleAddSkill(item.name)}>
+            <SuggestionItem onPress={() => handleAddSkill(item.name)}>
               {/* @ts-ignore */}
               <Skill skill={item} />
             </SuggestionItem>
@@ -268,6 +284,93 @@ const SkillManager = () => {
       <SkillDisplayer skills={skills} editing={true} />
     </SkillPickerContainer>
   );
+};
+
+
+const LanguageManager = () => {
+
+  const LANGUAGE_OPTIONS: LanguageType[] = LANGUAGE.flatMap(lang =>
+    LANGUAGE_LEVEL.map(level => ({ name: lang, level }))
+  );
+
+  const [query, setQuery] = useState('');
+  const [filteredLanguage, setFilteredLanguage] = useState<LanguageType[]>(LANGUAGE_OPTIONS);
+  const { addLanguage, languages } = useLanguage();
+
+const handleSearch = (text: string) => {
+  setQuery(text);
+  if (text.trim() === '') {
+    setFilteredLanguage([]);
+  } else {
+    const filtered = LANGUAGE_OPTIONS.filter((lang) =>
+      lang.name.toLowerCase().includes(text.toLowerCase())
+    );
+    setFilteredLanguage(filtered);
+  }
+};
+
+
+const handleAddLanguage = (selectedLanguage: LanguageType) => {
+    if (selectedLanguage && !languages.some((s) => s.name === selectedLanguage.name)) {
+      addLanguage(selectedLanguage);
+      setQuery('');
+    }
+};
+  return (
+    <LanguagePickerContainer>
+      <LanguageAutoComplete
+        borderColor={useThemeColor({}, 'placeholder')}
+        data={filteredLanguage}
+        value={query}
+        onChangeText={handleSearch}
+        placeholder="Search a language"
+        flatListProps={{
+          keyExtractor: (_, i) => i.toString(),
+          renderItem: ({ item }) => (
+            // @ts-ignore
+            <SuggestionItem onPress={() => handleAddLanguage(item)}>
+              {/* @ts-ignore */}
+              <Language language={item}/>
+            </SuggestionItem>
+          ),
+          numColumns: 4,
+          columnWrapperStyle: {
+            justifyContent: 'flex-start',
+          },
+          style: {
+            backgroundColor: useThemeColor({}, 'ui-buttons'),
+            borderWidth: 0,
+            shadowColor: '#000',
+            shadowOffset: {
+              width: 0,
+              height: 2,
+            },
+            shadowOpacity: 0.25,
+            shadowRadius: 4,
+            elevation: 5,
+            borderRadius: 5,
+          },
+        }}
+        inputContainerStyle={{
+          borderWidth: 0,
+        }}
+        listContainerStyle={{
+          flexWrap: 'wrap',
+          flexDirection: 'row',
+          justifyContent: 'flex-start',
+        }}
+        hideResults={query.trim() === ''}
+        renderTextInput={(props) => (
+          <AutoCompleteInput
+            borderColor={useThemeColor({}, 'placeholder')}
+            {...props}
+          />
+        )}
+      />
+      <LanguageDisplayer languages={languages} editing={true} />
+    </LanguagePickerContainer>
+
+  )
 };
 
 const KeyboardView = styled(KeyboardAvoidingView)`
@@ -334,6 +437,18 @@ const SkillAutoComplete = styled(AutoComplete)<{ borderColor: string }>`
   background-color: none;
 `;
 
+const LanguageAutoComplete = styled(AutoComplete)<{ borderColor: string }>`
+  border: 1px solid ${(props) => props.borderColor};
+  border-radius: 5px;
+  padding: 8px;
+  font-size: 16px;
+  margin-bottom: 16px;
+  height: 48px;
+  background-color: none;
+`;
+
+
+
 const StyledPickerItem = Picker.Item;
 
 const StyledButton = styled(ButtonText)`
@@ -343,5 +458,9 @@ const StyledButton = styled(ButtonText)`
 `;
 
 const SkillPickerContainer = styled(View)``;
+
+const LanguagePickerContainer = styled(View)`
+margin-bottom: 16px;
+  `;
 
 export default DynamicForm;

@@ -52,7 +52,7 @@ const NavBar = () => {
   ) : (
     <Footer>
       <NavBarContainer color={navColor} border={borderColor}>
-        <IconButton onPress={() => router.replace('/(company)')}>
+        <IconButton onPress={() => router.replace('/(company)/(jobOffer)')}>
           <Logo size={28} fill={pathname === '/' ? fill : stroke} />
         </IconButton>
         {/* <IconButton onPress={() => router.replace('/(candidate)/liked')}>

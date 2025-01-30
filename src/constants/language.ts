@@ -1,21 +1,13 @@
-export const Language = [
-  'Français',
-  'Englais',
-  'Espagnol',
-  'Allemand',
-  'Italien',
-  'Portugais',
-  'Chinois Mandarin',
-  'Japonais',
-  'Coréen',
-  'Arabe',
-  'Russe',
-  'Hindi',
-  'Neerlandais',
-  'Polonais',
-  'Turc',
-  'Vietnamien',
-  'Thailandais',
-  'Indonésien',
-  'Malaisien',
+export const LANGUAGE = [
+  'french',
+  'english',
+  'spanish',
+  'chinese',
+];
+
+export const LANGUAGE_LEVEL : ('beginner' | 'intermediate' | 'advanced' | 'native')[] = [
+  'beginner',
+  'intermediate',
+  'advanced',
+  'native',
 ];

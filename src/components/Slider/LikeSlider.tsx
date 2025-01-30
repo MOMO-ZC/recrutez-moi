@@ -17,7 +17,6 @@ import Button from './Button';
 import { JobOffer, Skill } from '@/src/types';
 import Offer from './Offer';
 import styled from 'styled-components';
-import OfferCard from './OfferCard';
 
 const PREV = WIDTH;
 const NEXT = 0;

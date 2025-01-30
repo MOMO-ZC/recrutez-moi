@@ -15,6 +15,7 @@ import { FormationProvider } from '../contexts/FormationContext';
 import { ProjectContext, ProjectProvider } from '../contexts/ProjectContext';
 import { SkillProvider } from '../contexts/SkillContext';
 import { JobOfferProvider } from '../contexts/JobOfferContext';
+import { GlobalProvider } from '../contexts/GlobalContext';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -51,22 +52,14 @@ export default function RootLayout() {
   }
 
   return (
-    <AuthProvider>
-      <HeaderProvider>
-        <ThemeProvider
-          value={colorScheme === 'dark' ? CustomDarkTheme : CustomDefaultTheme}
-        >
-          <FormationProvider>
-            <JobOfferProvider>
-              <ProjectProvider>
-                <SkillProvider>
-                  <App />
-                </SkillProvider>
-              </ProjectProvider>
-            </JobOfferProvider>
-          </FormationProvider>
+    <ThemeProvider
+    value={colorScheme === 'dark' ? CustomDarkTheme : CustomDefaultTheme}
+  >
+
+      <GlobalProvider>
+      <App />
+      </GlobalProvider>
+
         </ThemeProvider>
-      </HeaderProvider>
-    </AuthProvider>
   );
 }

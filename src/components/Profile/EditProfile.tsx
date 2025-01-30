@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { ThemedText } from '../ThemedText';
 import FormationDisplayer from './FormationDisplayer';
 import { useEffect } from 'react';
-import SkillDisplayer from './SkillDisplayer';
+import SkillDisplayer from '../ui/SkillDisplayer';
 import ProjectDisplayer from './ProjectDisplayer';
 import { getUniqueSkills } from '@/src/utils/getSkills';
 import { Feather } from '@expo/vector-icons';

@@ -2,7 +2,7 @@ import React, { createContext, useState, ReactNode } from 'react';
 import { JobOffer } from '../types';
 
 interface JobOfferContextType {
-  project?: JobOffer;
+  jobOffer?: JobOffer;
   setJobOffer: (project?: JobOffer) => void;
 }
 
@@ -11,10 +11,10 @@ export const JobOfferContext = createContext<JobOfferContextType | undefined>(
 );
 
 export const JobOfferProvider = ({ children }: { children: ReactNode }) => {
-  const [project, setJobOffer] = useState<JobOffer>();
+  const [jobOffer, setJobOffer] = useState<JobOffer>();
 
   return (
-    <JobOfferContext.Provider value={{ project, setJobOffer }}>
+    <JobOfferContext.Provider value={{ jobOffer, setJobOffer }}>
       {children}
     </JobOfferContext.Provider>
   );

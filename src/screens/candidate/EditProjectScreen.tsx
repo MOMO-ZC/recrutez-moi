@@ -7,9 +7,10 @@ import styled from 'styled-components';
 import { useProject } from '../../hooks/useProject';
 import DynamicForm, { FormField } from '../../components/ui/DynamicForm';
 import { router } from 'expo-router';
-import SkillDisplayer from '../../components/Profile/SkillDisplayer';
+import SkillDisplayer from '../../components/ui/SkillDisplayer';
 import { useSkill } from '../../hooks/useSkill';
 import { useEffect } from 'react';
+import { useLanguage } from '@/src/hooks/useLanguage';
 
 const EditProjectScreen = () => {
   const { project } = useProject();
