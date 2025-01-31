@@ -3,12 +3,11 @@ import DynamicForm, { FormField } from '../components/ui/DynamicForm';
 import GradientBackGround from '../components/GradientBackGround';
 import { useWindowDimensions, View } from 'react-native';
 import styled from 'styled-components';
-import { API } from '../const';
 import { ScrollView } from 'react-native-gesture-handler';
 import { useAuth } from '../hooks/useAuth';
 import React from 'react';
-import { registerCandidate } from '../api/candidate';
-import { registerCompany } from '../api/company';
+import { registerCandidate } from '../api/candidates';
+import { registerCompany } from '../api/companies';
 
 const CandidateFormField: FormField[] = [
   {

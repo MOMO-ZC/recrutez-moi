@@ -5,7 +5,6 @@ import { Alert, View, Text, useWindowDimensions } from 'react-native';
 import GradientBackGround from '../components/GradientBackGround';
 import { ThemedText } from '../components/ThemedText';
 import { useAuth } from '../hooks/useAuth';
-import { API } from '../const';
 import { router } from 'expo-router';
 import { loginUser } from '../api/auth';
 

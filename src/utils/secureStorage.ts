@@ -8,7 +8,14 @@ export const saveSecureData = async (
     await SecureStore.setItemAsync(key, value);
     console.log(`${key} saved successfully.`);
   } catch (error) {
-    console.error('Failed to save the data to secure storage:', error);
+    console.error(
+      'Failed to save the data to secure storage:',
+      error,
+      'with key',
+      key,
+      'with value:',
+      value
+    );
   }
 };
 

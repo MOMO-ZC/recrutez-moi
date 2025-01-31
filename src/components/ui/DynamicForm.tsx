@@ -470,8 +470,8 @@ const DiplomaManager = (props: DiplomaManagerProps) => {
           renderItem: ({ item }) => (
             // @ts-ignore
             <SuggestionItem onPress={() => handleAddDiploma(item)}>
-              {/* @ts-ignore */}
               <ThemedText>
+                {/* @ts-ignore */}
                 {item.name} | {item.level}
               </ThemedText>
             </SuggestionItem>

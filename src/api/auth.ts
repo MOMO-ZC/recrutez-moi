@@ -5,7 +5,12 @@ export const loginUser = async (email: string, password: string) => {
     const response = await apiClient.post('/auth/login', { email, password });
 
     if (response.status === 200) {
-      const { token, id, role } = response.data;
+      const { token, role } = response.data;
+      const id =
+        role === 'candidate'
+          ? response.data.id_candidate.toString()
+          : response.data.id_company.toString();
+      console.log('Login response:', response.data);
 
       return { token, id, role };
     } else {
