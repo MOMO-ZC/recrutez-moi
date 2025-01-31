@@ -7,6 +7,7 @@ import { ThemedText } from '../components/ThemedText';
 import { useAuth } from '../hooks/useAuth';
 import { API } from '../const';
 import { router } from 'expo-router';
+import { loginUser } from '../api/auth';
 
 const formStructure: FormField[] = [
   { name: 'email', label: 'Adresse email', type: 'email' },
@@ -26,28 +27,14 @@ const LoginScreen: React.FC = () => {
     }
     console.log('Calling apiCall with:', { email, password });
     try {
-      const response = await fetch(`${API}/auth/login`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email, password }),
-      });
+      const { token, id, role } = await loginUser(email, password);
 
-      if (response.ok) {
-        console.log('logged in');
-        const data = await response.json();
-        const { token, id, role } = data;
-        console.log(data.token);
-        console.log('data', data);
-        login(token, id, role);
-        role === 'candidate'
-          ? router.push('/(candidate)')
-          : router.push('/(company)/(jobOffer)');
-      } else {
-        console.error('Error during login');
-      }
+      login(token, id, role);
+      role === 'candidate'
+        ? router.push('/(candidate)')
+        : router.push('/(company)/(jobOffer)');
     } catch (error) {
+      console.log('Error during login');
       console.error(error);
     }
   };

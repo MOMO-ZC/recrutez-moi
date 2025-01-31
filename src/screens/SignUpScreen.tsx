@@ -7,6 +7,8 @@ import { API } from '../const';
 import { ScrollView } from 'react-native-gesture-handler';
 import { useAuth } from '../hooks/useAuth';
 import React from 'react';
+import { registerCandidate } from '../api/candidate';
+import { registerCompany } from '../api/company';
 
 const CandidateFormField: FormField[] = [
   {
@@ -84,41 +86,15 @@ const SignUpScreen = () => {
 
     if (role === 'candidate') {
       try {
-        const response = await fetch(`${API}/candidates/register`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(data),
-        });
-
-        if (response.ok) {
-          console.log('registered');
-          const { token, id, role } = await response.json();
-          login(token, id, role);
-        } else {
-          console.error('Error during registration');
-        }
+        const { id, token, role } = await registerCandidate(data);
+        login(token, id, role);
       } catch (error) {
         console.error(error);
       }
     } else {
       try {
-        const response = await fetch(`${API}/companies/register`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(data),
-        });
-
-        if (response.ok) {
-          console.log('registered');
-          const { token, id, role } = await response.json();
-          login(token, id, role);
-        } else {
-          console.error('Error during registration');
-        }
+        const { id, token, role } = await registerCompany(data);
+        login(token, id, role);
       } catch (error) {
         console.error(error);
       }
