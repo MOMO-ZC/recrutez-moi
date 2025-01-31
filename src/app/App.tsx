@@ -9,15 +9,44 @@ const App = () => {
   const { authToken, role, embeddingVector } = useAuth();
 
   useEffect(() => {
-    console.log('role', role);
-    if (authToken && role === 'candidate') {
+    if (!authToken) {
+      router.replace('/(auth)');
+    } else if (role === 'candidate') {
       router.replace('/(candidate)');
-    }
-    if (authToken && role === 'company') {
+    } else if (role === 'company') {
       router.replace('/(company)/(jobOffer)');
     }
-  }, [authToken]);
-  return (
+  }, [authToken, role]);
+
+  return authToken && role === 'candidate' ? (
+    <GestureHandlerRootView>
+      <Stack
+        screenOptions={{
+          headerShown: false,
+        }}
+      >
+        <Stack.Screen
+          name="(candidate)"
+          options={{ headerShown: false, gestureEnabled: false }}
+        />
+      </Stack>
+      <StatusBar style="auto" />
+    </GestureHandlerRootView>
+  ) : authToken && role === 'company' ? (
+    <GestureHandlerRootView>
+      <Stack
+        screenOptions={{
+          headerShown: false,
+        }}
+      >
+        <Stack.Screen
+          name="(company)"
+          options={{ headerShown: false, gestureEnabled: false }}
+        />
+      </Stack>
+      <StatusBar style="auto" />
+    </GestureHandlerRootView>
+  ) : (
     <>
       <GestureHandlerRootView>
         <Stack

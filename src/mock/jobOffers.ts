@@ -39,14 +39,16 @@ export const jobOffers: JobOffer[] = [
     status: 'open',
     date: '2025-1-10',
     numberOfApplicants: 10,
-    languages: [{
-      name: 'English',
-      level: 'advanced',
-    },{
-      name: 'Spanish',
-      level: 'intermediate',
-    }
-  ],
+    languages: [
+      {
+        name: 'English',
+        level: 'advanced',
+      },
+      {
+        name: 'Spanish',
+        level: 'intermediate',
+      },
+    ],
   },
   {
     id: '2',
@@ -74,11 +76,12 @@ export const jobOffers: JobOffer[] = [
     remote: true,
     date: '2025-1-10',
     numberOfApplicants: 5,
-    languages: [{
-      name: 'English',
-      level: 'native',
-    }
-  ],
+    languages: [
+      {
+        name: 'English',
+        level: 'native',
+      },
+    ],
   },
   {
     id: '3',
@@ -110,13 +113,15 @@ export const jobOffers: JobOffer[] = [
     remote: false,
     date: '2025-1-10',
     numberOfApplicants: 3,
-    languages: [{
-      name: 'English',
-      level: 'advanced',
-    },{
-      name: 'French',
-      level: 'intermediate',
-    }
-  ],
+    languages: [
+      {
+        name: 'English',
+        level: 'advanced',
+      },
+      {
+        name: 'French',
+        level: 'intermediate',
+      },
+    ],
   },
 ];

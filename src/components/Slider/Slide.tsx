@@ -1,9 +1,6 @@
 import React from 'react';
-import { View, Text, StyleSheet, Dimensions, Image } from 'react-native';
-import Svg, { RadialGradient, Defs, Rect, Stop } from 'react-native-svg';
+import { View, Text, StyleSheet } from 'react-native';
 
-const { width, height } = Dimensions.get('screen');
-const SIZE = width - 75;
 const styles = StyleSheet.create({
   container: {
     ...StyleSheet.absoluteFillObject,

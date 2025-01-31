@@ -91,7 +91,7 @@ const EditFormationScreen = () => {
         <FormationContainer>
           <DynamicForm
             formStructure={editFormFields}
-            label="Edit Formation"
+            label={formation ? 'Edit Formation' : 'Add Formation'}
             onSubmit={handleEditFormation}
           />
         </FormationContainer>

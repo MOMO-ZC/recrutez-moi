@@ -13,7 +13,7 @@ interface LanguageProps {
 }
 
 const Language = (props: LanguageProps) => {
-  const {removeLanguage} = useLanguage();
+  const { removeLanguage } = useLanguage();
   const iconColor = useThemeColor({}, 'text');
   const { language, editing } = props;
   const { level, name } = language;

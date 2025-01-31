@@ -32,7 +32,6 @@ const ProfileScreen = () => {
       },
       onPress: () => {
         logout();
-        router.push('/(auth)');
       },
     },
   ];

@@ -34,27 +34,27 @@ const JobOfferDisplayer = (props: JobOfferDisplayerProps) => {
     <JobOfferContainer>
       {offers.map((offer) => {
         return (
-            <JobOfferButton key={offer.id} onPress={() => console.log(offer)}>
-          <JobOfferItem
-            color={offer.status === 'open' ? openColor : closedColor}
-          >
-            <InfoContainer>
-              <ThemedText type="defaultSemiBold">{offer.title}</ThemedText>
-              <ThemedText type="default">
-                {offer.status} | applicants : {offer.numberOfApplicants}{' '}
-              </ThemedText>
-              <ThemedText type="default">{offer.date}</ThemedText>
-            </InfoContainer>
-            <EditButtonContainer>
-              <RoundedButton
-                size={32}
-                color={buttonColor}
-                icon={<Feather name="edit-3" size={16} color={iconColor} />}
-                onPress={() => handleEdit(offer)}
-              />
-            </EditButtonContainer>
-          </JobOfferItem>
-            </JobOfferButton>
+          <JobOfferButton key={offer.id} onPress={() => console.log(offer)}>
+            <JobOfferItem
+              color={offer.status === 'open' ? openColor : closedColor}
+            >
+              <InfoContainer>
+                <ThemedText type="defaultSemiBold">{offer.title}</ThemedText>
+                <ThemedText type="default">
+                  {offer.status} | applicants : {offer.numberOfApplicants}{' '}
+                </ThemedText>
+                <ThemedText type="default">{offer.date}</ThemedText>
+              </InfoContainer>
+              <EditButtonContainer>
+                <RoundedButton
+                  size={32}
+                  color={buttonColor}
+                  icon={<Feather name="edit-3" size={16} color={iconColor} />}
+                  onPress={() => handleEdit(offer)}
+                />
+              </EditButtonContainer>
+            </JobOfferItem>
+          </JobOfferButton>
         );
       })}
       <ButtonContainer>
@@ -106,8 +106,7 @@ const JobOfferItem = styled(View)<{ color: string }>`
   align-items: center;
 `;
 
-const JobOfferButton = styled(TouchableOpacity)`
-`;
+const JobOfferButton = styled(TouchableOpacity)``;
 
 const InfoContainer = styled(View)``;
 

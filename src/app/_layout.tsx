@@ -53,13 +53,11 @@ export default function RootLayout() {
 
   return (
     <ThemeProvider
-    value={colorScheme === 'dark' ? CustomDarkTheme : CustomDefaultTheme}
-  >
-
+      value={colorScheme === 'dark' ? CustomDarkTheme : CustomDefaultTheme}
+    >
       <GlobalProvider>
-      <App />
+        <App />
       </GlobalProvider>
-
-        </ThemeProvider>
+    </ThemeProvider>
   );
 }

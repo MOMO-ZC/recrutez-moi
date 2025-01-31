@@ -23,7 +23,6 @@ const OfferScreen = () => {
       },
       onPress: () => {
         logout();
-        router.push('/(auth)');
       },
     },
   ];

@@ -19,10 +19,10 @@ export default function TabLayout() {
           }}
         />
         <Tabs.Screen
-            name="edit-jobOffer"
-            options={{
-                title: 'Edit JobOffer',
-            }}
+          name="edit-jobOffer"
+          options={{
+            title: 'Edit JobOffer',
+          }}
         />
       </Tabs>
       <NavBar />

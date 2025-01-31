@@ -12,7 +12,11 @@ export const LanguageContext = createContext<LanguageContextType | undefined>(
   undefined
 );
 
-export const LanguageProvider = ({ children }: { children: React.ReactNode }) => {
+export const LanguageProvider = ({
+  children,
+}: {
+  children: React.ReactNode;
+}) => {
   const [languages, setLanguages] = useState<LanguageType[]>([]);
 
   const addLanguage = (language: LanguageType) => {
@@ -26,7 +30,9 @@ export const LanguageProvider = ({ children }: { children: React.ReactNode }) =>
   };
 
   return (
-    <LanguageContext.Provider value={{ languages, addLanguage, removeLanguage, setLanguages }}>
+    <LanguageContext.Provider
+      value={{ languages, addLanguage, removeLanguage, setLanguages }}
+    >
       {children}
     </LanguageContext.Provider>
   );

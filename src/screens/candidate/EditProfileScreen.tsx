@@ -7,7 +7,6 @@ import { useEffect } from 'react';
 import { useLanguage } from '@/src/hooks/useLanguage';
 
 export const EditProfileScreen = () => {
-
   return (
     <ScreenContainer>
       <HeaderContainer title="Edit Profile" />

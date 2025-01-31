@@ -32,7 +32,6 @@ export const SKILLS: Skill[] = [
   { name: 'r', category: 'programming language' },
   { name: 'matlab', category: 'programming language' },
   { name: 'graphql', category: 'programming language' },
-  { name: 'rest', category: 'programming language' },
   { name: 'react', category: 'framework' },
   { name: 'angular', category: 'framework' },
   { name: 'vue', category: 'framework' },

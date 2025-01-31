@@ -106,3 +106,8 @@ export interface Language {
   name: string;
   level: 'beginner' | 'intermediate' | 'advanced' | 'native';
 }
+
+export interface Diploma {
+  name: string;
+  level: 'bachelor' | 'master' | 'phd' | 'licence' | 'doctorat';
+}

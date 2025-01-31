@@ -68,7 +68,7 @@ const EditProjectScreen = () => {
         <ProjectContainer>
           <DynamicForm
             formStructure={editFormFields}
-            label="Edit Project"
+            label={project ? 'Edit Project' : 'Add Project'}
             onSubmit={handleEditProject}
           />
         </ProjectContainer>

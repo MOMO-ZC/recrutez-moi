@@ -68,7 +68,7 @@ export default Offer;
 const ScrollableContainer = styled(ScrollView).attrs(() => ({
   contentContainerStyle: {
     flexGrow: 1,
-    paddingBottom: 20, // Prevent cutoff at the bottom
+    paddingBottom: 20,
   },
 }))`
   flex: 1;
