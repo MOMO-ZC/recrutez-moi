@@ -26,9 +26,9 @@ const LoginScreen: React.FC = () => {
     }
     console.log('Calling apiCall with:', { email, password });
     try {
-      const { token, id, role } = await loginUser(email, password);
+      const { token, id, role, userId } = await loginUser(email, password);
 
-      login(token, id, role);
+      login(token, id, role, userId);
       role === 'candidate'
         ? router.push('/(candidate)')
         : router.push('/(company)/(jobOffer)');

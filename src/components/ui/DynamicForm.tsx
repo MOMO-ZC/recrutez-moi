@@ -18,7 +18,6 @@ import {
   Language as LanguageType,
   Skill as SkillType,
 } from '@/src/types';
-import { SKILLS } from '@/src/constants/skills';
 import Skill from './Skill';
 import { useSkill } from '@/src/hooks/useSkill';
 import { LANGUAGE, LANGUAGE_LEVEL } from '@/src/constants/language';
@@ -29,6 +28,7 @@ import Language from './Language';
 import { DIPLOMA_FIELD, DIPLOMA_LEVEL } from '@/src/constants/diploma';
 import { Feather } from '@expo/vector-icons';
 import RoundedButton from './RoundedButton';
+import { getSkills } from '@/src/api/skills';
 
 interface Option {
   value: string | number;
@@ -242,16 +242,32 @@ interface ManagerProps {
 }
 
 const SkillManager = (props: ManagerProps) => {
+  const [SKILLS, setSKILLS] = useState<SkillType[]>([]);
+
   const { handleChange } = props;
   const [query, setQuery] = useState('');
   const [filteredSkills, setFilteredSkills] = useState<SkillType[]>(SKILLS);
   const { addSkill, skills } = useSkill();
 
+  useEffect(() => {
+    const loadSkills = async () => {
+      const skillsData = await getSkills();
+      setSKILLS(skillsData);
+    };
+
+    loadSkills();
+  }, []);
+
+  useEffect(() => {
+    if (SKILLS.length > 0) {
+      setFilteredSkills(SKILLS);
+    }
+  }, [SKILLS]);
+
   const handleSearch = (text: string) => {
     setQuery(text);
-
     if (text.trim() === '') {
-      setFilteredSkills([]);
+      setFilteredSkills(SKILLS ?? []);
     } else {
       const filtered = SKILLS.filter((skill) =>
         skill.name.toLowerCase().includes(text.toLowerCase())

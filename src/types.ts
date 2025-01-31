@@ -66,6 +66,7 @@ export interface Project {
   date: string;
 }
 export interface Skill {
+  id: number;
   name: string;
   category:
     | 'framework'
@@ -103,6 +104,7 @@ export interface UserLogin {
 }
 
 export interface Language {
+  id: number;
   name: string;
   level: 'beginner' | 'intermediate' | 'advanced' | 'native';
 }

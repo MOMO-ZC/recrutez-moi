@@ -5,9 +5,10 @@ export const registerCompany = async (data: any) => {
     const response = await apiClient.post('/companies/register', data);
 
     if (response.status === 200) {
-      const { token, id, role } = response.data;
-
-      return { token, id, role };
+      const { token, role, id_user } = response.data;
+      const id = response.data.id_company.toString();
+      const userId = id_user.toString();
+      return { token, id, role, userId };
     } else {
       throw new Error('Invalid credentials');
     }

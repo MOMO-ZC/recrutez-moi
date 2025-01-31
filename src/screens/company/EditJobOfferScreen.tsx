@@ -84,7 +84,7 @@ const EditJobOfferScreen = () => {
       ]
     : [
         { name: 'title', label: 'Title', type: 'text' },
-        { name: 'body', label: 'Description', type: 'text' },
+        { name: 'body', label: 'Description', type: 'longText' },
         { name: 'date', label: 'Date', type: 'text' },
         { name: 'minSalary', label: 'Minimum Salary', type: 'number' },
         { name: 'maxSalary', label: 'Maximum Salary', type: 'number' },
@@ -97,54 +97,56 @@ const EditJobOfferScreen = () => {
       ];
 
   const handleEditJobOffer = async (formData: { [key: string]: any }) => {
-    if (jobOffer) {
-      const { id } = jobOffer;
-      try {
-        const response = await fetch(`${API}/offers/${id}`, {
-          method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${authToken}`,
-          },
-          body: JSON.stringify(formData),
-        });
+    // if (jobOffer) {
+    //   const { id } = jobOffer;
+    //   try {
+    //     const response = await fetch(`${API}/offers/${id}`, {
+    //       method: 'PUT',
+    //       headers: {
+    //         'Content-Type': 'application/json',
+    //         Authorization: `Bearer ${authToken}`,
+    //       },
+    //       body: JSON.stringify(formData),
+    //     });
 
-        if (response.ok) {
-          const data = await response.json();
-          console.log(data);
-        } else {
-          console.error('Error during job offer edition');
-        }
-      } catch (error) {
-        console.error(error);
-      }
-    } else {
-      try {
-        const response = await fetch(`${API}/offers`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${authToken}`,
-          },
-          body: JSON.stringify(formData),
-        });
-        if (response.ok) {
-          const data = await response.json();
-          console.log(data);
-        } else {
-          console.error('Error during job offer edition');
-        }
-      } catch (error) {
-        console.error(error);
-      }
-    }
+    //     if (response.ok) {
+    //       const data = await response.json();
+    //       console.log(data);
+    //     } else {
+    //       console.error('Error during job offer edition');
+    //     }
+    //   } catch (error) {
+    //     console.error(error);
+    //   }
+    // } else {
+    //   try {
+    //     const response = await fetch(`${API}/offers`, {
+    //       method: 'POST',
+    //       headers: {
+    //         'Content-Type': 'application/json',
+    //         Authorization: `Bearer ${authToken}`,
+    //       },
+    //       body: JSON.stringify(formData),
+    //     });
+    //     if (response.ok) {
+    //       const data = await response.json();
+    //       console.log(data);
+    //     } else {
+    //       console.error('Error during job offer edition');
+    //     }
+    //   } catch (error) {
+    //     console.error(error);
+    //   }
+    // }
+
+    console.log(formData);
 
     router.back();
   };
 
   return (
     <ScreenContainer>
-      <HeaderContainer title="Edit JobOffer" />
+      <HeaderContainer title={jobOffer ? 'Edit JobOffer' : 'Add JobOffer'} />
       <ScrollView>
         <JobOfferContainer>
           <DynamicForm

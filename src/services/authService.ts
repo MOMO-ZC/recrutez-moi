@@ -7,6 +7,7 @@ import {
 const AUTH_TOKEN_KEY = 'authToken';
 const ROLE_KEY = 'role';
 const ID_KEY = 'id';
+const USER_ID_KEY = 'userId';
 
 export const saveAuthToken = async (token: string): Promise<void> => {
   await saveSecureData(AUTH_TOKEN_KEY, token);
@@ -42,4 +43,16 @@ export const getId = async (): Promise<string | null> => {
 
 export const clearId = async (): Promise<void> => {
   await deleteSecureData(ID_KEY);
+};
+
+export const saveUserId = async (userId: string): Promise<void> => {
+  await saveSecureData(USER_ID_KEY, userId);
+};
+
+export const getUserId = async (): Promise<string | null> => {
+  return await getSecureData(USER_ID_KEY);
+};
+
+export const clearUserId = async (): Promise<void> => {
+  await deleteSecureData(USER_ID_KEY);
 };

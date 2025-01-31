@@ -9,6 +9,9 @@ import {
   clearId,
   saveId,
   saveRole,
+  saveUserId,
+  clearUserId,
+  getUserId,
 } from '../services/authService';
 import {
   saveVector,
@@ -20,8 +23,14 @@ interface AuthContextType {
   authToken: string | null;
   id: string | null;
   role: 'candidate' | 'company' | undefined;
+  userId: string | null;
   embeddingVector: number[];
-  login: (token: string, id: string, role: 'candidate' | 'company') => void;
+  login: (
+    token: string,
+    id: string,
+    role: 'candidate' | 'company',
+    userId: string
+  ) => void;
   logout: () => void;
   updateVector: (vector: number[]) => void;
 }
@@ -35,6 +44,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [embeddingVector, setEmbeddingVector] = useState<number[]>([]);
   const [id, setId] = useState<string | null>(null);
   const [role, setRole] = useState<'candidate' | 'company' | undefined>();
+  const [userId, setUserId] = useState<string | null>(null);
 
   useEffect(() => {
     const loadCred = async () => {
@@ -42,6 +52,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       const vector = await getVector();
       const role = await getRole();
       const id = await getId();
+      const userId = await getUserId();
 
       if (id) {
         setId(id);
@@ -53,6 +64,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       if (role) {
         setRole(role as 'candidate' | 'company');
       }
+      if (userId) {
+        setUserId(userId);
+      }
     };
 
     loadCred();
@@ -61,7 +75,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const login = async (
     token: string,
     id: string,
-    role: 'candidate' | 'company'
+    role: 'candidate' | 'company',
+    userId: string
   ): Promise<void> => {
     const vector = await getVector();
     setId(id);
@@ -69,6 +84,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     await saveAuthToken(token);
     await saveId(id);
     await saveRole(role);
+    await saveUserId(userId);
+    setUserId(userId);
     setEmbeddingVector(vector);
     setAuthToken(token);
   };
@@ -77,6 +94,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     await clearAuthToken();
     await clearRole();
     await clearId();
+    await clearUserId();
     setAuthToken(null);
   };
 
@@ -92,6 +110,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         embeddingVector,
         id,
         role,
+        userId,
         login,
         logout,
         updateVector,

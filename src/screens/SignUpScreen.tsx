@@ -85,15 +85,15 @@ const SignUpScreen = () => {
 
     if (role === 'candidate') {
       try {
-        const { id, token, role } = await registerCandidate(data);
-        login(token, id, role);
+        const { id, token, role, userId } = await registerCandidate(data);
+        login(token, id, role, userId);
       } catch (error) {
         console.error(error);
       }
     } else {
       try {
-        const { id, token, role } = await registerCompany(data);
-        login(token, id, role);
+        const { id, token, role, userId } = await registerCompany(data);
+        login(token, id, role, userId);
       } catch (error) {
         console.error(error);
       }
