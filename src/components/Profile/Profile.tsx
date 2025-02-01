@@ -11,6 +11,8 @@ import { Feather } from '@expo/vector-icons';
 import { useThemeColor } from '@/src/hooks/useThemeColor';
 import RoundedButton from '../ui/RoundedButton';
 import { router, useRouter } from 'expo-router';
+import LanguageDisplayer from '../ui/LanguageDisplayer';
+import ExperienceDisplayer from './ExperienceDisplayer';
 
 interface ProfileProps {
   candidate: Candidate;
@@ -29,6 +31,7 @@ const Profile = (props: ProfileProps) => {
     location,
     interests,
     projects,
+    experiences,
     socialMedias,
     user,
   } = candidate;
@@ -67,19 +70,26 @@ const Profile = (props: ProfileProps) => {
         <ThemedText type="default">{location}</ThemedText>
       </InfoContainer>
 
-      <FormationContainer>
+      <SectionContainer>
         <TitleContainer>
           <ThemedText type="subtitle">Formations</ThemedText>
         </TitleContainer>
         {formations && <FormationDisplayer formations={formations} />}
-      </FormationContainer>
+      </SectionContainer>
 
-      <ProjectContainer>
+      <SectionContainer>
+        <TitleContainer>
+          <ThemedText type="subtitle">Experiences</ThemedText>
+        </TitleContainer>
+        {experiences && <ExperienceDisplayer experiences={experiences} />}
+      </SectionContainer>
+
+      <SectionContainer>
         <TitleContainer>
           <ThemedText type="subtitle">Projects</ThemedText>
         </TitleContainer>
         {projects && <ProjectDisplayer projects={projects} />}
-      </ProjectContainer>
+      </SectionContainer>
       <SkillsContainer>
         <ThemedText type="subtitle">Skills</ThemedText>
         <SkillDisplayer skills={skills} />
@@ -102,7 +112,7 @@ const Profile = (props: ProfileProps) => {
         </ContactItem>
         <ContactItem>
           <ContactIcon name="globe" size={16} color={iconColor} />
-          <ThemedText type="default">{languages.join(', ')}</ThemedText>
+          {languages && <LanguageDisplayer languages={languages} />}
         </ContactItem>
         {interests && (
           <ContactItem>
@@ -147,12 +157,6 @@ const ContactItem = styled(View)`
   align-items: center;
 `;
 
-const FormationContainer = styled(View)`
-    margin-left: 12px
-    margin-right: 12px
-    margin-top: 12px;
-`;
-
 const Icon = styled(Feather)``;
 
 const InfoContainer = styled(View)`
@@ -161,7 +165,7 @@ const InfoContainer = styled(View)`
 
 const ProfileContainer = styled(View)``;
 
-const ProjectContainer = styled(View)`
+const SectionContainer = styled(View)`
   margin-top: 12px;
   margin-left: 12px;
   margin-right: 12px;

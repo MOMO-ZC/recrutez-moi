@@ -11,12 +11,13 @@ export interface Candidate {
   firstName: string;
   formations?: Formation[];
   jobOffers?: JobOffer[];
-  languages: string[];
+  languages: Language[];
   lastName: string;
   location: string;
   interests?: string[];
   socialMedias?: SocialMedia[];
   projects?: Project[];
+  experiences?: Experience[];
   user: User;
 }
 
@@ -24,6 +25,15 @@ export interface Company {
   jobOffers?: JobOffer[];
   name: string;
   user: User;
+}
+
+export interface Experience {
+  id: number;
+  name: string;
+  startDate?: string;
+  endDate?: string;
+  description?: string;
+  skills?: Skill[];
 }
 
 export interface Formation {
@@ -50,12 +60,14 @@ export interface JobOffer {
   image?: ImageSourcePropType;
   title: string;
   languages: Language[];
-  location: string;
+  address: string;
+  experiences?: Experience[];
+  diplomas: Diploma[];
+  location_type: 'remote' | 'onsite' | 'hybrod';
   skills: Skill[];
-  status: 'open' | 'closed';
-  minSalary: number;
-  maxSalary: number;
-  remote: boolean;
+  status: 'open' | 'pending' | 'closed';
+  min_salary: number;
+  max_salary: number;
   numberOfApplicants: number;
 }
 export interface Project {
@@ -110,6 +122,15 @@ export interface Language {
 }
 
 export interface Diploma {
+  id: number;
   name: string;
   level: 'bachelor' | 'master' | 'phd' | 'licence' | 'doctorat';
+}
+
+export interface ManagerProps {
+  handleChange: (name: string, value: any) => void;
+}
+
+export interface DiplomaManagerProps extends ManagerProps {
+  initialDiplomas: Diploma[];
 }

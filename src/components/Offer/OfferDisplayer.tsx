@@ -19,6 +19,7 @@ const JobOfferDisplayer = (props: JobOfferDisplayerProps) => {
   const buttonColor = useThemeColor({}, 'ui-buttons');
   const openColor = useThemeColor({}, 'success');
   const closedColor = useThemeColor({}, 'danger');
+  const pendingColor = useThemeColor({}, 'warning');
 
   const router = useRouter();
   const { setJobOffer } = useJobOffer();
@@ -36,12 +37,18 @@ const JobOfferDisplayer = (props: JobOfferDisplayerProps) => {
         return (
           <JobOfferButton key={offer.id} onPress={() => console.log(offer)}>
             <JobOfferItem
-              color={offer.status === 'open' ? openColor : closedColor}
+              color={
+                offer.status === 'open'
+                  ? openColor
+                  : offer.status === 'pending'
+                    ? pendingColor
+                    : closedColor
+              }
             >
               <InfoContainer>
                 <ThemedText type="defaultSemiBold">{offer.title}</ThemedText>
                 <ThemedText type="default">
-                  {offer.status} | applicants : {offer.numberOfApplicants}{' '}
+                  {offer.status} | applicants : {offer.numberOfApplicants ?? 0}{' '}
                 </ThemedText>
                 <ThemedText type="default">{offer.date}</ThemedText>
               </InfoContainer>

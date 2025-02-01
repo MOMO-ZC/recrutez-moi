@@ -38,15 +38,36 @@ export const getCandidate = async (id: string) => {
 
 export const getProjects = async (id: string) => {
   try {
-    const response = await apiClient.get(`/projects/${id}`);
+    const response = await apiClient.get(`/${id}/projects`);
 
     if (response.status === 200) {
+      if (response.data.projects.length === 0) {
+        return [];
+      }
       return response.data.projects;
     } else {
       throw new Error('Failed to fetch projects');
     }
   } catch (error) {
     console.error('Error fetching projects:', error);
+    return [];
+  }
+};
+
+export const getExperiences = async (id: string) => {
+  try {
+    const response = await apiClient.get(`/${id}/experiences`);
+
+    if (response.status === 200) {
+      if (response.data.experiences.length === 0) {
+        return [];
+      }
+      return response.data.experiences;
+    } else {
+      throw new Error('Failed to fetch experiences');
+    }
+  } catch (error) {
+    console.error('Error fetching experiences:', error);
     return [];
   }
 };

@@ -1,7 +1,7 @@
 import { useThemeColor } from '@/src/hooks/useThemeColor';
 import { MenuOption } from '@/src/types';
-import { router } from 'expo-router';
-import React from 'react';
+import { useFocusEffect } from 'expo-router';
+import React, { useCallback, useEffect } from 'react';
 import HeaderContainer from '../../components/ui/HeaderContainer';
 import ScreenContainer from '../common/ScreenContainer';
 import { Feather } from '@expo/vector-icons';
@@ -10,10 +10,26 @@ import styled from 'styled-components';
 import JobOfferDisplayer from '@/src/components/Offer/OfferDisplayer';
 import { jobOffers } from '@/src/mock/jobOffers';
 import { ScrollView } from 'react-native-gesture-handler';
+import { getJobOffers } from '@/src/api/companies';
 
 const OfferScreen = () => {
   const iconColor = useThemeColor({}, 'text');
-  const { logout } = useAuth();
+  const { logout, id } = useAuth();
+
+  const [offers, setOffers] = React.useState(jobOffers);
+
+  useFocusEffect(
+    useCallback(() => {
+      const loadOffers = async () => {
+        if (id) {
+          const offersData = await getJobOffers(id);
+          setOffers(offersData);
+        }
+      };
+
+      loadOffers();
+    }, [id])
+  );
 
   const menuOptions: MenuOption[] = [
     {
@@ -36,7 +52,7 @@ const OfferScreen = () => {
         menuOptions={menuOptions}
       />
       <ScrollView>
-        <JobOfferDisplayer offers={jobOffers} />
+        <JobOfferDisplayer offers={offers} />
       </ScrollView>
     </ScreenContainer>
   );

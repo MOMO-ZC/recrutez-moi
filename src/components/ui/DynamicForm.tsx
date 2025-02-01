@@ -1,34 +1,28 @@
 import React, { useEffect, useState } from 'react';
 import {
   TextInput,
-  TouchableOpacity,
   Text,
   View,
   KeyboardAvoidingView,
   Platform,
+  TouchableOpacity,
 } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import AutoComplete from 'react-native-autocomplete-input';
 import styled from 'styled-components';
 import ButtonText from './ButtonText';
 import { useThemeColor } from '@/src/hooks/useThemeColor';
-import SkillDisplayer from './SkillDisplayer';
 import {
-  Diploma,
   Language as LanguageType,
   Skill as SkillType,
+  Experience as ExperienceType,
+  Diploma,
 } from '@/src/types';
-import Skill from './Skill';
-import { useSkill } from '@/src/hooks/useSkill';
-import { LANGUAGE, LANGUAGE_LEVEL } from '@/src/constants/language';
+import SkillManager from './SkillManager';
+import DiplomaManager from './DiplomaManager';
+import LanguageManager from './LanguageManager';
+import ExperienceManager from './ExperienceManager';
 import { ThemedText } from '../ThemedText';
-import LanguageDisplayer from './LanguageDisplayer';
-import { useLanguage } from '@/src/hooks/useLanguage';
-import Language from './Language';
-import { DIPLOMA_FIELD, DIPLOMA_LEVEL } from '@/src/constants/diploma';
-import { Feather } from '@expo/vector-icons';
-import RoundedButton from './RoundedButton';
-import { getSkills } from '@/src/api/skills';
 
 interface Option {
   value: string | number;
@@ -43,7 +37,9 @@ type FormFieldType =
   | 'longText'
   | 'skills'
   | 'languages'
-  | 'diploma';
+  | 'diploma'
+  | 'experience'
+  | 'radio';
 
 export interface FormField<T extends FormFieldType = FormFieldType> {
   name: string;
@@ -59,9 +55,13 @@ export interface FormField<T extends FormFieldType = FormFieldType> {
         ? string
         : T extends 'number'
           ? number
-          : T extends 'longText' | 'text' | 'email'
-            ? string
-            : never;
+          : T extends 'experience'
+            ? ExperienceType[]
+            : T extends 'diploma'
+              ? Diploma[]
+              : T extends 'longText' | 'text' | 'email' | 'radio' | 'password'
+                ? string
+                : never;
 }
 
 interface DynamicFormProps {
@@ -100,7 +100,18 @@ const renderFormField = (
     return (
       <View key={index}>
         <StyledLabel>{field.label}</StyledLabel>
-        <DiplomaManager handleChange={handleChange} initialDiplomas={[]} />
+        <DiplomaManager
+          handleChange={handleChange}
+          initialDiplomas={(field.value as Diploma[]) ?? []}
+        />
+      </View>
+    );
+  }
+  if (field.type === 'experience') {
+    return (
+      <View key={index}>
+        <StyledLabel>{field.label}</StyledLabel>
+        <ExperienceManager handleChange={handleChange} />
       </View>
     );
   }
@@ -177,6 +188,21 @@ const renderFormField = (
           </StyledPicker>
         </StyledInputContainer>
       );
+    case 'radio':
+      return (
+        <StyledInputContainer key={index}>
+          <StyledLabel>{field.label}</StyledLabel>
+          {field.options?.map((option, i) => (
+            <Radio key={i} selected={fieldValue === option.value}>
+              <RadioButton
+                selected={fieldValue === option.value}
+                onPress={() => handleChange(field.name, option.value)}
+              />
+              <ThemedText>{option.label}</ThemedText>
+            </Radio>
+          ))}
+        </StyledInputContainer>
+      );
     default:
       return null;
   }
@@ -237,312 +263,6 @@ export const DynamicForm: React.FC<DynamicFormProps> = ({
   );
 };
 
-interface ManagerProps {
-  handleChange: (name: string, value: any) => void;
-}
-
-const SkillManager = (props: ManagerProps) => {
-  const [SKILLS, setSKILLS] = useState<SkillType[]>([]);
-
-  const { handleChange } = props;
-  const [query, setQuery] = useState('');
-  const [filteredSkills, setFilteredSkills] = useState<SkillType[]>(SKILLS);
-  const { addSkill, skills } = useSkill();
-
-  useEffect(() => {
-    const loadSkills = async () => {
-      const skillsData = await getSkills();
-      setSKILLS(skillsData);
-    };
-
-    loadSkills();
-  }, []);
-
-  useEffect(() => {
-    if (SKILLS.length > 0) {
-      setFilteredSkills(SKILLS);
-    }
-  }, [SKILLS]);
-
-  const handleSearch = (text: string) => {
-    setQuery(text);
-    if (text.trim() === '') {
-      setFilteredSkills(SKILLS ?? []);
-    } else {
-      const filtered = SKILLS.filter((skill) =>
-        skill.name.toLowerCase().includes(text.toLowerCase())
-      );
-      setFilteredSkills(filtered);
-    }
-  };
-
-  const handleAddSkill = (selectedSkill: string) => {
-    if (selectedSkill && !skills.some((s) => s.name === selectedSkill)) {
-      const skillToAdd = SKILLS.find((skill) => skill.name === selectedSkill);
-      if (skillToAdd) {
-        handleChange('skills', [...skills, skillToAdd]);
-        addSkill(skillToAdd);
-        setQuery('');
-      }
-    }
-  };
-
-  return (
-    <AutoCompleteContainer>
-      <StyledAutoComplete
-        borderColor={useThemeColor({}, 'placeholder')}
-        data={filteredSkills}
-        value={query}
-        onChangeText={handleSearch}
-        placeholder="Search a skill"
-        flatListProps={{
-          keyExtractor: (_, i) => i.toString(),
-          renderItem: ({ item }) => (
-            // @ts-ignore
-            <SuggestionItem onPress={() => handleAddSkill(item.name)}>
-              {/* @ts-ignore */}
-              <Skill skill={item} />
-            </SuggestionItem>
-          ),
-          numColumns: 2,
-          columnWrapperStyle: {
-            justifyContent: 'flex-start',
-          },
-          style: {
-            backgroundColor: useThemeColor({}, 'ui-buttons'),
-            borderWidth: 0,
-            shadowColor: '#000',
-            shadowOffset: {
-              width: 0,
-              height: 2,
-            },
-            shadowOpacity: 0.25,
-            shadowRadius: 4,
-            elevation: 5,
-            borderRadius: 5,
-          },
-        }}
-        inputContainerStyle={{
-          borderWidth: 0,
-        }}
-        listContainerStyle={{
-          flexWrap: 'wrap',
-          flexDirection: 'row',
-          justifyContent: 'flex-start',
-        }}
-        hideResults={query.trim() === ''}
-        renderTextInput={(props) => (
-          <AutoCompleteInput
-            borderColor={useThemeColor({}, 'placeholder')}
-            {...props}
-          />
-        )}
-      />
-
-      <SkillDisplayer skills={skills} editing={true} />
-    </AutoCompleteContainer>
-  );
-};
-
-const LanguageManager = (props: ManagerProps) => {
-  const { handleChange } = props;
-  const LANGUAGE_OPTIONS: LanguageType[] = LANGUAGE.flatMap((lang) =>
-    LANGUAGE_LEVEL.map((level) => ({ name: lang, level }))
-  );
-
-  const [query, setQuery] = useState('');
-  const [filteredLanguage, setFilteredLanguage] =
-    useState<LanguageType[]>(LANGUAGE_OPTIONS);
-  const { addLanguage, languages } = useLanguage();
-
-  const handleSearch = (text: string) => {
-    setQuery(text);
-    if (text.trim() === '') {
-      setFilteredLanguage([]);
-    } else {
-      const filtered = LANGUAGE_OPTIONS.filter((lang) =>
-        lang.name.toLowerCase().includes(text.toLowerCase())
-      );
-      setFilteredLanguage(filtered);
-    }
-  };
-
-  const handleAddLanguage = (selectedLanguage: LanguageType) => {
-    if (
-      selectedLanguage &&
-      !languages.some((s) => s.name === selectedLanguage.name)
-    ) {
-      handleChange('languages', [...languages, selectedLanguage]);
-      addLanguage(selectedLanguage);
-      setQuery('');
-    }
-  };
-  return (
-    <AutoCompleteContainer>
-      <StyledAutoComplete
-        borderColor={useThemeColor({}, 'placeholder')}
-        data={filteredLanguage}
-        value={query}
-        onChangeText={handleSearch}
-        placeholder="Search a language"
-        flatListProps={{
-          keyExtractor: (_, i) => i.toString(),
-          renderItem: ({ item }) => (
-            // @ts-ignore
-            <SuggestionItem onPress={() => handleAddLanguage(item)}>
-              {/* @ts-ignore */}
-              <Language language={item} />
-            </SuggestionItem>
-          ),
-          numColumns: 4,
-          columnWrapperStyle: {
-            justifyContent: 'flex-start',
-          },
-          style: {
-            backgroundColor: useThemeColor({}, 'ui-buttons'),
-            borderWidth: 0,
-            shadowColor: '#000',
-            shadowOffset: {
-              width: 0,
-              height: 2,
-            },
-            shadowOpacity: 0.25,
-            shadowRadius: 4,
-            elevation: 5,
-            borderRadius: 5,
-          },
-        }}
-        inputContainerStyle={{
-          borderWidth: 0,
-        }}
-        listContainerStyle={{
-          flexWrap: 'wrap',
-          flexDirection: 'row',
-          justifyContent: 'flex-start',
-        }}
-        hideResults={query.trim() === ''}
-        renderTextInput={(props) => (
-          <AutoCompleteInput
-            borderColor={useThemeColor({}, 'placeholder')}
-            {...props}
-          />
-        )}
-      />
-      <LanguageDisplayer languages={languages} editing={true} />
-    </AutoCompleteContainer>
-  );
-};
-
-interface DiplomaManagerProps extends ManagerProps {
-  initialDiplomas: Diploma[];
-}
-
-const DiplomaManager = (props: DiplomaManagerProps) => {
-  const { handleChange, initialDiplomas } = props;
-  const DIPLOMA_OPTIONS: Diploma[] = DIPLOMA_FIELD.flatMap((diploma) =>
-    DIPLOMA_LEVEL.map((level) => ({ name: diploma, level }))
-  );
-
-  const [query, setQuery] = useState('');
-  const [filteredDiploma, setFilteredDiploma] =
-    useState<Diploma[]>(DIPLOMA_OPTIONS);
-  const [diplomas, setDiplomas] = useState<Diploma[]>(initialDiplomas);
-
-  const handleSearch = (text: string) => {
-    setQuery(text);
-    if (text.trim() === '') {
-      setFilteredDiploma([]);
-    } else {
-      const filtered = DIPLOMA_OPTIONS.filter(
-        (diploma) =>
-          diploma.name.toLowerCase().includes(text.toLowerCase()) ||
-          diploma.level.toLowerCase().includes(text.toLowerCase())
-      );
-      setFilteredDiploma(filtered);
-    }
-  };
-
-  const handleAddDiploma = (selectedDiploma: Diploma) => {
-    if (
-      selectedDiploma &&
-      !diplomas.some((s) => s.name === selectedDiploma.name)
-    ) {
-      handleChange('diplomas', [...diplomas, selectedDiploma]);
-      setDiplomas([...diplomas, selectedDiploma]);
-      setQuery('');
-    }
-  };
-
-  return (
-    <AutoCompleteContainer>
-      <StyledAutoComplete
-        borderColor={useThemeColor({}, 'placeholder')}
-        data={filteredDiploma}
-        value={query}
-        onChangeText={handleSearch}
-        placeholder="Search a diploma"
-        flatListProps={{
-          keyExtractor: (_, i) => i.toString(),
-          renderItem: ({ item }) => (
-            // @ts-ignore
-            <SuggestionItem onPress={() => handleAddDiploma(item)}>
-              <ThemedText>
-                {/* @ts-ignore */}
-                {item.name} | {item.level}
-              </ThemedText>
-            </SuggestionItem>
-          ),
-          style: {
-            backgroundColor: useThemeColor({}, 'ui-buttons'),
-            borderWidth: 0,
-            shadowColor: '#000',
-            shadowOffset: {
-              width: 0,
-              height: 2,
-            },
-            shadowOpacity: 0.25,
-            shadowRadius: 4,
-            elevation: 5,
-            borderRadius: 5,
-          },
-        }}
-        inputContainerStyle={{
-          borderWidth: 0,
-        }}
-        listContainerStyle={{
-          flexWrap: 'wrap',
-          flexDirection: 'row',
-          justifyContent: 'flex-start',
-        }}
-        hideResults={query.trim() === ''}
-        renderTextInput={(props) => (
-          <AutoCompleteInput
-            borderColor={useThemeColor({}, 'placeholder')}
-            {...props}
-          />
-        )}
-      />
-      {diplomas.map((diploma, index) => (
-        <DiplomaWrapper>
-          <ThemedText key={index}>
-            {diploma.name} | {diploma.level}
-          </ThemedText>
-          <IconWrapper>
-            <RoundedButton
-              size={16}
-              color={'transparent'}
-              icon={<Feather name="x" size={16} />}
-              onPress={() =>
-                setDiplomas(diplomas.filter((d) => d.name !== diploma.name))
-              }
-            />
-          </IconWrapper>
-        </DiplomaWrapper>
-      ))}
-    </AutoCompleteContainer>
-  );
-};
-
 const KeyboardView = styled(KeyboardAvoidingView)`
   flex: 1;
 `;
@@ -551,26 +271,6 @@ const StyledForm = styled(View)`
   flex: 1;
   padding: 8px;
   width: 340px;
-`;
-
-const IconWrapper = styled(View)`
-  justify-content: center;
-  align-items: center;
-  padding: 2px;
-`;
-
-const DiplomaWrapper = styled(View)`
-  display: flex;
-  flex-direction: row;
-`;
-
-const AutoCompleteInput = styled(TextInput)<{ borderColor: string }>`
-  border: 1px solid ${(props) => props.borderColor};
-  border-radius: 5px;
-  padding: 8px;
-  font-size: 16px;
-  background-color: none;
-  height: 48px;
 `;
 
 const ButtonContainer = styled(View)`
@@ -603,20 +303,6 @@ const StyledPicker = styled(Picker)<{ borderColor: string }>`
   font-size: 16px;
 `;
 
-const SuggestionItem = styled(TouchableOpacity)`
-  margin: 4px;
-`;
-
-const StyledAutoComplete = styled(AutoComplete)<{ borderColor: string }>`
-  border: 1px solid ${(props) => props.borderColor};
-  border-radius: 5px;
-  padding: 8px;
-  font-size: 16px;
-  margin-bottom: 16px;
-  height: 48px;
-  background-color: none;
-`;
-
 const StyledPickerItem = Picker.Item;
 
 const StyledButton = styled(ButtonText)`
@@ -625,8 +311,21 @@ const StyledButton = styled(ButtonText)`
   align-items: center;
 `;
 
-const AutoCompleteContainer = styled(View)`
-  margin-bottom: 16px;
+const Radio = styled(View)<{ selected: boolean }>`
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 8px;
+`;
+
+const RadioButton = styled(TouchableOpacity)<{ selected: boolean }>`
+  width: 24px;
+  height: 24px;
+  border-radius: 12px;
+  border: 1px solid #333;
+  justify-content: center;
+  align-items: center;
+  margin-right: 8px;
+  background-color: ${(props) => (props.selected ? '#4E32EF' : '#D9D9D9')};
 `;
 
 export default DynamicForm;

@@ -6,6 +6,8 @@ import { JobOfferProvider } from './JobOfferContext';
 import { ProjectProvider } from './ProjectContext';
 import { SkillProvider } from './SkillContext';
 import { LanguageProvider } from './LanguageContext';
+import { ExperienceProvider } from './ExperienceContext';
+import { JobOfferExperienceProvider } from './JobOfferExperienceContext';
 
 interface GlobalContextProps {
   children: ReactNode;
@@ -20,9 +22,13 @@ export const GlobalProvider: React.FC<GlobalContextProps> = ({ children }) => {
         <FormationProvider>
           <JobOfferProvider>
             <ProjectProvider>
-              <SkillProvider>
-                <LanguageProvider>{children}</LanguageProvider>
-              </SkillProvider>
+              <ExperienceProvider>
+                <SkillProvider>
+                  <JobOfferExperienceProvider>
+                    <LanguageProvider>{children}</LanguageProvider>
+                  </JobOfferExperienceProvider>
+                </SkillProvider>
+              </ExperienceProvider>
             </ProjectProvider>
           </JobOfferProvider>
         </FormationProvider>

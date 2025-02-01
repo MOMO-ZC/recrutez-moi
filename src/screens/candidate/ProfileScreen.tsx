@@ -24,7 +24,7 @@ const ProfileScreen = () => {
   useEffect(() => {
     const loadUser = async (id: string) => {
       const userData = await getUser(id);
-      console.log(userData);
+      console.log('userData', userData);
     };
     const loadCandidate = async (id: string, userId: string) => {
       const candidateData = await getCandidate(id);
@@ -33,7 +33,7 @@ const ProfileScreen = () => {
     };
     if (id && userId) {
       loadCandidate(id, userId);
-      console.log(candidate);
+      console.log('candidate', candidate);
     }
   }, [id]);
 
