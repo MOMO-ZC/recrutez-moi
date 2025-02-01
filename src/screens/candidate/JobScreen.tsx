@@ -1,18 +1,31 @@
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import styled from 'styled-components';
 import { useThemeColor } from '../../hooks/useThemeColor';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import LikeSlider from '../../components/Slider/LikeSlider';
 import { Skill } from '../../types';
 import { View, BackHandler } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import { jobOffers } from '../../mock/jobOffers';
+import { getJobOffers } from '@/src/api/jobOffers';
 
 const JobScreen = () => {
+  const [offers, setOffers] = React.useState(jobOffers);
+
+  useFocusEffect(
+    useCallback(() => {
+      const loadOffers = async () => {
+        const offersData = await getJobOffers();
+        setOffers(offersData);
+      };
+      loadOffers();
+    }, [])
+  );
+
   return (
     <Container>
       <GestureHandlerRootView>
-        <LikeSlider jobOffers={jobOffers} />
+        {offers && <LikeSlider jobOffers={offers} />}
       </GestureHandlerRootView>
     </Container>
   );

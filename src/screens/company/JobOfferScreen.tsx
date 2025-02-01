@@ -52,7 +52,7 @@ const OfferScreen = () => {
         menuOptions={menuOptions}
       />
       <ScrollView>
-        <JobOfferDisplayer offers={offers} />
+        <JobOfferDisplayer offers={offers} context="company" />
       </ScrollView>
     </ScreenContainer>
   );

@@ -11,17 +11,21 @@ import { useSkill } from '../../hooks/useSkill';
 import { useEffect } from 'react';
 import { useLanguage } from '@/src/hooks/useLanguage';
 import { useAuth } from '@/src/hooks/useAuth';
-import { addJobOffer, editJobOffer } from '@/src/api/jobOffer';
+import { addJobOffer, editJobOffer } from '@/src/api/jobOffers';
 import { Diploma, Experience, Language } from '@/src/types';
+import { useJobOfferExperience } from '@/src/hooks/useJobOfferExperience';
 
 const EditJobOfferScreen = () => {
-  const { jobOffer } = useJobOffer();
+  const { jobOffer, setEducation } = useJobOffer();
   const { setSkills } = useSkill();
   const { setLanguages } = useLanguage();
+  const { setExperiences } = useJobOfferExperience();
 
   useEffect(() => {
     setSkills(jobOffer?.skills || []);
     setLanguages(jobOffer?.languages || []);
+    setExperiences(jobOffer?.experiences || []);
+    setEducation(jobOffer?.education || []);
   }, [jobOffer]);
 
   const editFormFields: FormField[] = jobOffer
@@ -79,7 +83,7 @@ const EditJobOfferScreen = () => {
           name: 'education',
           label: 'Diploma',
           type: 'diploma',
-          value: jobOffer.diplomas,
+          value: jobOffer.education,
         },
         {
           name: 'experiences',
@@ -143,7 +147,8 @@ const EditJobOfferScreen = () => {
       formData.remote = formData.remote?.toLowerCase();
       formData.location_type = formData.remote.toLowerCase();
       formData.image =
-        'https://us.123rf.com/450wm/delwarbd/delwarbd1807/delwarbd180700694/114944844-belle-ic%C3%B4ne-de-publicit%C3%A9-d-emploi-m%C3%A9ticuleusement-con%C3%A7ue.jpg?ver=6';
+        formData.image ??
+        'https://img.freepik.com/premium-photo/minimalist-3d-illustration-computer-with-colorful-geometric-shapes-representing-creativity-technology-innovation_200188-8550.jpg?w=2000';
 
       formData.languages = (formData.languages || []).map(
         (language: Language) => ({
@@ -153,7 +158,7 @@ const EditJobOfferScreen = () => {
       );
       formData.location_type = formData.remote.toLowerCase();
       formData.skills = (formData.skills || []).map((skill: any) => skill.id);
-      formData.education = (formData.diplomas || []).map(
+      formData.education = (formData.education || []).map(
         (education: Diploma) => education.id
       );
       formData.experiences = (formData.experiences || []).map(
@@ -171,7 +176,8 @@ const EditJobOfferScreen = () => {
       const { city, country } = formData;
       formData.address = `${city}, ${country}`;
       formData.image =
-        'https://us.123rf.com/450wm/delwarbd/delwarbd1807/delwarbd180700694/114944844-belle-ic%C3%B4ne-de-publicit%C3%A9-d-emploi-m%C3%A9ticuleusement-con%C3%A7ue.jpg?ver=6';
+        formData.image ??
+        'https://img.freepik.com/premium-photo/minimalist-3d-illustration-computer-with-colorful-geometric-shapes-representing-creativity-technology-innovation_200188-8550.jpg?w=2000';
 
       formData.languages = (formData.languages || []).map(
         (language: Language) => ({
@@ -181,7 +187,7 @@ const EditJobOfferScreen = () => {
       );
       formData.location_type = formData.remote.toLowerCase();
       formData.skills = (formData.skills || []).map((skill: any) => skill.id);
-      formData.education = (formData.diplomas || []).map(
+      formData.education = (formData.education || []).map(
         (education: Diploma) => education.id
       );
       formData.experiences = (formData.experiences || []).map(

@@ -10,10 +10,11 @@ import { useJobOffer } from '@/src/hooks/useJobOffer';
 
 interface JobOfferDisplayerProps {
   offers: JobOfferType[];
+  context: 'company' | 'candidate';
 }
 
 const JobOfferDisplayer = (props: JobOfferDisplayerProps) => {
-  const { offers } = props;
+  const { offers, context } = props;
   const itemColor = useThemeColor({}, 'ui-items');
   const iconColor = useThemeColor({}, 'text');
   const buttonColor = useThemeColor({}, 'ui-buttons');
@@ -25,13 +26,12 @@ const JobOfferDisplayer = (props: JobOfferDisplayerProps) => {
   const { setJobOffer } = useJobOffer();
 
   const handleEdit = (offer?: JobOfferType) => {
-    console.log(offer);
     if (offer) setJobOffer(offer);
     else setJobOffer();
     router.push('/(company)/(jobOffer)/edit-jobOffer');
   };
 
-  return (
+  return context === 'company' ? (
     <JobOfferContainer>
       {offers.map((offer) => {
         return (
@@ -73,6 +73,33 @@ const JobOfferDisplayer = (props: JobOfferDisplayerProps) => {
         />
       </ButtonContainer>
     </JobOfferContainer>
+  ) : (
+    <JobOfferContainer>
+      {offers.map((offer) => {
+        return (
+          <JobOfferButton key={offer.id} onPress={() => console.log(offer)}>
+            <JobOfferItem color={itemColor}>
+              <InfoContainer>
+                <ThemedText type="defaultSemiBold">{offer.title}</ThemedText>
+                <ThemedText type="default">status: {offer.status}</ThemedText>
+                <ThemedText type="default">
+                  {offer.company_name} | {offer.address}
+                </ThemedText>
+                <ThemedText type="default">{offer.date}</ThemedText>
+              </InfoContainer>
+              <EditButtonContainer>
+                <RoundedButton
+                  size={32}
+                  color={buttonColor}
+                  icon={<Feather name="trash-2" size={16} color={iconColor} />}
+                  onPress={() => {}}
+                />
+              </EditButtonContainer>
+            </JobOfferItem>
+          </JobOfferButton>
+        );
+      })}
+    </JobOfferContainer>
   );
 };
 
@@ -94,6 +121,8 @@ const ButtonContainer = styled(View)`
 const JobOfferContainer = styled(View)`
   margin-left: 12px;
   margin-right: 12px;
+  margin-top: 16px;
+  margin-bottom: 128px;
 `;
 
 const JobOfferItem = styled(View)<{ color: string }>`
@@ -113,7 +142,9 @@ const JobOfferItem = styled(View)<{ color: string }>`
   align-items: center;
 `;
 
-const JobOfferButton = styled(TouchableOpacity)``;
+const JobOfferButton = styled(TouchableOpacity)`
+  margin-top: 12px;
+`;
 
 const InfoContainer = styled(View)``;
 

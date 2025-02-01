@@ -35,12 +35,10 @@ const Profile = (props: ProfileProps) => {
     socialMedias,
     user,
   } = candidate;
-  const { email } = user;
+  const { email } = user ?? '';
   let skills: Skill[] = [];
-  if (formations && projects) {
-    skills = getUniqueSkills(formations, projects);
-    skills.sort((a, b) => a.category.localeCompare(b.category));
-  }
+  skills = getUniqueSkills(formations ?? [], projects ?? []);
+  skills.sort((a, b) => a.category.localeCompare(b.category));
 
   const iconColor = useThemeColor({}, 'text');
 

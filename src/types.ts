@@ -53,16 +53,16 @@ export interface MenuOption {
   onPress: () => void;
 }
 export interface JobOffer {
-  company: string;
+  company_name: string;
   date: string;
   body: string;
   id: string;
-  image?: ImageSourcePropType;
+  image?: string;
   title: string;
   languages: Language[];
   address: string;
   experiences?: Experience[];
-  diplomas: Diploma[];
+  education: Diploma[];
   location_type: 'remote' | 'onsite' | 'hybrod';
   skills: Skill[];
   status: 'open' | 'pending' | 'closed';
@@ -72,7 +72,8 @@ export interface JobOffer {
 }
 export interface Project {
   id: string;
-  title: string;
+  name: string;
+  type: string;
   description: string;
   skills: Skill[];
   date: string;
@@ -123,8 +124,8 @@ export interface Language {
 
 export interface Diploma {
   id: number;
-  name: string;
-  level: 'bachelor' | 'master' | 'phd' | 'licence' | 'doctorat';
+  domain: string;
+  diploma: 'bachelor' | 'master' | 'phd' | 'licence' | 'doctorat';
 }
 
 export interface ManagerProps {

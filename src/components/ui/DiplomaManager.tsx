@@ -13,7 +13,11 @@ const DiplomaManager = (props: DiplomaManagerProps) => {
   const { handleChange, initialDiplomas } = props;
   let diplomaId = 1;
   const DIPLOMA_OPTIONS: Diploma[] = DIPLOMA_FIELD.flatMap((diploma) =>
-    DIPLOMA_LEVEL.map((level) => ({ id: diplomaId++, name: diploma, level }))
+    DIPLOMA_LEVEL.map((level) => ({
+      id: diplomaId++,
+      domain: diploma,
+      diploma: level,
+    }))
   );
 
   const [query, setQuery] = useState('');
@@ -28,17 +32,22 @@ const DiplomaManager = (props: DiplomaManagerProps) => {
     } else {
       const filtered = DIPLOMA_OPTIONS.filter(
         (diploma) =>
-          diploma.name.toLowerCase().includes(text.toLowerCase()) ||
-          diploma.level.toLowerCase().includes(text.toLowerCase())
+          diploma.domain.toLowerCase().includes(text.toLowerCase()) ||
+          diploma.diploma.toLowerCase().includes(text.toLowerCase())
       );
       setFilteredDiploma(filtered);
     }
   };
 
   const handleAddDiploma = (selectedDiploma: Diploma) => {
+    console.log(selectedDiploma);
     if (
       selectedDiploma &&
-      !diplomas.some((s) => s.name === selectedDiploma.name)
+      !diplomas.some(
+        (s) =>
+          s.domain === selectedDiploma.domain &&
+          s.diploma === selectedDiploma.diploma
+      )
     ) {
       handleChange('diplomas', [...diplomas, selectedDiploma]);
       setDiplomas([...diplomas, selectedDiploma]);
@@ -59,12 +68,14 @@ const DiplomaManager = (props: DiplomaManagerProps) => {
           renderItem: ({ item }) => (
             // @ts-ignore
             <SuggestionItem
+              // @ts-ignore
               key={item.id}
+              // @ts-ignore
               onPress={() => handleAddDiploma(item)}
             >
               <ThemedText>
                 {/* @ts-ignore */}
-                {item.name} | {item.level}
+                {item.domain} | {item.diploma}
               </ThemedText>
             </SuggestionItem>
           ),
@@ -101,7 +112,7 @@ const DiplomaManager = (props: DiplomaManagerProps) => {
       {diplomas.map((diploma, index) => (
         <DiplomaWrapper key={diploma.id}>
           <ThemedText>
-            {diploma.name} | {diploma.level}
+            {diploma.domain} | {diploma.diploma}
           </ThemedText>
           <IconWrapper>
             <RoundedButton
@@ -109,7 +120,7 @@ const DiplomaManager = (props: DiplomaManagerProps) => {
               color={'transparent'}
               icon={<Feather name="x" size={16} />}
               onPress={() =>
-                setDiplomas(diplomas.filter((d) => d.name !== diploma.name))
+                setDiplomas(diplomas.filter((d) => d.domain !== diploma.domain))
               }
             />
           </IconWrapper>

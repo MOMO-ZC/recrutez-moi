@@ -23,11 +23,11 @@ const EditProjectScreen = () => {
   const editFormFields: FormField[] = project
     ? [
         {
-          name: 'title',
+          name: 'name',
           label: 'Title',
-          placeholder: project.title,
+          placeholder: project.name,
           type: 'text',
-          value: project.title,
+          value: project.name,
         },
         {
           name: 'description',
@@ -51,7 +51,7 @@ const EditProjectScreen = () => {
         },
       ]
     : [
-        { name: 'title', label: 'Title', type: 'text' },
+        { name: 'name', label: 'Title', type: 'text' },
         { name: 'description', label: 'Description', type: 'text' },
         { name: 'date', label: 'Date', type: 'text' },
         { name: 'skills', label: 'Skills', type: 'skills' },

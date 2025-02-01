@@ -24,7 +24,6 @@ export const getJobOffers = async (id: string): Promise<JobOffer[]> => {
     const response = await apiClient.get(`/companies/${id}/offers`);
 
     if (response.status === 200) {
-      console.log(response.data.offers);
       return response.data.offers;
     } else {
       throw new Error('Invalid credentials');

@@ -51,6 +51,21 @@ const CandidateFormField: FormField[] = [
     placeholder: 'JJ/MM/AAAA',
     type: 'text',
   },
+  {
+    name: 'lookingForTitle',
+    label: 'Poste recherché',
+    type: 'text',
+  },
+  {
+    name: 'lookingForExperience',
+    label: "Niveau d'expérience cherché",
+    type: 'radio',
+    options: [
+      { value: '1', label: 'Junior' },
+      { value: '2', label: 'Confirmé' },
+      { value: '3', label: 'Senior' },
+    ],
+  },
 ];
 
 const CompanyFormField: FormField[] = [

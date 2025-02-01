@@ -17,6 +17,8 @@ import Button from './Button';
 import { JobOffer, Skill } from '@/src/types';
 import Offer from './Offer';
 import styled from 'styled-components';
+import { likeOffer } from '@/src/api/jobOffers';
+import { useAuth } from '@/src/hooks/useAuth';
 
 const PREV = WIDTH;
 const NEXT = 0;
@@ -38,10 +40,18 @@ const LikeSlider = (props: SliderProps) => {
   const activeSide = useSharedValue(Side.NONE);
   const isTransitioningLeft = useSharedValue(false);
   const isTransitioningRight = useSharedValue(false);
+  const { userId } = useAuth();
 
-  const updateData = (direction: 'like' | 'dislike') => {
+  const updateData = async (direction: 'like' | 'dislike') => {
     if (direction === 'like') {
-      console.log('Liked:', jobOffers[currentIndex]);
+      try {
+        if (userId) {
+          const response = await likeOffer(userId, jobOffers[currentIndex].id);
+          console.log(response);
+        }
+      } catch (error) {
+        console.log('Error:', error);
+      }
     } else {
       console.log('Disliked:', jobOffers[currentIndex]);
     }

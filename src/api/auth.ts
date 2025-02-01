@@ -1,4 +1,5 @@
 import apiClient from '../api/apiClient';
+import { User } from '../types';
 
 export const loginUser = async (email: string, password: string) => {
   try {
@@ -24,7 +25,7 @@ export const loginUser = async (email: string, password: string) => {
   }
 };
 
-export const getUser = async (userId: string) => {
+export const getUser = async (userId: string): Promise<User> => {
   try {
     const response = await apiClient.get(`/users/${userId}`);
 

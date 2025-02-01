@@ -47,13 +47,14 @@ const ExperienceManager = (props: ManagerProps) => {
     }
   };
 
-  const handleAddExperience = (selectedExperience: string) => {
+  const handleAddExperience = (selectedExperience: ExperienceType) => {
+    console.log(selectedExperience);
     if (
       selectedExperience &&
-      !experiences.some((s) => s.name === selectedExperience)
+      !experiences.some((s) => s.name === selectedExperience.name)
     ) {
       const experienceToAdd = EXPERIENCES.find(
-        (experience) => experience.name === selectedExperience
+        (experience) => experience.name === selectedExperience.name
       );
       if (experienceToAdd) {
         handleChange('experiences', [...experiences, experienceToAdd]);
@@ -76,8 +77,10 @@ const ExperienceManager = (props: ManagerProps) => {
           renderItem: ({ item }) => (
             // @ts-ignore
             <SuggestionItem
+              // @ts-ignore
               key={item.id}
-              onPress={() => handleAddExperience(item.name)}
+              // @ts-ignore
+              onPress={() => handleAddExperience(item)}
             >
               {/* @ts-ignore */}
               <Experience experience={item} />

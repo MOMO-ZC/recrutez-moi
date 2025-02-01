@@ -1,7 +1,7 @@
 import { useRouter } from 'expo-router';
 import HeaderContainer from '../../components/ui/HeaderContainer';
 import { useAuth } from '../../hooks/useAuth';
-import { Candidate, MenuOption } from '../../types';
+import { Candidate, Experience, MenuOption, Project } from '../../types';
 import ScreenContainer from '../common/ScreenContainer';
 
 import { candidates } from '../../mock/candidats';
@@ -11,7 +11,7 @@ import { Feather } from '@expo/vector-icons';
 import { useThemeColor } from '../../hooks/useThemeColor';
 import styled from 'styled-components';
 import { useEffect, useState } from 'react';
-import { getCandidate } from '@/src/api/candidates';
+import { getCandidate, getProjects } from '@/src/api/candidates';
 import { getUser } from '@/src/api/auth';
 
 const ProfileScreen = () => {
@@ -19,23 +19,32 @@ const ProfileScreen = () => {
   const router = useRouter();
   const iconColor = useThemeColor({}, 'text');
 
-  const [candidate, setCandidate] = useState<Candidate | null>(null);
+  const [candidate, setCandidate] = useState<Candidate | undefined>();
+  const [projects, setProjects] = useState<Project[] | undefined>([]);
+  const [experiences, setExperiences] = useState<Experience[] | null>([]);
 
   useEffect(() => {
-    const loadUser = async (id: string) => {
-      const userData = await getUser(id);
-      console.log('userData', userData);
+    const loadCandidateWithProjects = async (id: string) => {
+      try {
+        // Fetch projects first
+        const projectsData = await getProjects(id);
+
+        // Fetch candidate
+        const candidateData = await getCandidate(id);
+
+        // Set both candidate and projects together
+        setProjects(projectsData); // Update state for projects (optional)
+        setCandidate({ ...candidateData, projects: projectsData }); // Use local projectsData directly
+      } catch (error) {
+        console.error('Error loading candidate and projects:', error);
+      }
     };
-    const loadCandidate = async (id: string, userId: string) => {
-      const candidateData = await getCandidate(id);
-      console.log(candidateData);
-      setCandidate({ ...candidateData, user: loadUser(userId) });
-    };
+
     if (id && userId) {
-      loadCandidate(id, userId);
-      console.log('candidate', candidate);
+      loadCandidateWithProjects(id);
     }
-  }, [id]);
+    console.log('Candidate:', candidate);
+  }, [id, userId]); // No need to depend on `projects`
 
   const menuOptions: MenuOption[] = [
     {

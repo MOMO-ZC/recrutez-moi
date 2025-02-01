@@ -4,7 +4,8 @@ import styled from 'styled-components';
 import Skill from '../ui/Skill';
 import { ScrollView } from 'react-native-gesture-handler';
 import { ThemedText } from '../ThemedText';
-import { useEffect, useState } from 'react';
+import Experience from '../ui/Experience';
+import { JOBIMAGE } from '@/src/constants/const';
 
 interface OfferProps {
   jobOffer: JobOffer;
@@ -13,39 +14,38 @@ interface OfferProps {
 const Offer = (props: OfferProps) => {
   const { jobOffer } = props;
   const {
-    id,
     image,
     title,
     body,
-    company,
-    location,
+    company_name,
+    address,
     skills,
     experiences,
-    minSalary,
-    maxSalary,
-    locationType,
+    education,
+    min_salary,
+    max_salary,
+    location_type,
     date,
   } = jobOffer;
 
   return (
     <ScrollableContainer>
       <Illustration>
-        {image && (
-          <Image
-            style={{ width: 260, height: 260, borderRadius: 32 }}
-            source={image}
-          />
-        )}
+        <Image
+          style={{ width: 260, height: 260, borderRadius: 32 }}
+          source={{ uri: image ? image : JOBIMAGE }}
+        />
+        )
       </Illustration>
       <TitleContainer>
         <ThemedText type="title">{title}</ThemedText>
       </TitleContainer>
       <SubtitleContainer>
-        <ThemedText type="default">
-          {company} | {location}
+        <ThemedText type="defaultSemiBold">
+          {company_name} | {address}
         </ThemedText>
         <ThemedText type="defaultSemiBold">
-          {locationType} | {minSalary}€ - {maxSalary}€
+          {location_type} | {min_salary}€ - {max_salary}€
         </ThemedText>
         {experiences && experiences.length > 0 && (
           <ThemedText type="default">
@@ -61,6 +61,24 @@ const Offer = (props: OfferProps) => {
           ))}
         </SkillContainer>
       </SkillsSection>
+      <EducationSection>
+        <ThemedText type="subtitle">Diploma</ThemedText>
+        {education &&
+          education.map((diploma, index) => (
+            <ThemedText key={index} type="default">
+              {diploma.domain} | {diploma.diploma}
+            </ThemedText>
+          ))}
+      </EducationSection>
+      <ExperienceSection>
+        <ThemedText type="subtitle">Experiences</ThemedText>
+        <SkillContainer>
+          {experiences &&
+            experiences.map((experience, index) => (
+              <Experience key={index} experience={experience} />
+            ))}
+        </SkillContainer>
+      </ExperienceSection>
       <DescriptionContainer>
         <ThemedText type="subtitle">Description</ThemedText>
         <ThemedText type="default">{body}</ThemedText>
@@ -87,6 +105,16 @@ const Illustration = styled(View)`
   height: 260px;
   align-self: center;
   border-radius: 32px;
+`;
+
+const EducationSection = styled(View)`
+  margin-top: 20px;
+  margin-left: 48px;
+`;
+
+const ExperienceSection = styled(View)`
+  margin-top: 20px;
+  margin-left: 48px;
 `;
 
 const TitleContainer = styled(View)`

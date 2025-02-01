@@ -30,25 +30,25 @@ const ProjectDisplayer = (props: ProjectDisplayerProps) => {
 
   return (
     <ProjectContainer>
-      {projects.map((project, index) => {
-        return (
-          <ProjectItem color={itemColor} key={index}>
-            <InfoContainer>
-              <ThemedText type="defaultSemiBold">{project.title}</ThemedText>
-              <ThemedText type="default">{project.description}</ThemedText>
-              <ThemedText type="default">{project.date}</ThemedText>
-            </InfoContainer>
-            <EditButtonContainer>
-              <RoundedButton
-                size={32}
-                color={buttonColor}
-                icon={<Feather name="edit-3" size={16} color={iconColor} />}
-                onPress={() => handleEdit(project)}
-              />
-            </EditButtonContainer>
-          </ProjectItem>
-        );
-      })}
+      {projects &&
+        projects.map((project, index) => {
+          return (
+            <ProjectItem color={itemColor} key={index}>
+              <InfoContainer>
+                <ThemedText type="defaultSemiBold">{project.name}</ThemedText>
+                <ThemedText type="default">{project.type}</ThemedText>
+              </InfoContainer>
+              <EditButtonContainer>
+                <RoundedButton
+                  size={32}
+                  color={buttonColor}
+                  icon={<Feather name="edit-3" size={16} color={iconColor} />}
+                  onPress={() => handleEdit(project)}
+                />
+              </EditButtonContainer>
+            </ProjectItem>
+          );
+        })}
       <ButtonContainer>
         <RoundedButton
           size={40}

@@ -79,6 +79,8 @@ const renderFormField = (
 ) => {
   const fieldValue = values[field.name] ?? field.value ?? '';
 
+  const selectedColor = useThemeColor({}, 'success');
+
   if (field.type === 'skills') {
     return (
       <View key={index}>
@@ -195,6 +197,7 @@ const renderFormField = (
           {field.options?.map((option, i) => (
             <Radio key={i} selected={fieldValue === option.value}>
               <RadioButton
+                color={selectedColor}
                 selected={fieldValue === option.value}
                 onPress={() => handleChange(field.name, option.value)}
               />
@@ -317,7 +320,10 @@ const Radio = styled(View)<{ selected: boolean }>`
   margin-bottom: 8px;
 `;
 
-const RadioButton = styled(TouchableOpacity)<{ selected: boolean }>`
+const RadioButton = styled(TouchableOpacity)<{
+  selected: boolean;
+  color: string;
+}>`
   width: 24px;
   height: 24px;
   border-radius: 12px;
@@ -325,7 +331,7 @@ const RadioButton = styled(TouchableOpacity)<{ selected: boolean }>`
   justify-content: center;
   align-items: center;
   margin-right: 8px;
-  background-color: ${(props) => (props.selected ? '#4E32EF' : '#D9D9D9')};
+  background-color: ${(props) => (props.selected ? props.color : '#D9D9D9')};
 `;
 
 export default DynamicForm;
